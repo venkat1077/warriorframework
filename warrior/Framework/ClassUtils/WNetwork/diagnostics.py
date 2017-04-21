@@ -48,14 +48,17 @@ class Diag(Base):
 
         output = cli_Utils.send_command_and_get_response(session_object, ".*",
                                                          prompt, command)
-        if " 0% packet loss" in output or "alive" in output:
+
+        linux_res = re.search(r'[1-9][0-9]* received', output)
+        solaris_res = re.search(r'alive', output)
+        if linux_res or solaris_res :
             pNote("ping successfully completed")
             status = True
         else:
-            pNote("ping command failed")
+            pNote("ping command failed ")
             status = False
 
-        return  status
+        return status
 
     @staticmethod
     def traceroute_from_remotehost(session_object, ip_type, dest_address,

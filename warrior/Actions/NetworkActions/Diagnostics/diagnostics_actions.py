@@ -15,6 +15,8 @@ limitations under the License.
 
 import Framework.Utils as Utils
 from Framework.ClassUtils.WNetwork.diagnostics import Diag
+
+
 class DiagActions(object):
     """Diagnostics keyword class """
 
@@ -28,10 +30,10 @@ class DiagActions(object):
         self.diag = Diag()
 
     def ping_from_remotehost(self, system_name, session_name=None,
-                             dest_system=None, ip_type="ip", count="5"):
-        """This keyword will use connection session available in source system
-        (provided in system name) and will ping from source system
-        to destination system
+                             dest_system=None, ip_type="ip",
+                             count="5"):
+        """ The keyword offers Simple Ping functionality between two systems
+        from source(System_name) to Destination(dest_system).
 
         :Datafile usuage:
             Tags or attributes to be used in input datafile for the system or
@@ -41,20 +43,16 @@ class DiagActions(object):
             2. ip       = ipv4 address or defaulted to lcn ip
             3. ipv6     = ipv6 address or defaulted to lcn ipv6
             4. dns      = dns name
-            5. lmp_ip   = ipv4 address of lmp port of dut
-            6. lmp_ipv6 = ipv6 address of lmp port of dut
-            note: one of <ip>,<ipv6>,<dns>,<lmp_ip>,<lmp_ipv6> tags specified in
+            note: one of <ip>,<ipv6>,<dns> tags specified in
                   ip_type argument is sufficient to be present in inputdatafile
 
         :Arguments:
-            1. system_name(string)  = name of the Linux machine on which to \
-                                      execute
-            2. session_name(string) = name of the session
-            3. dest_system(string) = names of the destination system
+            1. system_name(string)  = Source system from which ping be executed.
+            2. dest_system(string) = names of the destination system
             4. ip_type(string) = iptype of the dest system through \
                                  which it needs to be connected.
                                  needs to be one of \
-                                 (ip/ipv4/dns/lmp_ip/lmp_ipv6).It has to be \
+                                 (ip/ipv4/dns/ipv6).It has to be \
                                  present in the input data file.
             5. count(string) = count argument to be supplied to the ping
 
@@ -75,7 +73,8 @@ class DiagActions(object):
                                                        ["prompt"])
 
         session_id = Utils.data_Utils.get_session_id(system_name, session_name)
-        session_object = Utils.data_Utils.get_object_from_datarepository(session_id)
+        session_object = Utils.data_Utils.get_object_from_datarepository(
+            session_id)
         if session_object:
             command_status = self.diag.ping_from_remotehost(session_object,
                                                             ip_type,
@@ -135,7 +134,8 @@ class DiagActions(object):
                                                        system_name,
                                                        ["prompt"])
         session_id = Utils.data_Utils.get_session_id(system_name, session_name)
-        session_object = Utils.data_Utils.get_object_from_datarepository(session_id)
+        session_object = Utils.data_Utils.get_object_from_datarepository(
+            session_id)
         if session_object:
             command_status = self.diag.traceroute_from_remotehost(session_object,
                                                                   ip_type,
