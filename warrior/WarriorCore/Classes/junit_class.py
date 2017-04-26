@@ -92,13 +92,16 @@ class Junit(object):
                 return testsuite
 
     def add_keyword_result(self, tc_timestamp, step_num, kw_name, status, kw_timestamp, duration,
-                           resultfile, impact, onerror):
+                           resultfile, impact, onerror, desc=""):
         if str(status).lower() == "true":
             status = "PASS"
         elif str(status).lower() == "false":
             status = "FAIL"
-        keyword_items = {"type":"keyword", "step":step_num, "name":kw_name, "status":status, "timestamp":kw_timestamp,
-                         "time":duration, "resultfile": resultfile, "impact":impact, "onerror":onerror}
+        keyword_items = {"type":"keyword", "step":step_num, "name":kw_name,
+                         "status":status, "timestamp":kw_timestamp,
+                         "time":duration, "resultfile": resultfile,
+                         "impact":impact, "onerror":onerror,
+                         "description":desc}
         self.add_property(name=kw_name, value="KEYWORD_DISCARD", elem_type = "kw", timestamp=tc_timestamp, keyword_items=keyword_items)
         elem = self.get_tc_with_timestamp(tc_timestamp)
         elem.append(self.create_element("keyword", keyword_items))
