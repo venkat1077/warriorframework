@@ -26,7 +26,7 @@ used.
 
 1. pexpect-4.0 - used by cli utilities
 2. lxml- 3.4.4 and above - used by IronClaw tool
-3. requests-2.7.0 and above - used for rest operations
+3. requests-2.7.0 and above - used for rest operations 
 4. selenium-2.45.0 and above - used for web based testing
 5. ncclient-0.4.5 - used for netconf operations
 6. paramiko-1.15.2 - used by ncclient
