@@ -16,7 +16,7 @@ app.controller('TestcaseCapCtrl', ['$scope','$routeParams','$http', '$location',
 
     'use strict';
 
-    $scope.step_numbers = [];
+     $scope.step_numbers = [];
         $scope.stepToBeCopied = "None";
         $scope.stepBeingEdited = "None";
         $scope.subdirs = subdirs;
@@ -1477,7 +1477,7 @@ app.controller('TestcaseCapCtrl', ['$scope','$routeParams','$http', '$location',
                     $scope.model.Testcase.Steps.step = [];
                 }
                 $scope.model.Testcase.Steps.step.push(newstep);
-	        }
+            }
             else {
                 $scope.model.Testcase.Steps.step.splice($scope.status.stepindex+1,0,newstep)
             }
@@ -1817,16 +1817,18 @@ app.controller('TestcaseCapCtrl', ['$scope','$routeParams','$http', '$location',
                         type: "success",
                         timer: 1250
                     });
+
+              if ($scope.savecreateTestcaseCap) {
+                     // $location.path('testcase/__new__');
+             }else{
+                     $location.path('/testcases');
+                 }
+
                 },
                 function(data) {
                     alert(data);
                 });
-
-        if ($scope.savecreateTestcaseCap) {
-            $location.path('testcase/__new__');
-        }  else {
-            $location.path('/testcases');
-        }
+  
     }
 
     window.S = $scope;
