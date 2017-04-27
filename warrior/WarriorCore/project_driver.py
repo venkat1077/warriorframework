@@ -19,6 +19,7 @@ import sys
 import os
 import shutil
 import time
+import copy
 
 import WarriorCore.testsuite_driver as testsuite_driver
 import WarriorCore.onerror_driver as onerror_driver
@@ -27,7 +28,8 @@ import exec_type_driver
 import Framework.Utils as Utils
 from Framework.Utils.print_Utils import print_info, print_error, print_debug, print_warning
 from WarriorCore.Classes import execution_files_class, junit_class
-from WarriorCore import testsuite_utils
+from WarriorCore import testsuite_utils, common_execution_utils
+from Framework.Utils.testcase_Utils import pNote
 
 def get_project_details(project_filepath, res_startdir, logs_startdir, data_repository):
     """Gets all details of the Project from its xml file"""
@@ -97,14 +99,38 @@ def get_testsuite_list(project_filepath):
     """Takes the location of any Project.xml file as input
     Returns a list of all the Testsuite elements present in the Project"""
 
-    testsuite_list = []
+    testsuite_list_new = []
     root = Utils.xml_Utils.getRoot(project_filepath)
     testsuites = root.find('Testsuites')
     if testsuites is None:
         print_info('Testsuite is empty: tag <Testsuites> not found in the input file ')
     else:
         testsuite_list = testsuites.findall('Testsuite')
-        return testsuite_list
+        for _, ts in enumerate(testsuite_list):
+            runmode, value = common_execution_utils.get_runmode_from_xmlfile(ts)
+            retry_type, _, _, retry_value, _ = common_execution_utils.get_retry_from_xmlfile(ts)
+            if runmode is not None and value > 0:
+                #more than one step in step list, insert new step
+                    go_next = len(testsuite_list_new) + value + 1
+                    for i in range(0, value):
+                        copy_ts = copy.deepcopy(ts)
+                        copy_ts.find("runmode").set("value", go_next)
+                        copy_ts.find("runmode").set("attempt", i+1)
+                        testsuite_list_new.append(copy_ts)
+            if retry_type is not None and retry_value > 0:
+                if len(testsuite_list) > 1:
+                    go_next = len(testsuite_list_new) + retry_value + 1
+                    if runmode is not None:
+                        get_runmode = ts.find('runmode')
+                        ts.remove(get_runmode)
+                    for i in range(0, retry_value):
+                        copy_ts = copy.deepcopy(ts)
+                        copy_ts.find("retry").set("count", go_next)
+                        copy_ts.find("retry").set("attempt", i+1)
+                        testsuite_list_new.append(copy_ts)
+            if retry_type is None and runmode is None:
+                testsuite_list_new.append(ts)
+        return testsuite_list_new
 
 def execute_project(project_filepath, auto_defects, jiraproj, res_startdir, logs_startdir, data_repository):
     """
@@ -169,6 +195,12 @@ def execute_project(project_filepath, auto_defects, jiraproj, res_startdir, logs
             testsuite_path = str(testsuite_rel_path)
         print '\n'
         print_debug("<<<< Starting execution of Test suite: {0}>>>>".format(testsuite_path))
+        if testsuite.find("runmode") is not None and testsuite.find("runmode").get("attempt") is not None:
+            print_info("testsuite attempt: {0}".format(
+                                testsuite.find("runmode").get("attempt")))
+        if testsuite.find("retry") is not None and testsuite.find("retry").get("attempt") is not None:
+            print_info("testsuite attempt: {0}".format(
+                                testsuite.find("retry").get("attempt")))
         action, testsuite_status = exec_type_driver.main(testsuite)
         testsuite_impact = Utils.testcase_Utils.get_impact_from_xmlfile(testsuite)
         testsuite_name = Utils.file_Utils.getFileName(testsuite_path)
@@ -266,10 +298,54 @@ def execute_project(project_filepath, auto_defects, jiraproj, res_startdir, logs
 #         project_status = compute_project_status(project_status, testsuite_status,
 #                                                 testsuite_impact)
 
-        if testsuite_status is False or testsuite_status == "ERROR" \
-        or testsuite_status == "EXCEPTION":
-            goto_testsuite = onerror_driver.main(testsuite, project_error_action,
-                                                 project_error_value)
+        runmode, value = common_execution_utils.get_runmode_from_xmlfile(testsuite)
+        retry_type, retry_cond, retry_cond_value, retry_value, retry_interval = common_execution_utils.get_retry_from_xmlfile(testsuite)
+        if runmode is not None:
+            # if runmode is 'ruf' & step_status is False, skip the repeated
+            # execution of same TC step and move to next actual step
+            if not project_error_value and runmode == "RUF" and testsuite_status is False:
+                goto_testsuite = str(value)
+            # if runmode is 'rup' & step_status is True, skip the repeated
+            # execution of same TC step and move to next actual step
+            elif runmode =="RUP" and testsuite_status is True:
+                goto_testsuite = str(value)
+        elif retry_type is not None:
+            if retry_type.upper() == 'IF':
+                try:
+                    if data_repository[retry_cond] == retry_cond_value:
+                        condition_met = True
+                        pNote("Wait for {0}sec before retrying".format(retry_interval))
+                        pNote("The given condition '{0}' matches the expected value '{1}'".format(data_repository[retry_cond], retry_cond_value))
+                        time.sleep(int(retry_interval))
+                    else:
+                        condition_met = False
+                        print_warning("The condition value '{0}' does not match with the expected value '{1}'".format(data_repository[retry_cond], retry_cond_value))
+                except KeyError:
+                    print_warning("The given condition '{0}' do not exists in the data repository".format(retry_cond_value))
+                    condition_met = False
+                if condition_met == False:
+                    goto_testsuite = str(retry_value)
+            else:
+                if retry_type.upper() == 'IF NOT':
+                    try:
+                        if data_repository[retry_cond] != retry_cond_value:
+                            condition_met = True
+                            pNote("Wait for {0}sec before retrying".format(retry_interval))
+                            pNote("The condition value '{0}' does not match with the expected value '{1}'".format(data_repository[retry_cond], retry_cond_value))
+                            time.sleep(int(retry_interval))
+                        else:
+                            condition_met = False
+                    except KeyError:
+                        condition_met = False
+                        print_warning("The given condition '{0}' is not there in the data repository".format(retry_cond_value))
+                    if condition_met == False:
+                        pNote("The given condition '{0}' matched with the value '{1}'".format(data_repository[retry_cond], retry_cond_value))
+                        goto_testsuite = str(retry_value)
+        else:
+            if testsuite_status is False or testsuite_status == "ERROR" \
+                or testsuite_status == "EXCEPTION":
+                goto_testsuite = onerror_driver.main(testsuite, project_error_action,
+                                                     project_error_value)
             if goto_testsuite in ['ABORT', 'ABORT_AS_ERROR']:
                 break
             # when 'onError:goto' value is less than the current ts num,
