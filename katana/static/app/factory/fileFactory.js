@@ -145,6 +145,54 @@ app.factory('fileFactory', ['$http', '$routeParams', '$q', function($http, $rout
             return deferred.promise;
         },
 
+        myGuide: function(path) {
+            var deferred = $q.defer();
+            $http.get('/newUserGuide/' + path)
+                .success(function(data, status, headers, config) {
+                    deferred.resolve(data);
+                })
+                .error(function(data, status, headers, config) {
+                    deferred.reject("Could not retrieve file paths: " + status + ' ' + JSON.stringify(headers));
+                });
+            return deferred.promise;
+        },
+
+        myGuideLinux: function(path) {
+            var deferred = $q.defer();
+            $http.get('/newUserGuideLinux/' + path)
+                .success(function(data, status, headers, config) {
+                    deferred.resolve(data);
+                })
+                .error(function(data, status, headers, config) {
+                    deferred.reject("Could not retrieve file paths: " + status + ' ' + JSON.stringify(headers));
+                });
+            return deferred.promise;
+        },
+
+        myDoc: function(path) {
+            var deferred = $q.defer();
+            $http.get('/newDocFactory/' + path)
+                .success(function(data, status, headers, config) {
+                    deferred.resolve(data);
+                })
+                .error(function(data, status, headers, config) {
+                    deferred.reject("Could not retrieve file paths: " + status + ' ' + JSON.stringify(headers));
+                });
+            return deferred.promise;
+        },
+
+        myDocLinux: function(path) {
+            var deferred = $q.defer();
+            $http.get('/newDocFactoryLinux/' + path)
+                .success(function(data, status, headers, config) {
+                    deferred.resolve(data);
+                })
+                .error(function(data, status, headers, config) {
+                    deferred.reject("Could not retrieve file paths: " + status + ' ' + JSON.stringify(headers));
+                });
+            return deferred.promise;
+        },
+
         updateconfigfromtab: function(directory, path) {
             var deferred = $q.defer();
             $http.post('/updateconfigfromtab/' + directory + '/' + path)

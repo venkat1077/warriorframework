@@ -19,6 +19,7 @@ import platform
 import re
 import subprocess
 import threading
+import webbrowser
 import xml.etree.ElementTree
 from os.path import expanduser
 from xml.dom.minidom import parseString
@@ -79,6 +80,27 @@ def katana():
     template_lookup = [current_file_dir, "{0}{1}{2}{1}".format(current_file_dir, os.sep, 'views')]
     return template('index', template_lookup=template_lookup)
 
+@route('/newUserGuide/:path')
+def newUserGuide(path):
+    path = path.replace(">", os.sep)
+    path = "file:" + path
+    webbrowser.open_new_tab(path)
+
+@route('/newUserGuideLinux/:path')
+def newUserGuideLinux(path):
+    path = path.replace(">", os.sep)
+    webbrowser.open_new_tab(path)
+
+@route('/newDocFactory/:path')
+def newDocFactory(path):
+    path = path.replace(">", os.sep)
+    path = "file:" + path
+    webbrowser.open_new_tab(path)
+
+@route('/newDocFactoryLinux/:path')
+def newDocFactoryLinux(path):
+    path = path.replace(">", os.sep)
+    webbrowser.open_new_tab(path)
 
 
 @route('/readconfig')

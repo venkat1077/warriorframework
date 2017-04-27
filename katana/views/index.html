@@ -99,6 +99,10 @@
                 <i class="fa fa-terminal color-me-grey" aria-hidden="true"></i>
                 <span class="tooltip-content">Execution</span>
             </a>
+            <a class="list-group-item border-less tooltip-on-right-dark" ng-class="{ active: isActive('/doc')}" style="color:rgb(214, 48, 48)" href="#/documentation" id="big-screen-sidebar-documentation">
+                <i class="fa fa-puzzle-piece color-me-grey" aria-hidden="true"></i>
+                <span class="tooltip-content">Documentation</span>
+            </a>
         </div>
     </div>
 
@@ -135,6 +139,10 @@
             <a class="list-group-item border-less" ng-class="{ active: isActive('/sequential')}" style="color:rgb(214, 48, 48)" href="#/sequential">
                 <i class="fa fa-terminal color-me-grey" aria-hidden="true"></i>
                 <span class="add-space-1">Execution</span>
+            </a>
+            <a class="list-group-item border-less" ng-class="{ active: isActive('/doc')}" style="color:rgb(214, 48, 48)"     href="#/documentation">
+                 <i class="fa fa-puzzle-piece color-me-grey" aria-hidden="true"></i>
+                <span class="add-space-1">Documentation</span>
             </a>
         </div>
     </div>
@@ -211,6 +219,7 @@
     <script type="text/javascript" src="/assets/app/controllers/datafileCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/newDataFileCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/aboutCtrl.js"></script>
+    <script type="text/javascript" src="/assets/app/controllers/docCtrl.js"></script>
 
     <script type="text/javascript" src="/assets/app/factory/modalDirective.js"></script>
     <script type="text/javascript" src="/assets/app/factory/tagDirective.js"></script>

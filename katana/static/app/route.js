@@ -290,6 +290,10 @@ app.config(function($routeProvider) {
             templateUrl: '/assets/app/partials/performance.html',
             controller: 'performanceCtrl'
         })
+        .when('/documentation', {
+            templateUrl: '/assets/app/partials/documentation.html',
+            controller: 'docsCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
