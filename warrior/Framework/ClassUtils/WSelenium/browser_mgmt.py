@@ -16,19 +16,16 @@ import os
 import re
 from time import sleep
 import urllib2
+import Framework.Utils as Utils
 from Framework.Utils.datetime_utils import get_current_timestamp
-from Framework.Utils.print_Utils import print_error, print_info, print_debug, print_exception
+from Framework.Utils.print_Utils import print_error, print_info, print_debug,\
+    print_exception
 
 
 try:
     from selenium import webdriver
     from selenium.webdriver import ActionChains
     from selenium.webdriver.common.keys import Keys
-
-    KEYS = {1: Keys.NUMPAD1, 2: Keys.NUMPAD2, 3: Keys.NUMPAD3,
-        4: Keys.NUMPAD4, 5: Keys.NUMPAD5, 6: Keys.NUMPAD6,
-        7: Keys.NUMPAD7, 8: Keys.NUMPAD8, 9: Keys.NUMPAD9}
-
 except Exception as exception:
     print_exception(exception)
 
@@ -36,12 +33,17 @@ except Exception as exception:
 BROWSER_NAMES = {'ff': "_make_ff",
                  'firefox': "_make_ff",
                  'chrome': "_make_chrome"
-                }
+                 }
+KEYS = {1: Keys.NUMPAD1, 2: Keys.NUMPAD2, 3: Keys.NUMPAD3,
+        4: Keys.NUMPAD4, 5: Keys.NUMPAD5, 6: Keys.NUMPAD6,
+        7: Keys.NUMPAD7, 8: Keys.NUMPAD8, 9: Keys.NUMPAD9}
+
 class BrowserManagement(object):
     """Browser management class"""
 
     def __init__(self, *args, **kwargs):
         """Browser management constructor """
+        self.datafile = Utils.config_Utils.datafile
         self.current_browser = None
         self.current_window = None
 
@@ -73,7 +75,7 @@ class BrowserManagement(object):
             print_exception(exception)
             status = False
         return status
-            
+
     # window management
 
     def close_window(self, browser_instance=None):
