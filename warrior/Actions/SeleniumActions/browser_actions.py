@@ -12,9 +12,9 @@ limitations under the License.
 '''
 
 """ Selenium keywords for Generic Browser Actions """
-import os, re
+import os
 from Framework.ClassUtils.WSelenium.browser_mgmt import BrowserManagement
-from Framework.Utils.print_Utils import print_warning
+from Framework.Utils.print_Utils import print_error
 
 try:
     import Framework.Utils as Utils
@@ -174,6 +174,10 @@ class browser_actions(object):
             if browser_details == {}:
                 browser_details = selenium_Utils.\
                     get_browser_details(browser, self.datafile, **arguments)
+            if str(remote).strip().lower() == "yes":
+                webdriver_remote_url = "http://{0}:4444/wd/hub".format(ip)
+            else:
+                webdriver_remote_url = False
             if browser_details is not None:
                 browser_inst = self.browser_object.open_browser(
                     browser_details["type"], webdriver_remote_url)
@@ -198,6 +202,160 @@ class browser_actions(object):
             browser_details = {}
         Utils.testcase_Utils.report_substep_status(status)
         return status, output_dict
+
+    def launch_selenium_server_in_remote(self, system_name, session_name,
+                                         prompt=".*(%|#|\$)",
+                                         browser_name="all", remote_ip=None,
+                                         remote_uname=None,
+                                         remote_passwd=None, src=None,
+                                         dest=None, selenium_jar_file=None):
+        """
+        This will launch the selenium server in remote machine.
+        Recommended version of selenium jar file is 2.53 and above
+        Display should be set in the remote machine by the user.
+        Example: To set display in ubuntu
+
+        1. edit /etc/ssh/sshd.conf file and make sure the line X11Forwarding
+           is set to yes
+           X11Forwarding yes [ if already set to yes ignore this step]
+        2. save and reload ssh using command "service sshd reload|restart"
+           [ if already set to yes ignore this step]
+        3. Install xauth
+                apt-get install xauth
+        4. logout and login to remote machines ssh using -X option from your
+           local machine Eg:- "ssh root@192.168.240.6 -X"
+
+        :Datafile Usage:
+
+            1. system_name        = This attribute can be specified in the
+                                    datafile as a <system> tag directly under
+                                    the <credentials> tag. An attribute "name"
+                                    has to be added to this tag and the value
+                                    of that attribute would be taken in as
+                                    value to this keyword attribute.
+
+                                    Eg: <system name="name_of_thy_system"/>
+
+            2. browser_name       = This <browser_name> tag is a child og the
+                                    <browser> tag in the data file. Each
+                                    browser instance should have a unique name.
+                                    This name can be added here
+
+                                Eg: <browser_name>Unique_name_1</browser_name>
+
+            3. remote_ip          = This atribute is an ip of remote machine
+                                    in which you want to place the selenium
+                                    jar file
+            4. remote_uname       = Username of remote machine
+            5. remote_passwd      = Password to login remote machine
+            6. src                = where the jar is initially located,
+                                    default selenium jar file is in
+                                    OSS directory.
+            7. dest               = location in the remote machine to which
+                                    the selenium jar file to be copied.
+            8. selenium_jar_file  = selenium jar file name. The default jar
+                                    file in warrior framework in Framework/OSS
+                                    directory is "selenium-server-standalone-2.53.1.jar"
+                                    and it is a mandatory argument.
+
+        :Arguments:
+
+            1.  system_name(string)  = name of the system
+            2.  session_name(string) = name of the session to the system
+            3.  prompt               = for ssh connections, this is the prompt
+                                       expected when the connection is
+                                       successful. Defaults to ".*(%|#|\$)"
+            4.  remote_ip            = This atribute is an ip of remote
+                                       machine in which you want to place the
+                                       selenium jar file
+            5.  remote_uname         = Username of remote machine
+            6.  remote_passwd        = Password to login remote machine
+            7.  src                  = where the jar is initially located,
+                                       default selenium jar file is in OSS
+                                       directory and it is a mandatory
+                                       argument
+            8.  dest                 = location in the remote machine to which
+                                       the selenium jar file to be copied and
+                                       it is a mandatory argument
+            9.  selenium_jar_file    = selenium jar file name. The default jar
+                                       file in warrior framework in
+                                       Framework/OSS directory is
+                                       "selenium-server-standalone-2.53.1.jar".
+                                       It is a mandatory argument
+            10. browser_name(str)    = Unique name for this particular browser
+        :Returns:
+
+            1. status(bool)= True/False.
+
+        """
+        arguments = locals()
+        arguments.pop('self')
+        status = True
+        wdesc = "To launch selenium server in remote"
+        pNote(wdesc)
+        pSubStep(wdesc)
+        browser_details = {}
+        system = xml_Utils.getElementWithTagAttribValueMatch(self.datafile,
+                                                             "system",
+                                                             "name",
+                                                             system_name)
+        browser_list = system.findall("browser")
+        try:
+            browser_list.extend(system.find("browsers").findall("browser"))
+        except AttributeError:
+            pass
+
+        if not browser_list:
+            browser_list.append(1)
+            browser_details = arguments
+
+        for browser in browser_list:
+            arguments = Utils.data_Utils.\
+                get_default_ecf_and_et(arguments, self.datafile, browser)
+            if browser_details == {}:
+                browser_details = selenium_Utils.\
+                    get_browser_details(browser, self.datafile, **arguments)
+            if browser_details is not None:
+                session_object, _ = Utils.cli_Utils.\
+                    connect_ssh(browser_details['remote_ip'],
+                                22, browser_details['remote_uname'],
+                                browser_details['remote_passwd'],
+                                None, 60, prompt, '-X')
+                try:
+                    server_status = selenium_Utils.\
+                        find_selenium_server_running(session_object,
+                                                     browser_details['selenium_jar_file'])
+                except TypeError:
+                    print_error("Provide selenium jar file name")
+                    status = False
+                    return status
+                if not server_status:
+                    if browser_details['src'] and browser_details['dest'] is not None:
+                        logfile = Utils.file_Utils.\
+                            getCustomLogFile(self.filename,
+                                             self.logsdir,
+                                             'scp_{0}'.format(system_name))
+                        Utils.file_Utils.\
+                            put_file_to_remote_server(browser_details['remote_ip'],
+                                                      browser_details['remote_uname'],
+                                                      browser_details['remote_passwd'],
+                                                      browser_details['src'],
+                                                      browser_details['dest'],
+                                                      logfile)
+                        _ = Utils.cli_Utils.\
+                            send_command(session_object, ".*",
+                                         'nohup.out',
+                                         "nohup java -jar {0} &"
+                                         .format(browser_details['selenium_jar_file']))
+                    else:
+                        print_error("Provide Source/Destination location in which selenium jar file needs to be copied")
+                        status = False
+                        return status
+                pNote("Selenium server used here is {0}".format(browser_details['selenium_jar_file']))
+                server_status = selenium_Utils.\
+                    find_selenium_server_running(session_object,
+                                                 browser_details['selenium_jar_file'])
+        return server_status
 
     def browser_maximize(self, system_name, type="firefox", browser_name="all"):
         """

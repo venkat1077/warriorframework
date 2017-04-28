@@ -17,6 +17,8 @@ import xml.etree.ElementTree as ET
 from Framework.Utils import xml_Utils
 from Framework.Utils import data_Utils
 from Framework.Utils import config_Utils
+from Framework.Utils import cli_Utils
+from Framework.Utils.testcase_Utils import pNote
 from Framework.ClassUtils.WSelenium.browser_mgmt import BrowserManagement
 from Framework.Utils.print_Utils import print_error, print_info
 
@@ -99,6 +101,21 @@ def get_json_value_from_path(path, file, default):
                                                           file, path))
                     data_dict = None
     return data_dict
+
+def find_selenium_server_running(session_object,
+                                 selenium_jar_file):
+    """ To check whether the selenium server is already running in remote machine"""
+    _, process_respons = cli_Utils.\
+        send_command(session_object,
+                     '.*', ".*(%|#|\$)", "jps -l")
+    if selenium_jar_file in process_respons:
+        status = True
+        pNote("server is up and running")
+    else:
+        status = False
+        pNote("The process response is: {0}".format(process_respons))
+        pNote("server is not running", "warn")
+    return status
 
 def execute_script(browser_instance, user_script):
     """To exceute a user provided script """

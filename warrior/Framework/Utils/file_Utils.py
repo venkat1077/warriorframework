@@ -279,7 +279,7 @@ def get_file_from_remote_server(remote_ip, remote_uname, remote_passwd, src, des
         return True
 
 def put_file_to_remote_server(remote_ip, remote_uname, remote_passwd, src, dest, logfile=None):
-    cmd = 'scp %s %s@%s:%s' % (dest, remote_uname, remote_ip, src)
+    cmd = 'scp {0} {1}@{2}:{3}'.format(src, remote_uname, remote_ip, dest)
     print_info("Running cmd: %s" % cmd)
     child = pexpect.spawn(cmd)
     try:
