@@ -280,7 +280,7 @@
                 </div>
                 <div class="col-sm-2">
                     <input type="text" class="form-control"
-                           ng-show="isAddAnotherSelectedSuite()"
+                           ng-show="isAddAnotherSelectedSuiteNew()"
                            placeholder="Specify a new Suite State"
                            ng-change="getNewStateValue(new_state)"
                            ng-model="new_state">
@@ -288,7 +288,7 @@
                 <div class="col-sm-1">
                     <input type="button" class="btn btn-default"
                            value="Done"
-                           ng-show="isAddAnotherSelectedSuite()"
+                           ng-show="isAddAnotherSelectedSuiteNew()"
                            ng-click="saveNewlyAddedState()"
                            style="color:rgb(214, 48, 48)">
                 </div>
@@ -1685,7 +1685,7 @@
                        class="btn btn-default" value="Save"
                        ng-click="saveProjectCap()"/>
                 <input type="button" class="btn btn-default" value="Cancel"
-                       ng-click="cancelProjectCap()"/>
+                       ng-click="cancelProject()"/>
             </div>
         </div>
     </form>

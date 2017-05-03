@@ -168,10 +168,10 @@ app.controller('projectCtrl', ['$scope', '$http', '$location', 'fileFactory', fu
 
     readProjectFolderNames("none");
 
-    $scope.navigateToCreateProjectPage = function() {
+/*    $scope.navigateToCreateProjectPage = function() {
         console.log('in');
         $location.path('/newproject');
-    };
+    };*/
 
     $scope.getSubFilesAndFolders = function(directory){
         $scope.xml.projectfiles = [];

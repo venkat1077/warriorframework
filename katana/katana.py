@@ -38,7 +38,7 @@ datafile_relpath = './config/data.json'
 statesfile_relpath = './config/states.json'
 newtestcasefile_relpath = './config/newtestcase.xml'
 newtestsuitefile_relpath = './config/newtestsuite.xml'
-newprojectfile_relpath = './config/newproject.xml'
+# newprojectfile_relpath = './config/newproject.xml'
 newdatafile_relpath = './config/newdatafile.xml'
 states_relpath = './config/states.json'
 newwarhornconfigfile_relpath = './config/newwarhornconfigfile.xml'
@@ -52,7 +52,7 @@ DATAFILE = os.path.normpath((os.path.join(current_file_dir, datafile_relpath)))
 STATESFILE = os.path.normpath((os.path.join(current_file_dir, statesfile_relpath)))
 NEWTESTCASEFILE = os.path.normpath((os.path.join(current_file_dir, newtestcasefile_relpath)))
 NEWTESTSUITEFILE = os.path.normpath((os.path.join(current_file_dir, newtestsuitefile_relpath)))
-NEWPROJECTFILE = os.path.normpath((os.path.join(current_file_dir, newprojectfile_relpath)))
+# NEWPROJECTFILE = os.path.normpath((os.path.join(current_file_dir, newprojectfile_relpath)))
 NEWDATAFILE = os.path.normpath((os.path.join(current_file_dir, newdatafile_relpath)))
 STATES = os.path.normpath((os.path.join(current_file_dir, states_relpath)))
 NEWWARHORNCONFIGFILE = os.path.normpath((os.path.join(current_file_dir, newwarhornconfigfile_relpath)))
@@ -1077,8 +1077,15 @@ def datafiles(directory):
 def projectfile(filename, subdirs):
     if subdirs == "none":
         subdirs = None
-    content = getXMLFileContent('projdir', NEWPROJECTFILE, filename, subdirs)
-    return content
+    # content = getXMLFileContent('projdir', NEWPROJECTFILE, filename, subdirs)
+    # return content
+    dir_path = getDirectoryPath(subdirs)
+    cfg = readconfig()
+
+    with open(cfg['projdir'] + dir_path + os.sep + filename) as f:
+        lines = f.read()
+    print 'lines', lines
+    return "".join(lines)
 
 
 @route('/saveproject/:filename/:subdirs', method='POST')

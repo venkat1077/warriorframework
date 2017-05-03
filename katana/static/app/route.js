@@ -101,12 +101,17 @@ app.config(function($routeProvider) {
                 }
             }
         })
-        .when('/newproject', {
+        .when('/newproject/:newproject/:subdirs', {
             templateUrl: '/assets/app/partials/newproject.tmpl.html',
-            controller: 'newProjectCtrl',
+            controller: 'projectCapCtrlMerged',
             resolve: {
-                subdirs: function () {
-                    return "none"
+                subdirs: function ($route) {
+                    return $route.current.params.subdirs;
+                },
+                app: function($q) {
+                    var defer = $q.defer();
+                    defer.resolve();
+                    return defer.promise;
                 }
             }
         })
@@ -139,7 +144,7 @@ app.config(function($routeProvider) {
 
         .when('/project/:project/:subdirs', {
             templateUrl: '/assets/app/partials/projectcapture.tmpl.html',
-            controller: 'projectCapCtrl',
+            controller: 'projectCapCtrlMerged',
             resolve: {
                 subdirs: function ($route) {
                     return $route.current.params.subdirs;
