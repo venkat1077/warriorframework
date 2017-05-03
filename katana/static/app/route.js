@@ -53,18 +53,32 @@ app.config(function($routeProvider) {
                 }
             }
         })
-        .when('/newtestsuite', {
+ /*       .when('/newtestsuite', {
             templateUrl: '/assets/app/partials/newtestsuite.tmpl.html',
-            controller: 'newTestsuiteCtrl',
+            controller: 'testsuiteCtrlMerged',
             resolve: {
                 subdirs: function () {
                     return "none"
                 }
             }
+        })*/
+        .when('/newtestsuite/:newtestsuite/:subdirs', {
+            templateUrl: '/assets/app/partials/newtestsuite.tmpl.html',
+            controller: 'testsuiteCtrlMerged',
+            resolve: {
+                subdirs: function ($route) {
+                    return $route.current.params.subdirs;
+                },
+                app: function($q) {
+                    var defer = $q.defer();
+                    defer.resolve();
+                    return defer.promise;
+                }
+            }
         })
         .when('/testsuite/:testsuite/:subdirs', {
             templateUrl: '/assets/app/partials/testsuitecapture.tmpl.html',
-            controller: 'testsuiteCapCtrl',
+            controller: 'testsuiteCtrlMerged',
             resolve: {
                 subdirs: function ($route) {
                     return $route.current.params.subdirs;

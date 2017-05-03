@@ -168,10 +168,10 @@ app.controller('testsuiteCtrl', ['$scope', '$http', '$location', 'fileFactory', 
 
     readTestSuiteFolderNames("none");
 
-    $scope.navigateToCreateTestsuitePage = function() {
+/*    $scope.navigateToCreateTestsuitePage = function() {
         console.log('in');
         $location.path('/newtestsuite');
-    };
+    };*/
 
     $scope.getSubFilesAndFolders = function(directory){
         $scope.xml.suitefiles = [];

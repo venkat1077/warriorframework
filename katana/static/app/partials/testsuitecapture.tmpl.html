@@ -203,11 +203,11 @@
                 <div class="col-sm-3" ng-show="isMaxFailAttempSelected() || isMaxPassAttempSelected() || isNumAttempSelected()">
                     <input type="text" class="form-control"
                            ng-model="maxAttemptsCap"
-                           ng-show="isMaxAttempSelected_Fail()"
+                           ng-show="isMaxFailAttempSelected()"
                            placeholder="enter the max attempts">
                     <input type="text" class="form-control"
                            ng-model="maxAttemptsCap"
-                           ng-show="isMaxAttempSelected_Pass()"
+                           ng-show="isMaxPassAttempSelected()"
                            placeholder="enter the max attempts">
                     <input type="text" class="form-control"
                            ng-model="numAttemptsCap" ng-show="isNumAttempSelected()"
@@ -290,13 +290,13 @@
                             ng-model="suitemodel.TestSuite.Details.State"
                             ng-options="o for o in suitestates"></select>
                 </div>
-                <div class="col-sm-2" ng-show="isAddAnotherSelectedSuite()">
+                <div class="col-sm-2" ng-show="isAddAnotherSelectedSuiteEx()">
                     <input type="text" class="form-control"
                            placeholder="Specify a new Suite State"
                            ng-change="getNewStateValue(new_state)"
                            ng-model="new_state">
                 </div>
-                <div class="col-sm-1" ng-show="isAddAnotherSelectedSuite()">
+                <div class="col-sm-1" ng-show="isAddAnotherSelectedSuiteEx()">
                     <input type="button"
                            class="btn btn-default form-control ellipsis-the-overflow"
                            value="Done"
@@ -2376,7 +2376,7 @@
                        class="btn btn-default" value="Save"
                        ng-click="saveTestsuiteCap()"/>
                 <input type="button" class="btn btn-default" value="Cancel"
-                       ng-click="cancelSuiteCap()"/>
+                       ng-click="cancelSuite()"/>
             </div>
         </div>
     </form>
