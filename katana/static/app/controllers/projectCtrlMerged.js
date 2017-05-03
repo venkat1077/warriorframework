@@ -626,7 +626,7 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
         $timeout(function() {
 
          
-            $scope.defaultProjectActions = ['next', 'abort', 'goto'];
+            $scope.defaultProjectActions = ['next', 'abort', 'abort_as_error', 'goto'];
 
             $scope.ExecuteTypes = ['Yes', 'If', 'If Not', 'No'];
             $scope.FirstExecuteTypes = ['Yes', 'No'];
