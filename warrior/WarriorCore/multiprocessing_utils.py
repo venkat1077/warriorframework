@@ -91,8 +91,6 @@ def update_tc_junit_resultfile(tc_junit_obj, kw_junit_list, tc_timestamp):
     2. kw_junit_list = list of keyword junit objects
     3. tc_timestamp = target testcase timestamp
     """
-    # import pdb
-    # pdb.set_trace()
     for master_tc in tc_junit_obj.root.iter('testcase'):
         # make sure we are modifying the correct testcase
         if master_tc.get('timestamp') == tc_timestamp:
