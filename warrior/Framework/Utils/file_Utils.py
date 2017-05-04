@@ -22,11 +22,9 @@ import string_Utils
 from print_Utils import print_info, print_error, print_warning, print_exception
 
 try:
-    if 'linux' in sys.platform:
-        mod = 'pexpect'
-        import pexpect
+    import Framework.OSS.pexpect as pexpect
 except Exception:
-    print_info("{0}: {1} module is not installed".format(os.path.abspath(__file__), mod))
+    print_info("{0}: {1} module is not installed".format(os.path.abspath(__file__), "pexpect"))
 
 
 # Return the last line of a file

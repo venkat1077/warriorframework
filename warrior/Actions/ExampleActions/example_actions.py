@@ -17,13 +17,16 @@ limitations under the License.
 # Import any python library you want to use below this line"""
 #===============================================================
 import time
-import pexpect
 
 #=====================================================================
 # """ Import Warrior Framework Utilities below this line"""
 #===========================================================================
 # import Framework
 import Framework.Utils as Utils
+try:
+    import Framework.OSS.pexpect as pexpect
+except Exception:
+    print_info("{0}: {1} module is not installed".format(os.path.abspath(__file__), "pexpect"))
 
 #++++++++++++++++++++++++++++++++++++++++
 #WARRIOR KEYWORD TEMPLATE AND RULES

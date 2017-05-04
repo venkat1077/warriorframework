@@ -30,7 +30,7 @@ from Framework.ClassUtils.WNetwork.loging import ThreadedLog
 from WarriorCore.Classes.war_cli_class import WarriorCliClass
 from Framework.ClassUtils import database_utils_class
 try:
-    import pexpect
+    import Framework.OSS.pexpect as pexpect
 except ImportError:
     print_info("{0}: pexpect module is not installed".format(os.path.abspath(__file__)))
     print_info("Warrior framework by default uses pexpect for all cli related activites")

@@ -23,12 +23,9 @@ get_session_id, get_credentials, get_object_from_datarepository
 from Framework.Utils.encryption_utils import decrypt
 from WarriorCore.Classes.war_cli_class import WarriorCliClass
 try:
-    if 'linux' in sys.platform:
-        MOD = 'pexpect'
-        import pexpect
-except ImportError, err:
-    print_error(str(err))
-    print_info("{0}: {1} module is not installed".format(os.path.abspath(__file__), MOD))
+    import Framework.OSS.pexpect as pexpect
+except Exception:
+    print_info("{0}: {1} module is not installed".format(os.path.abspath(__file__), "pexpect"))
 
 
 class CliActions(object):
