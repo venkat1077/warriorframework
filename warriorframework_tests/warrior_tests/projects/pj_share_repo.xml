@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Project>
+    <Details>
+        <Name>pj_share_repo</Name>
+        <Title>Project for testing if repo is shared from seq tc to par tc</Title>
+        <Engineer>Ka</Engineer>
+        <State>New</State>
+        <Date>04/21/2017</Date>
+        <Time>11:59:51</Time>
+        <default_onError action="next"/>
+    </Details>
+    <Testsuites>
+        <Testsuite>
+            <path>../suites/framework_tests/ts_share_repo_from_seq_to_par.xml</path>
+            <Execute ExecType="Yes"/>
+            <onError action="next" value=""/>
+            <impact>impact</impact>
+        </Testsuite>
+    </Testsuites>
+</Project>
