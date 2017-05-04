@@ -91,6 +91,8 @@ def update_tc_junit_resultfile(tc_junit_obj, kw_junit_list, tc_timestamp):
     2. kw_junit_list = list of keyword junit objects
     3. tc_timestamp = target testcase timestamp
     """
+    # import pdb
+    # pdb.set_trace()
     for master_tc in tc_junit_obj.root.iter('testcase'):
         # make sure we are modifying the correct testcase
         if master_tc.get('timestamp') == tc_timestamp:
@@ -99,10 +101,8 @@ def update_tc_junit_resultfile(tc_junit_obj, kw_junit_list, tc_timestamp):
                     # make sure we are obtaining only the wanted keywords
                     if (tc_part.get('timestamp') == tc_timestamp):
                         # add keyword element to testcase, add property result to properties, update count
-                        for keyword in tc_part.iter('keyword'):
-                            master_tc.append(keyword)
                         for result in tc_part.find('properties').iter('property'):
-                            if result.attrib['name'] == keyword.attrib['name']:
+                            if result.get('type') == "keyword":
                                 master_tc.find('properties').append(result)
                         master_tc.attrib = update_attribute(master_tc.attrib, tc_part.attrib)
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<TestSuite>
+        <Details>
+                <Name>ts_share_repo_from_seq_to_par</Name>
+                <Title>Test if repo is correctly share from sequential tc to parallel tc</Title>
+                <Engineer>Ka</Engineer>
+                <Date>05/04/2017</Date>
+                <Time>16:32:21</Time>
+                <type exectype="sequential_testcases"/>
+                <State/>
+                <default_onError action="next"/>
+                <Resultsdir/>
+                <IDF/>
+        </Details>
+        <Requirements>
+                <Requirement/>
+        </Requirements>
+        <Testcases>
+                <Testcase>
+                        <path>../../testcases/framework_tests/share_repo/parallel_share_repo_sequential_variable.xml</path>
+                        <context>positive</context>
+                        <InputDataFile/>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <runmode type="Standard" value=""/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+                        <impact>impact</impact>
+                </Testcase>
+                <Testcase>
+                        <path>../../testcases/framework_tests/share_repo/parallel_share_repo_verify_in_parallel.xml</path>
+                        <context>positive</context>
+                        <InputDataFile/>
+                        <runtype>parallel_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+                        <runmode type="Standard" value=""/>
+                        <impact>impact</impact>
+                </Testcase>
+        </Testcases>
+</TestSuite>

@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<Testcase>
+        <Details>
+                <Name>parallel_share_repo_verify_in_parallel</Name>
+                <Title>verify the value saved from a sequential tc</Title>
+                <Engineer>Ka</Engineer>
+                <Date>2017-05-04</Date>
+                <Time>16:28</Time>
+                <State/>
+                <InputDataFile>No_Data</InputDataFile>
+                <Datatype/>
+                <default_onError action="next"/>
+                <Logsdir/>
+                <Resultsdir/>
+                <ExpectedResults/>
+        </Details>
+        <Requirements>
+                <Requirement/>
+        </Requirements>
+        <Steps>
+                <step Driver="common_driver" Keyword="verify_data" TS="1" draft="no">
+                        <Arguments>
+                                <argument name="expected" value="5"/>
+                                <argument name="object_key" value="share_repo_test_value"/>
+                                <argument name="type" value="str"/>
+                                <argument name="comparison" value="eq"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="common_driver" Keyword="verify_data" TS="2" draft="no">
+                        <Arguments>
+                                <argument name="expected" value="5"/>
+                                <argument name="object_key" value="share_repo_test_value"/>
+                                <argument name="type" value="str"/>
+                                <argument name="comparison" value="eq"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+        </Steps>
+</Testcase>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<Testcase>
+        <Details>
+                <Name>parallel_share_repo_sequential_variable</Name>
+                <Title>first step to put a value into data_repo</Title>
+                <Engineer>Ka</Engineer>
+                <Date>2017-05-04</Date>
+                <Time>16:26</Time>
+                <State/>
+                <InputDataFile>No_Data</InputDataFile>
+                <Datatype/>
+                <default_onError action="next"/>
+                <Logsdir/>
+                <Resultsdir/>
+                <ExpectedResults/>
+        </Details>
+        <Requirements>
+                <Requirement/>
+        </Requirements>
+        <Steps>
+                <step Driver="common_driver" Keyword="store_in_repo" TS="1" draft="no">
+                        <Arguments>
+                                <argument name="datavar" value="share_repo_test_value"/>
+                                <argument name="datavalue" value="5"/>
+                                <argument name="type" value="string"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+        </Steps>
+</Testcase>
