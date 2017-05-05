@@ -5,8 +5,12 @@
 
         $scope.items = [];
         $scope.disabled= true;
+        $scope.disKwname= false;
+        $scope.disAcfname= false;
+        $scope.disWdesc= false;
         $scope.myvalue = false;
         $scope.myvalue1 = true;
+        $scope.myFlag = 0;
         $scope.subdirs = subdirs;
         $scope.xml = {};
         $scope.xml.file = '';
@@ -36,15 +40,24 @@
 
 
         $scope.resetVal = function () {
-       
+
+        if($scope.myFlag != 0){
+            $scope.disKwname= true;
+            $scope.disAcfname= true;
+            $scope.disWdesc= true;
+            }
+        else{
          $scope.status.wkeywordname = '';
          $scope.status.actionfilename = '';
          $scope.status.wdesc = '';
+            }
+
          $scope.status.subkwname = '';
          $scope.status.subkwargs = '';
          $scope.status.xml.arglist = '';
          $scope.status.xml.mapargs = '';
          $scope.status.xml.args = '';
+
 
         };
 
@@ -124,10 +137,13 @@
 
         $scope.saveArguments = function () {
 
+            $scope.myFlag = 1;
+
             if($scope.status.wkeywordname === undefined || $scope.status.actionfilename === undefined || 
                 $scope.status.wdesc === undefined || $scope.status.subkwname === undefined || 
-                $scope.status.subkwargs === undefined){
-                                 sweetAlert({
+                $scope.status.subkwname == '' || $scope.status.subkwargs === undefined || 
+                $scope.status.subkwargs == ''){
+                sweetAlert({
                     title: "All fields are mandatory. Kindly fill and save.",
                     closeOnConfirm: true,
                     confirmButtonColor: '#3b3131',
@@ -139,6 +155,11 @@
             }
 
             else{
+
+            $scope.disKwname= true;
+            $scope.disAcfname= true;
+            $scope.disWdesc= true;
+
             var x2js = new X2JS();
             var token = angular.toJson($scope.status);
             $scope.xmlObj = x2js.json2xml_str(JSON.parse(token));
