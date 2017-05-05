@@ -99,6 +99,10 @@
                 <i class="fa fa-terminal color-me-grey" aria-hidden="true"></i>
                 <span class="tooltip-content">Execution</span>
             </a>
+            <a class="list-group-item border-less tooltip-on-right-dark" ng-class="{ active: isActive('/kwseq')}" style="color:rgb(214, 48, 48)" href="#/kwseq" id="big-screen-sidebar-docs">
+                <i class="fa fa-sliders color-me-grey" aria-hidden="true"></i>
+                <span class="tooltip-content">Keyword Sequencer</span>
+            </a>
         </div>
     </div>
 
@@ -135,6 +139,10 @@
             <a class="list-group-item border-less" ng-class="{ active: isActive('/sequential')}" style="color:rgb(214, 48, 48)" href="#/sequential">
                 <i class="fa fa-terminal color-me-grey" aria-hidden="true"></i>
                 <span class="add-space-1">Execution</span>
+            </a>
+            <a class="list-group-item border-less" ng-class="{ active: isActive('/kwseq')}" style="color:rgb(214, 48, 48)" href="#/kwseq">
+                <i class="fa fa-sliders color-me-grey" aria-hidden="true"></i>
+                <span class="add-space-1">Keyword Sequencer</span>
             </a>
         </div>
     </div>
@@ -186,6 +194,7 @@
     <script type="text/javascript" src="/assets/app/factory/testcaseFactory.js"></script>
     <script type="text/javascript" src="/assets/app/factory/datafileFactory.js"></script>
     <script type="text/javascript" src="/assets/app/factory/saveNewDataFileFactory.js"></script>
+    <script type="text/javascript" src="/assets/app/factory/kwSeqFacCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/baseChariotCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/configCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/factory/warhornconfigfileFactory.js"></script>
@@ -211,7 +220,8 @@
     <script type="text/javascript" src="/assets/app/controllers/datafileCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/newDataFileCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/aboutCtrl.js"></script>
-
+    <script type="text/javascript" src="/assets/app/controllers/kwSeq.js"></script>
+    <script type="text/javascript" src="/assets/app/controllers/kwSeqCtrl.js"></script>
     <script type="text/javascript" src="/assets/app/factory/modalDirective.js"></script>
     <script type="text/javascript" src="/assets/app/factory/tagDirective.js"></script>
     <script type="text/javascript" src="/assets/app/controllers/CollapsibleLists.js"></script>
