@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<Testcase>
+        <Details>
+                <Name>tc_runmode_retry_at_suite_level</Name>
+                <Title>test case to test runmode and retry tag</Title>
+                <Datatype>Custom</Datatype>
+                <default_onError action="next"/>
+                <Logsdir>../../Execution</Logsdir>
+                <Resultsdir>../../Execution</Resultsdir>
+                <Date>2017-04-20</Date>
+                <Time>16:20</Time>
+                <Engineer>Annalakshmi</Engineer>
+        </Details>
+        <Requirements>
+                <Requirement/>
+        </Requirements>
+        <Steps>
+                <step Driver="ci_regression_driver" Keyword="local_data_test" TS="1">
+                        <Arguments>
+                                <argument name="desired_status" value="pass"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description>connect_ssh</Description>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                </step>
+                <step Driver="ci_regression_driver" Keyword="local_data_test" TS="1">
+                        <Arguments>
+                                <argument name="desired_status" value="fail"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description>connect_ssh</Description>
+                        <Execute ExecType="Yes"/>
+                        <context>negative</context>
+                        <impact>impact</impact>
+                </step>
+        </Steps>
+</Testcase>                

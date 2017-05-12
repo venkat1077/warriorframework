@@ -1,0 +1,145 @@
+<?xml version="1.0" ?>
+<Project>
+    <Details>
+        <Name>pj_runmode_retry_at_suite_level_at_project_file</Name>
+        <Title>Project for testing retry and runmode tag in test files</Title>
+        <Engineer>Annalakshmi</Engineer>
+        <State>New</State>
+        <Date>04/21/2017</Date>
+        <Time>11:59:51</Time>
+        <default_onError action="next"/>
+    </Details>
+    <Testsuites>    
+    <Testsuite>
+            <path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+            <Execute ExecType="Yes"/>
+            <onError action="next" value=""/>
+            <impact>impact</impact>
+    </Testsuite>
+    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rup" value="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rmt" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rmt" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="ptss" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rup" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rup" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rmt" value="2"/>
+			<retry type="if not" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rmt" value="2"/>
+			<retry type="if not" Condition="testsuite_1_result" Condvalue="ptss" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rup" value="2"/>
+			<retry type="if not" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rup" value="2"/>
+			<retry type="if not" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<retry type="if not" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<retry type="if not" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<retry type="ifot" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="ruf" value="2"/>
+			<retry type="if not" Condvalue="PASS" count="2" interval="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rup" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	    <Testsuite>
+			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<onError action="next" value=""/>
+			<runmode type="rmt" value="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS"/>
+			<impact>impact</impact>
+	    </Testsuite>
+	</Testsuites>
+</Project>
+    
