@@ -30,8 +30,8 @@
 
     Fill this out with the details of the repository that you want to clone
 
-    <tools url="http://repository/one/url.git" label="" clone="yes">
-    </tools>  
+    <repository url="http://repository/one/wartool.git" clone="yes" label="" all_drivers="no">
+    </repository>
 
     -->
   
