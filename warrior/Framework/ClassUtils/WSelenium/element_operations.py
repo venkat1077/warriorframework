@@ -15,6 +15,7 @@ limitations under the License.
 from time import sleep
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
+from Framework.Utils.testcase_Utils import pNote
 
 
 from Framework.Utils.print_Utils import print_error, print_info, print_exception
@@ -38,8 +39,8 @@ ACTIONS = {'click': '_click_element',
            'get_text': '_get_text',
            'clear': '_clear_text',
            'drag_and_drop': '_drag_and_drop',
-           'mouse_over':'_mouse_over',
-           'drag_and_drop_by_offset':'_drag_and_drop_by_offset',
+           'mouse_over': '_mouse_over',
+           'drag_and_drop_by_offset': '_drag_and_drop_by_offset',
            'get_property': '_get_property',
            'check_property': '_check_property',
            'perform_keypress': '_perform_keypress'
@@ -64,6 +65,7 @@ KEYS = {'ADD': Keys.ADD, 'ALT': Keys.ALT, 'ARROW_DOWN': Keys.ARROW_DOWN,
          'UP': Keys.UP
          }
 
+
 class ElementOperations():
     """ Element operations """
 
@@ -71,10 +73,12 @@ class ElementOperations():
         """ constructor """
         pass
 
-    def perform_element_action(self, element_or_browser, locator=None, action=None, **kwargs):
+    def perform_element_action(self, element_or_browser,
+                               locator=None, action=None,
+                               **kwargs):
         """Generic method to perform specific actions on an element
         :Currently supported actions and the values that they take """
-        browser  = kwargs.get('browser')
+        browser = kwargs.get('browser')
         status = True
         if action != "perform_keypress":
             element = self._get_element(element_or_browser, locator)
@@ -165,7 +169,7 @@ class ElementOperations():
             value = EL.get_element(element_or_browser, locator)
         return value
 
-    def _mouse_over(self, element, **kwargs ):
+    def _mouse_over(self, element, **kwargs):
         """Moving the mouse to the middle of an element """
         status = False
         print_info("mouse over operation")
@@ -180,7 +184,7 @@ class ElementOperations():
         action to be performed"""
         action_function = ACTIONS.get(action.lower().replace(' ', ''), None)
         return getattr(self, action_function) if action_function else None
-    
+
     def _click_element(self, element, **kwargs):
         """ Clicks on the provided element
         :Arguments:
@@ -192,6 +196,28 @@ class ElementOperations():
             element.click()
         else:
             status = False
+        return status
+
+    def element_operations_util(self, current_element, br_name,
+                                current_browser, comp_locator,
+                                action, element_name):
+        """ A small utility to do the user provided element operation"""
+        if not current_element:
+            pNote("No element instance {0} found in the data "
+                  "repository!".format(element_name), "info")
+            if not current_browser:
+                pNote("No browser instance {0} found in the data "
+                      "repository!".format(br_name), "error")
+            else:
+                status = self.perform_element_action(current_browser,
+                                                     comp_locator,
+                                                     action,
+                                                     browser=current_browser)
+        else:
+            status = self.perform_element_action(current_element,
+                                                 comp_locator,
+                                                 action,
+                                                 browser=current_browser)
         return status
 
     def _double_click_element(self, element, **kwargs):

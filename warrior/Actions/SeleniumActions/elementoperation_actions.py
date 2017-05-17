@@ -505,21 +505,12 @@ class elementoperation_actions(object):
                     get_object_from_datarepository(br_name)
                 current_element = Utils.data_Utils.\
                     get_object_from_datarepository(element_name)
-                if not current_element:
-                    pNote("No element instance {0} found in the data "
-                          "repository!".format(element_name), "info")
-                    if not current_browser:
-                        pNote("No browser instance {0} found in the data "
-                              "repository!".format(br_name), "error")
-                    else:
-                        status = self.elem_oper_obj.\
-                            perform_element_action(current_browser,
-                                                   comp_locator, "click",
-                                                   browser=current_browser)
-                else:
-                    status = self.elem_oper_obj.\
-                        perform_element_action(current_element, comp_locator,
-                                               "click", browser=current_browser)
+                status = self.elem_oper_obj.\
+                    element_operations_util(current_element, br_name,
+                                            current_browser,
+                                            comp_locator,
+                                            "click",
+                                            element_name)
             browser_details = {}
         selenium_Utils.report_status_and_screenshot(status, current_browser)
         return status
