@@ -176,6 +176,7 @@ def overwrite_files(path, destination, overwrite, logfile, print_log_name):
                     print_error("Error while copying {0}.".format(sub_file),
                                 logfile, print_log_name)
         else:
+            print os.path.join(path, sub_file), os.path.join(destination, sub_file)
             try:
                 shutil.copy(os.path.join(path, sub_file),
                             os.path.join(destination, sub_file))
@@ -628,6 +629,132 @@ def get_action_name_from_driver(li_actions, path):
             if word != "import":
                 li_actions.append(word)
 
+def clone_tools(base_path, current_dir, **kwargs):
+    # 1. gather print and node info
+    logfile = kwargs.get("logfile")
+    config_file_name = kwargs.get("config_file_name")
+    print_log_name = kwargs.get("print_log_name")
+    internal_copy = kwargs.get("dest")
+    node = get_node(config_file_name, "tools")
+    if node is False:
+        print_error("tools tag not found. No tools cloned.",
+                    logfile, print_log_name)
+        setDone(1)
+    # 2. loop through repo node
+    else:
+        repositories = get_firstlevel_children(node, "repository")
+        for repository in repositories:
+            if 'url' not in repository.attrib and\
+                            'label' not in repository.attrib and\
+                            'clone' not in repository.attrib:
+                continue
+            clone = get_attribute_value(repository, "clone")
+    # 3. check if clonable
+            if clone == "" or clone == "yes":
+                url = get_attribute_value(repository, "url")
+                name = get_repository_name(url)
+
+                # url validation
+                if url == "":
+                    print_error("Can't clone repository without the url!",
+                                logfile, print_log_name)
+                    setDone(1)
+                    print_info(name + " not cloned.", logfile, print_log_name)
+                    continue
+                if not check_url_is_a_valid_repo(url, name, logfile,
+                                                 print_log_name):
+                    continue
+    # 4. create temp directory
+                try:
+                    if internal_copy == "":
+                        create_dir(os.path.join(base_path,
+                                            'warrior', 'temp'))
+                    else:
+                        create_dir(os.path.join(base_path, 'warrior_fw',
+                                            'warrior', 'temp'))
+                except:
+                    print_error("Warhorn does not have the required "
+                                "permissions to clone " + name,
+                                logfile, print_log_name)
+                    setDone(1)
+    # 5. check overwrite
+                else:
+                    overwrite = get_attribute_value(repository, "overwrite")
+                    label = get_attribute_value(repository, "label")
+                    if internal_copy == "":
+                        path = os.path.join(base_path, 'warrior',
+                                        'temp', name)
+                    else:
+                        path = os.path.join(base_path, 'warrior_fw', 'warrior',
+                                        'temp', name)
+
+
+                    # current_dir stores the path of the directory in which
+                    # warhorn.py is running
+                    print_info("Cloning Tools repo " + name,
+                               logfile, print_log_name)
+
+                    # directory switch to where the warriorspace should be
+                    # cloned.
+                    if internal_copy == "":
+                        os.chdir(os.path.join(base_path,
+                                          'warrior', 'temp'))
+                    else:
+                        os.chdir(os.path.join(base_path, 'warrior_fw',
+                                          'warrior', 'temp'))
+    # 6. git clone
+                    try:
+                        subprocess.check_output(["git", "clone", url])
+                    except:
+                        print_error(name + " could not be cloned.",
+                                    logfile, print_log_name)
+                        setDone(1)
+                        continue
+    # 7. check out label
+                    if label != "":
+                        print_info("Checking out: " + label, logfile,
+                                   print_log_name)
+                        check, current_tag = git_checkout_label(label, path,
+                                                                current_dir)
+                        print_out_checkout_status(label, check, current_tag,
+                                                  name, logfile=logfile,
+                                                  print_log_name=print_log_name)
+
+                    # directory switch to where warhorn.py is running.
+                    print_info("Cloning complete", logfile, print_log_name)
+                    if internal_copy == "":
+                        destination = os.path.join(base_path,
+                                               'warrior', 'Tools')
+                    else:
+                        destination = os.path.join(base_path, 'warrior_fw',
+                                               'warrior', 'Tools')
+    # 8. overwrite files
+                    dummy, root_repo_folder_list = get_subfiles(path)
+                    try:
+                        overwrite_files(os.path.join(path,
+                                                     root_repo_folder_list[1]),
+                                        destination, overwrite,
+                                        logfile, print_log_name)
+                    except:
+                        print_error("Could not copy tools files from "
+                                    + name + " into warriorframework", logfile,
+                                    print_log_name)
+                        setDone(1)
+
+    # 9. delete temp
+
+            # folder inside the temp folder that had the initial clone of the
+            # repository get deleted here. This is done for every iteration
+            # because if user wants to clone another repository with the same
+            # name, it should not create a problem.
+            if internal_copy == "":
+                tmp_path = os.path.join(base_path,
+                                           'warrior', 'temp', name)
+            else:
+                tmp_path = os.path.join(base_path, 'warrior_fw',
+                                           'warrior', 'temp', name)
+            if os.path.exists(tmp_path):
+                delete_directory(tmp_path, logfile, print_log_name)
 
 def clone_drivers(base_path, current_dir, **kwargs):
     """ This function has been written to clone Keywords, cherry pick the
@@ -1121,43 +1248,6 @@ def get_base_path(node_name="warrior", **kwargs):
     return base_path, node
 
 
-def replace_tools_from_product_repo(node_list, **kwargs):
-    """ This will clone the tools from product repo and then replaces
-        tools directory in warrior main with this tools repo.
-    """
-    logfile = kwargs.get("logfile")
-    config_file_name = kwargs.get("config_file_name")
-    console_log_name = kwargs.get("console_log_name")
-    print_log_name = kwargs.get("print_log_name")
-    internal_copy = kwargs.get("dest")
-    if "tools" in node_list:
-        tools_node = get_node(config_file_name, "tools")
-        tools_url = get_attribute_value(tools_node, "url")
-        tools_root = get_repository_name(tools_url)
-        tools_clone = get_attribute_value(tools_node, "clone")
-        tools_base_path = ""
-        warrior_node = get_node(config_file_name, "warrior")
-        warrior_base_path = get_attribute_value(warrior_node, "destination")
-        if tools_url and tools_clone == "yes":
-            tools_base_path = validate_base_path(
-                tools_base_path, logfile=logfile,
-                config_file_name=config_file_name,
-                console_log_name=console_log_name,
-                print_log_name=print_log_name)
-        warrior_base_path = validate_base_path(
-            warrior_base_path, logfile=logfile,
-            config_file_name=config_file_name,
-            console_log_name=console_log_name, print_log_name=print_log_name)
-        if internal_copy == "":
-            warrior_tools_path = os.path.join(warrior_base_path,
-                                              "warrior", "Tools")
-        else:
-            warrior_tools_path = os.path.join(warrior_base_path, "warrior_fw",
-                                              "warrior", "Tools")
-        product_tools_path = os.path.join(tools_base_path, tools_root, "Tools")
-        dir_util.copy_tree(product_tools_path, warrior_tools_path, update=1)
-        delete_directory(os.path.join(tools_base_path, tools_root), logfile, print_log_name)
-
 
 def assemble_warrior():
     """Assembles Warrior by:
@@ -1220,7 +1310,7 @@ def assemble_warrior():
     internal_copy = get_dest(logfile, print_log_name, config_file_name)
 
     node_list = get_all_direct_child_nodes(config_file_name)
-    node_list = remove_extra_list_elements(node_list, "warhorn", "drivers",
+    node_list = remove_extra_list_elements(node_list, "tools", "warhorn", "drivers",
                                            "warriorspace")
     for node in node_list:
         clone_major_repositories(node, logfile=logfile,
@@ -1234,11 +1324,10 @@ def assemble_warrior():
                                  console_log_name=console_log_name,
                                  print_log_name=print_log_name)
 
-    replace_tools_from_product_repo(node_list, logfile=logfile,
-                                    config_file_name=config_file_name,
-                                    console_log_name=console_log_name,
-                                    print_log_name=print_log_name,
-                                    dest=internal_copy)
+    clone_tools(base_path, current_dir, logfile=logfile,
+                  config_file_name=config_file_name,
+                  print_log_name=print_log_name,
+                  dest=internal_copy)
     clone_drivers(base_path, current_dir, logfile=logfile,
                   config_file_name=config_file_name,
                   print_log_name=print_log_name,
