@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<TestSuite>
+        <Details>
+                <Name>sandwich_testsuite</Name>
+                <Title>sandwich_testsuite</Title>
+                <Engineer>Warrior_user</Engineer>
+                <Date>03/17/2017</Date>
+                <Time>21:37:23</Time>
+                <type Max_Attempts="" Number_Attempts="" exectype="sequential_testcases"/>
+                <State>Released</State>
+                <default_onError action="next" />
+                <Resultsdir/>
+        </Details>
+        <Requirements>
+                <Requirement>Requirement-demo-001</Requirement>
+                <Requirement>Requirement-demo-002</Requirement>
+        </Requirements>
+        <!-- Execution order of the suite would be 1, (4,2,3), 5, (6,2,3), 7 instead of regular order of 1,2,3,4,5,6,7 -->
+        <Testcases>
+                <!-- Below testcase is a regular test will be executed as usual-->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Test_Of_Inventory_Management_System.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <impact>impact</impact>
+
+                        <InputDataFile/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+
+                </Testcase>
+
+                <!-- Below testcase profile is sandwich, with value standard so this test will be sandwiched between prefix and suffix-->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Test_Of_Inventory_Management_System.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <impact>impact</impact>
+                        <profile type="sandwich" value="standard"/>
+
+                        <InputDataFile/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+
+                </Testcase>
+
+                <!-- Below testcase profile is sandwich, with value suffix, all sandwich tests will be suffixed by this test and this is likely to be tear down test -->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Warrior_Rest_Automation_Capabilities.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <impact>impact</impact>
+                        <InputDataFile/>
+                         <profile type="sandwich" value="Suffix"/>
+
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+               </Testcase>
+
+                <!-- Below testcase profile is sandwich, with value prefix, all sandwich tests will be prefixed by this test and this is likely to be bring up test -->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Warrior_Web_Automation_With_Selenium.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <profile type="sandwich" value="Prefix"/>
+                        <impact>impact</impact>
+                        <InputDataFile/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+                        <onError action="next" value=""/>
+                </Testcase>
+
+                <!-- Below testcase is a regular test will be executed as usual-->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Test_Of_Inventory_Management_System.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <impact>impact</impact>
+
+                        <InputDataFile/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+
+                </Testcase>
+                <!-- Below testcase profile is sandwich, with value standard so this test will be sandwiched between prefix and suffix-->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Test_Of_Inventory_Management_System.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <impact>impact</impact>
+                        <profile type="sandwich" value="standard"/>
+
+                        <InputDataFile/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+
+                </Testcase>
+
+                <!-- Below testcase is a regular test will be executed as usual-->
+                <Testcase>
+                        <path>../Testcases/Demo_Cases/Demo_Test_Of_Inventory_Management_System.xml</path>
+                        <context>positive</context>
+                        <runtype>sequential_keywords</runtype>
+                        <onError action="next" value=""/>
+                        <impact>impact</impact>
+
+                        <InputDataFile/>
+                        <Execute ExecType="Yes">
+                                <Rule Condition="" Condvalue="" Else="next" Elsevalue=""/>
+                        </Execute>
+
+                </Testcase>
+
+        </Testcases>
+</TestSuite>

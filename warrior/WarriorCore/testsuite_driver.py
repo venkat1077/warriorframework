@@ -1,16 +1,3 @@
-'''
-Copyright 2017, Fujitsu Network Communications, Inc.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-'''
-
 
 """Test suite driver module to execute a collection of testcases """
 import sys
@@ -140,8 +127,20 @@ def get_testcase_list(testsuite_filepath):
         testcase_list = []
         new_testcase_list = testcases.findall('Testcase')
         #execute tc multiple times
+        count = 0
+        i = 0
+        prefix, suffix = None, None
+        for index, tc in enumerate(new_testcase_list):
+            profile, value = common_execution_utils.get_tc_profile_from_xmlfile(tc)
+            if value == "Prefix":
+                prefix = tc
+                count = count + 1
+            if value == "Suffix":
+                suffix = tc
+                count = count + 1
         for index, tc in enumerate(new_testcase_list):
             runmode, value = common_execution_utils.get_runmode_from_xmlfile(tc)
+            profile, profile_value = common_execution_utils.get_tc_profile_from_xmlfile(tc)
             retry_type, _, _, retry_value, _ = common_execution_utils.get_retry_from_xmlfile(tc)
             if runmode is not None and value > 0:
                 #more than one step in step list, insert new step
@@ -178,7 +177,11 @@ def get_testcase_list(testsuite_filepath):
                         copy_tc.find("retry").set("attempt", i+1)
                         testcase_list.append(copy_tc)
             if retry_type is None and runmode is None:
-                testcase_list.append(tc)
+                if profile is None:
+                    testcase_list.append(tc)
+                elif profile_value == "standard" and count == 2:
+                    list = [prefix, tc, suffix]
+                    testcase_list.extend(list)
         return testcase_list
 
 def report_testsuite_result(suite_repository, suite_status):
@@ -384,12 +387,14 @@ def execute_testsuite(testsuite_filepath, data_repository, from_project,
         print_info("Testsuite status will be marked as ERROR as onError action is set to 'abort_as_error'")
         test_suite_status = "ERROR"
     testsuite_utils.report_testsuite_result(suite_repository, test_suite_status)
-
-    ts_junit_object = data_repository['wt_junit_object']
-    ts_junit_object.update_count(test_suite_status, "1", "pj")
-    ts_junit_object.update_count("suites", "1", "pj", "not appicable")
-    ts_junit_object.update_attr("status", str(test_suite_status), "ts", suite_timestamp)
-    ts_junit_object.update_attr("time", str(suite_duration), "ts", suite_timestamp)
+    
+    # replaced junit result file with junit object
+    if execution_type.upper() != "ITERATIVE_PARALLEL":
+        ts_junit_object = data_repository['wt_junit_object']
+        ts_junit_object.update_count(test_suite_status, "1", "pj")
+        ts_junit_object.update_count("suites", "1", "pj", "not appicable")
+        ts_junit_object.update_attr("status", str(test_suite_status), "ts", suite_timestamp)
+        ts_junit_object.update_attr("time", str(suite_duration), "ts", suite_timestamp)
 
     if not from_project:
         ts_junit_object.update_attr("status", str(test_suite_status), "pj", "not applicable")
@@ -406,7 +411,8 @@ def execute_testsuite(testsuite_filepath, data_repository, from_project,
 def main(testsuite_filepath, data_repository={},
          from_project=False, auto_defects=False, jiraproj=None,
          res_startdir=None, logs_startdir=None, ts_onError_action=None):
-    """Executes a test suite """ 
+    """Executes a test suite """
+    print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-----------------------------------&&&&&&&&&&&&&&&&&&&&&&&&&7"
     try:
         test_suite_status, suite_repository = execute_testsuite(testsuite_filepath,
                                              data_repository, from_project,

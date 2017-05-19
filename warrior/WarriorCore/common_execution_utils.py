@@ -89,3 +89,13 @@ def get_retry_from_xmlfile(element):
                           "using default value 5 for execution")
         retry_value = int(retry_value)
     return (retry_type, retry_cond, retry_cond_value, retry_value, retry_interval)
+
+def get_tc_profile_from_xmlfile(element):
+    """Get 'tc profile:type' & 'profile value:value' of testcase from the
+    testsuite.xml file.
+    these values can not be combined with other values"""
+    rt_value = None
+    runmode = element.find('profile')
+    if runmode is not None:
+        rt_value = runmode.get('value')
+    return (runmode, rt_value)
