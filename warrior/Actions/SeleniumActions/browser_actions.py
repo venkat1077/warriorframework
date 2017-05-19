@@ -18,6 +18,7 @@ from Framework.Utils.print_Utils import print_warning
 
 try:
     import Framework.Utils as Utils
+    from pyvirtualdisplay import Display
 except ImportWarning:
     raise ImportError
 
@@ -175,6 +176,8 @@ class browser_actions(object):
                 browser_details = selenium_Utils.\
                     get_browser_details(browser, self.datafile, **arguments)
             if browser_details is not None:
+                display = Display(visible=0, size=(1024, 768))
+                display.start() 
                 browser_inst = self.browser_object.open_browser(
                     browser_details["type"], webdriver_remote_url)
                 if browser_inst:
