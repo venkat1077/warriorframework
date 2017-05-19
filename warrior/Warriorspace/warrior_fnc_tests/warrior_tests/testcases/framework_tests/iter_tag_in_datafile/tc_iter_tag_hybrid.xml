@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_iter_tag_hybrid</Name>
+		<Title>Verifies iter tag option in hybrid cases</Title>
+		<Engineer>vsethura</Engineer>
+		<Date>2017-03-22</Date>
+		<Time>12:20</Time>.
+		<State/>		
+		<InputDataFile>../../../data/framework_tests/data_iter_tag.xml</InputDataFile>
+		<Datatype>Hybrid</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<ExpectedResults/>
+	</Details>
+	<Requirements>
+		</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect" TS="1">
+			<Arguments>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="2">
+			<Arguments>
+				<argument name="title"   value="t1"/>
+				<argument name="row_num" value="r1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>send commands</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="3">
+			<Arguments>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

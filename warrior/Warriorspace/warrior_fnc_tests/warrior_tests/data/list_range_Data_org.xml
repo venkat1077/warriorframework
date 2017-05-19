@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<credentials>
+
+    <system name="dpoe01">
+        <ip>167.254.213.197</ip>
+        <conn_type>ssh</conn_type>
+        <ssh_port>22</ssh_port>
+        <telnet_port></telnet_port>
+        <username>labadmin</username>
+        <password>labadmin1</password>
+        <prompt>labadmin@rtxdpoe01:</prompt>
+        <testdata>../config_files/list_range_testdata_org.xml</testdata>
+        <variable_config>../config_files/list_range_varconfig.xml</variable_config>
+    </system>
+
+</credentials>
+

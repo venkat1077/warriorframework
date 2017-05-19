@@ -1,0 +1,49 @@
+<Testcase>
+    
+    <Details>
+        <Name>list_range_org</Name>
+        <Title>Test case for list substitution in both command list and verify text list without customized pattern</Title>
+        <Author>Ka Hei Chan</Author>
+        <InputDataFile>../../../data/list_range_Data_org.xml</InputDataFile> 
+        <Datatype>iterative</Datatype>
+        <default_onError action="next"/>
+        <Logsdir>../Execution</Logsdir>
+        <Resultsdir>../Execution</Resultsdir>
+    </Details>
+    
+    <Requirements>
+        <requirement>A dedicated mind to understand the structure of Warrior framework</requirement>
+    </Requirements>
+    
+    <Steps>
+        <step Driver="cli_driver" Keyword="connect_ssh" />
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title0" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title1" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title2" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>
+    </Steps>
+
+</Testcase>

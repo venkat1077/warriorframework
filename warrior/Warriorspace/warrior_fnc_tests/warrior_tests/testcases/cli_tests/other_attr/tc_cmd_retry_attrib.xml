@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<Testcase>
+    <Details>
+        <Name>tc_cmd_retry_attrib</Name>
+        <Title>Verify the retry attrib in testdata file</Title>
+        <InputDataFile>../../../data/data_cmd_retry_attrib.xml</InputDataFile>
+        <Datatype>Custom</Datatype>
+        <default_onError action="next"/>
+        <Logsdir>../../../Execution</Logsdir>
+        <Resultsdir>../../../Execution</Resultsdir>
+        <Date>2017-04-25</Date>
+        <Time>16:50</Time>
+        <Engineer>Ka</Engineer>
+    </Details>
+    <Requirements>
+        <Requirement>ssh-connect-001</Requirement>
+        <Requirement>ssh-disconnect-001</Requirement>
+    </Requirements>
+    <Steps>
+        <step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description>connect_ssh</Description>
+            <Execute ExecType="Yes"/>
+            <context>positive</context>
+            <impact>impact</impact>
+        </step>
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="2">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+                <argument name="title" value="setup"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description></Description>
+            <Execute ExecType="Yes"/>
+            <context>positive</context>
+            <impact>impact</impact>
+        </step>
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="3">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+                <argument name="title" value="cmd_retry"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description></Description>
+            <Execute ExecType="Yes"/>
+            <context>negative</context>
+            <impact>impact</impact>
+        </step>
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="4">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+                <argument name="title" value="verify"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description></Description>
+            <Execute ExecType="Yes"/>
+            <context>positive</context>
+            <impact>impact</impact>
+        </step>
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="3">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+                <argument name="title" value="cmd_retry_not_run"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description></Description>
+            <Execute ExecType="Yes"/>
+            <context>negative</context>
+            <impact>impact</impact>
+        </step>
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="4">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+                <argument name="title" value="verify_not_run"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description></Description>
+            <Execute ExecType="Yes"/>
+            <context>positive</context>
+            <impact>impact</impact>
+        </step>
+        <step Driver="cli_driver" Keyword="disconnect" TS="5">
+            <Arguments>
+                <argument name="system_name" value="sys1"/>
+            </Arguments>
+            <onError action="next"/>
+            <Description>disconnect</Description>
+            <Execute ExecType="Yes"/>
+            <context>positive</context>
+            <impact>impact</impact>
+        </step>
+    </Steps>
+</Testcase>

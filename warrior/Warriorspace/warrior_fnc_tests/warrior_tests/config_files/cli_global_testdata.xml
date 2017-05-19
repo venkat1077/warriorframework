@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+
+<data>
+	<!--
+	cli cmd attr. defined in global section
+            <no_err3 found="no" search="overwrite" />
+	-->
+	<global>
+		<command_params
+			start=".*" end="\$" timeout="15" sleep="5">
+		</command_params>
+		<verifications>
+            <no_err1 found="no" search="ERROR" />
+			<no_err2 found="no" search="cannot create" />
+            <no_err4 found="no" search="No such file or directory" />
+            <no_err5 found="no" search="failed" />
+            <test_dir1 found="yes" search="CliTestDir1" />
+            <test_dir2 found="yes" search="CliTestDir2" />
+            <test_dir3 found="yes" search="CliTestDir3" />
+            <no_test_dir1 found="no" search="CliTestDir1" />
+            <no_test_dir2 found="no" search="CliTestDir2" />
+            <no_test_dir3 found="no" search="CliTestDir3" />
+            <exist_dir1 found="yes" search="Music" />
+            <exist_dir2 found="yes" search="Pictures" />
+            <exist_dir3 found="yes" search="Videos" />
+            <ls_music_combo combo="no_err4,no_test_dir1" />
+            <err_combo1 combo="no_err1,no_err2" />
+			<err_combo2 combo="no_err5,no_err6" />
+		</verifications>
+
+	</global>
+	<!--
+	command by title:
+	-->
+    <testdata execute="yes" title ="mk_test_dir1" >
+            <command send="mkdir CliTestDir1"
+                     verify="no_err1,no_err2" />
+            <command send="ls -d *"
+                     verify="test_dir1" />
+    </testdata>
+    <testdata execute="yes" title ="mk_test_dir2" >
+            <command send="mkdir CliTestDir2"
+                     verify="no_err1,no_err2" />
+            <command send="ls -d *"
+                     verify="test_dir2" />
+    </testdata>
+    <testdata execute="yes" title ="mk_test_dir3" >
+            <command send="mkdir CliTestDir3"
+                     verify="no_err1,no_err2" />
+            <command send="ls -d *"
+                     verify="test_dir3" />
+    </testdata>
+
+    <testdata execute="yes" title ="rm_test_dir1" >
+            <command send="rmdir CliTestDir1"
+                     verify="no_err5" />
+            <command send="ls -d *"
+                     verify="no_test_dir1" />
+    </testdata>
+    <testdata execute="yes" title ="rm_test_dir2" >
+            <command send="rmdir CliTestDir2"
+                     verify="no_err5"/>
+            <command send="ls -d *"
+                     verify="no_test_dir2" />
+    </testdata>
+    <testdata execute="yes" title ="rm_test_dir3" >
+            <command send="rmdir CliTestDir3"
+                     verify="no_err5" />
+            <command send="ls -d *"
+                     verify="no_test_dir3" />
+    </testdata>
+	<!--
+	command by row:
+	-->
+    <testdata execute="yes" row ="ls_dir1" >
+            <command send="ls Music"
+                     verify="no_err4" />
+    </testdata>
+    <testdata execute="yes" row ="ls_dir2" >
+            <command send="ls Pictures"
+                     verify="no_err4" />
+    </testdata>
+    <testdata execute="yes" row ="ls_dir3" >
+            <command send="ls Videos"
+                     verify="no_err4" />
+    </testdata>
+	<!--
+	command by title and row:
+	-->
+	<testdata execute="yes" title ="cd" row="r1" >
+		<command send="cd Music"
+		  		 verify="no_err4, exist_dir1" />
+	</testdata>
+	<testdata execute="yes" title ="cd" row="r2" >
+		<command send="cd Pictures"
+		  		 verify="no_err4, exist_dir2" />
+	</testdata>
+	<testdata execute="yes" title ="cd" row="r3" >
+		<command send="cd Videos"
+		  		 verify="no_err4, exist_dir3" />
+	</testdata>
+
+    <!--
+    Verification combos at global level
+    -->
+    <testdata execute="yes" title ="verify_combo"
+                            row ="ls_music" >
+        <!-- Single combo value -->
+        <command send="ls Music"
+                 verify="ls_music_combo" />
+        <!-- Multiple combo values -->
+        <command send="ls Music"
+                 verify="ls_music_combo,err_combo2" />
+        <!-- Mix of combo value & verify tag -->
+        <command send="ls Music"
+                 verify="no_test_dir1,err_combo1,no_err6" />
+        <no_err6 found="no" search="communication failure" />
+    </testdata>
+
+</data>

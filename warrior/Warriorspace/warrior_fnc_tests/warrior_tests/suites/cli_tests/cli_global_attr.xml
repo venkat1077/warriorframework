@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>cli_global_attr</Name>
+		<Title>cli funct. tests with globally defined params</Title>
+		<Engineer>Tomas Le</Engineer>
+		<Date>01/08/2016</Date>
+		<Time>13:52:26</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement>Requirement-001</Requirement>
+		<Requirement>Requirement-002</Requirement>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_title_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_title_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_title_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_row_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_row_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_row_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_title_row_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_title_row_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_title_row_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/global_attr_tc/tc_global_verify_combo.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>

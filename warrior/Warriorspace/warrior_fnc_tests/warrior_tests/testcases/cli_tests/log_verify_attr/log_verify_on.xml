@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<Testcase>
+        <Details>
+                <Name>log_verify_on</Name>
+                <Title>New testcase for log verify on</Title>
+                <Engineer>Ka Hei Chan</Engineer>
+                <Date>2017-04-17</Date>
+                <Time>18:07</Time>
+                <State/>
+                <InputDataFile>../../../data/data_log_verify_on_sys.xml</InputDataFile>
+                <Datatype>Custom</Datatype>
+                <default_onError action="next"/>
+                <Logsdir/>
+                <Resultsdir/>
+                <ExpectedResults/>
+        </Details>
+        <Requirements>
+                <Requirement/>
+        </Requirements>
+        <Steps>
+                <step Driver="cli_driver" Keyword="connect_ssh" TS="1" draft="no">
+                        <Arguments>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="connect_ssh" TS="2" draft="no">
+                        <Arguments>
+                                <argument name="system_name" value="sys2"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="3" draft="no">
+                        <Arguments>
+                                <argument name="title" value="create_file"/>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="4" draft="no">
+                        <Arguments>
+                                <argument name="title" value="start_reading"/>
+                                <argument name="system_name" value="sys2"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="3" draft="no">
+                        <Arguments>
+                                <argument name="title" value="monitor"/>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="5" draft="no">
+                        <Arguments>
+                                <argument name="title" value="verification"/>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="5" draft="no">
+                        <Arguments>
+                                <argument name="title" value="retry_verify"/>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>negative</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="5" draft="no">
+                        <Arguments>
+                                <argument name="title" value="retry_count"/>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="disconnect" TS="6" draft="no">
+                        <Arguments>
+                                <argument name="system_name" value="sys1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+                <step Driver="cli_driver" Keyword="disconnect" TS="7" draft="no">
+                        <Arguments>
+                                <argument name="system_name" value="sys2"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description/>
+                        <iteration_type type=""/>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                        <runmode type="Standard" value=""/>
+                </step>
+        </Steps>
+</Testcase>

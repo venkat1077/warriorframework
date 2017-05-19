@@ -1,0 +1,40 @@
+<?xml version="1.1" ?>
+
+<data>
+    <testdata execute="yes" title ="login">
+        <command send="3" start=".*" end=">"/>
+        <command send="ACT-USER::ROOT:C::ROOT;" start=".*" end=">" verify="v3, v5"/>
+
+        <v3 found="yes" search="THIS IS A PRIVATE COMPUTER SYSTEM." verify_on="ne1_tl1"/>
+        <v5 found="no" search="Run Check" verify_on="ne1_tl1"/>
+
+    </testdata>
+
+
+    <testdata execute="yes" title ="logout">
+        <command send="RTRV-COND-ALL:::C;" start=".*" end=">"  timeout="30" verify="v1, v2"/>
+        <command send="CANC-USER::ROOT:C;" start=".*" end=">" timeout="200" verify="v3, v1"/>
+
+        <v1 found="yes" search="FUJITSU" verify_on="ne1_tl1"/>
+        <v2 found="yes" search="NEND" verify_on="ne1_tl1"/>
+        <v3 found="yes" search="COMPLD" verify_on="ne1_tl1"/>
+    </testdata>
+
+    <testdata execute="yes" title ="login_ssh">
+        <command send="ACT-USER::ROOT:C::ROOT;" start=".*" end=">" verify="v3, v5"/>
+
+        <v3 found="yes" search="THIS IS A PRIVATE COMPUTER SYSTEM."/>
+        <v5 found="no" search="Run Check"/>
+    </testdata>
+
+
+    <testdata execute="yes" title ="logout_ssh">
+        <command send="RTRV-COND-ALL:::C;" start=".*" end=">"  timeout="30" verify="v1, v2"/>
+        <command send="CANC-USER::ROOT:C;" start=".*" end=">" timeout="200" verify="v3, v1"/>
+
+        <v1 found="yes" search="FUJITSU"/>
+        <v2 found="yes" search="NEND"/>
+        <v3 found="yes" search="COMPLD"/>
+    </testdata>
+</data>
+

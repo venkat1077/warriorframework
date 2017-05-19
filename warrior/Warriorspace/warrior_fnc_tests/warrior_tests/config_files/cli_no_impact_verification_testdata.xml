@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<data>
+
+	<global>
+		<command_params
+	        start=".*" end="\$" timeout="" sleep="2" >
+
+		</command_params>
+		<verifications>
+		</verifications>
+
+	</global>
+	<!--
+	command by title:
+ 	-->
+
+	<testdata execute="yes" title ="t1" >
+		<command send="${net1.ne1.shp1.prt1.cmd}"
+		         verify="v1,v2,v3" />
+		<v1 found="yes"  search="${v1.value}" />
+		<v2 found="yes" search="${v2.value}" />
+		<v3 found="yes" search="${v3.value}" />
+	</testdata>
+	<!--
+	command by row:
+	-->
+	<testdata execute="yes" row ="r1" >
+		<command send="${net2.ne2.shp2.prt2.cmd}"
+		         verify="v1,v2,v3" />
+		<v1 found="yes:noimpact"  search="${v1.value}" />
+		<v2 found="yes" search="${v2.value}" />
+		<v3 found="yes" search="${v3.value}" />
+	</testdata>
+	<!--
+	command by title and row:
+	-->
+	<testdata execute="yes" title ="t2" row="r2" >
+		<command send="${net3.ne3.shp3.prt3.cmd}"
+		         verify="v1,v2,v3" />
+		<v1 found="no:noimpact"  search="${v1.value}" />
+		<v2 found="yes" search="${v2.value}" />
+		<v3 found="yes" search="${v3.value}" />
+	</testdata>
+
+</data>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration>
+	<variable_set name="prompt" start=".*" end="\$" />
+	<variable_set name="generic" option="-a"/>
+	<variable_set name="verification" value="Mask" />
+	
+	<attribs name="attribs">
+		<attribute name="ifconfig" >
+			<property name="property1" attrib_name="addr" attrib_value="167.254.213.197" found="yes" verify_on="server1[interface1]"/>
+			<property name="property2" attrib_name="addr" attrib_value="127.0.0.1" found="yes" verify_on="server1[interface1]"/>
+		</attribute>
+	
+	</attribs>
+	
+	<network name="network1" id="NE1" found="yes">
+		<ne name="ne1" id="NE1" cmd="ifconfig" option="" attrib_name="addr" attrib_value="167.254.213.197"
+		found="yes" verify_on="server1[interface1]">
+			<shelf name="shelf1" id="S1" type="main" model="hds" cmd="dir" option="">
+				<card name="card1" id="C1" cmd="route" option="" sleep="2" timeout="100" retry="y">
+					<port name="port1" id="P1" sfp="oc3ir1" cmd="ls" option=""></port>
+					<port name="port2" id="P2" sfp="oc3sr1" cmd="ls" option="-la"></port>
+				</card>
+				<card name="card2" id="1-1" cmd="route" option="-v" sleep="2" timeout="200" retry="n">
+					<port name="port1" id="P1" sfp="oc12ir1" cmd="ls" option="Desktop"></port>
+					<port name="port2" id="P2" sfp="oc12sr1" cmd="ls" option="-ltr"></port>
+				</card>
+			</shelf>
+			<shelf name="shelf5" id="S5" type="trib" model="sds" cmd="dir" option="-l">
+				<card name="card1" id="1-1" cmd="route" option="-n" sleep="2" timeout="300" retry="y">
+					<port name="port1" id="P1" sfp="oc48ir1" cmd="ls" option="-d"></port>
+					<port name="port2" id="P2" sfp="oc48sr1" cmd="ls" option="-m"></port>
+				</card>
+			</shelf>
+		</ne>
+		<ne name="ne2" id="NE2" cmd="ifconfig" option="-a" attrib_name="addr" attrib_value="127.0.0.1"
+		found="yes" verify_on="server1[interface1]">
+			<shelf name="shelf10" id="S10" type="main" model="hds" cmd="dir" option="-la">
+				<card name="card10" id="C1" cmd="route" option="-e" sleep="2" timeout="400" retry="n">
+					<port name="port1" id="P1" sfp="1gesx" cmd="ls" option="-q"></port>
+					<port name="port2" id="P2" sfp="1gesx" cmd="ls" option="-r"></port>
+				</card>
+				<card name="card11" id="C11" cmd="route" option="-F" sleep="2" timeout="500" retry="y">
+					<port name="port1" id="P1" sfp="oc192sr1" cmd="ls" option="-s"></port>
+					<port name="port2" id="P2" sfp="oc192sr1" cmd="ls" option="-t">
+					</port>
+				</card>
+			</shelf>
+		</ne>
+
+	</network>
+	
+</configuration>
+

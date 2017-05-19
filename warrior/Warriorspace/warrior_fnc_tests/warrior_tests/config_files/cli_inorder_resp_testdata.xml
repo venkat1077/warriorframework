@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params
+	        start=".*" end="\$" timeout="5" sleep="2" >
+		</command_params>
+		<verifications>
+			<v1 found="yes" search="NonExistDir_1" />
+			<v2 found="yes" search="No such file or" />
+			<v3 found="yes" search="directory" />
+			<v4 found="no" search="No such file or" />
+			<v5 found="yes:noimpact" search="No such file or" />
+			<v6 found="no:noimpact" search="No such file or" />
+		</verifications>
+	</global>
+	<!--
+	Use this for testing 'in-order' cli cmd response behavior.
+    inorder="y" - to enable in-order verification
+	inorder="n"(default) - to disable in-order verification
+	-->
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_default">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v2,v3" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_no">
+            <command send="ls NonExistDir_1"
+                     verify="v2,v3,v1" inorder="n" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_empty">
+            <command send="ls NonExistDir_1"
+                     verify="v2,v3,v1" inorder="" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_invalid">
+            <command send="ls NonExistDir_1"
+                     verify="v2,v3,v1" inorder="xyz" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_yes_1">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v2,v3" inorder="y" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_yes_2">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v3,v2" inorder="y" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+							row="inorder_yes_3">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v3,v4" inorder="y" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+                            row="inorder_yes_4">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v5,v3" inorder="y" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+                            row="inorder_yes_5">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v3,v5" inorder="y" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+                            row="inorder_yes_6">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v6,v3" inorder="y" />
+    </testdata>
+
+    <testdata execute="yes" title="inorder_verification"
+                            row="inorder_yes_7">
+            <command send="ls NonExistDir_1"
+                     verify="v1,v3,v6" inorder="y" />
+    </testdata>
+</data>

@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_all_itertypes_iter_yes</Name>
+		<Title>checking the functionalities for all iteration types without iter no tags in the data file</Title>
+		<Engineer>Ragh</Engineer>
+		<Date>2016-11-07</Date>
+		<Time>11:50</Time>
+		<State/>
+		<InputDataFile>../../data/hybrid_mode_tests/data_hybrid_iter_yes.xml</InputDataFile>
+		<Datatype>hybrid</Datatype>
+		<default_onError action="next"/>
+		<Logsdir/>
+		<Resultsdir/>
+		<ExpectedResults/>
+	</Details>
+	<Requirements>
+		<Requirement/>
+	</Requirements>
+	<Steps>
+		<step Driver="ci_regression_driver" Keyword="once_per_tc_with_system_name_given" TS="1">
+			<Arguments>
+				<argument name="system_name" value="sys1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>once_per_tc_with_system_name_given</Description>
+			<iteration_type type="once_per_tc"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="once_per_tc_with_no_name_given" TS="2">
+			<Arguments>
+			</Arguments>
+			<onError action="next"/>
+			<Description>once_per_tc_with_no_name_given</Description>
+			<iteration_type type="once_per_tc"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="end_of_tc_with_system_name_given" TS="3">
+			<Arguments>
+				<argument name="system_name" value="sys2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>end_of_tc_with_system_name_given</Description>
+			<iteration_type type="end_of_tc"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="end_of_tc_with_system_name_not_given" TS="4">
+			<Arguments>
+				<argument/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>end_of_tc_with_system_name_not_given</Description>
+			<iteration_type type="end_of_tc"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="standard_with_system_name_not_given" TS="5">
+			<Arguments>
+				<argument/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>standard_with_system_name_not_given</Description>
+			<iteration_type type="standard"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

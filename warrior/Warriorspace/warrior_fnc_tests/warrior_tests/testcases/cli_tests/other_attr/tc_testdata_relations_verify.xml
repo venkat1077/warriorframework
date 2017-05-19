@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_testdata_relation_verify</Name>
+		<Title>to test relative operators in verification for test data</Title>
+		<InputDataFile>../../../data/data_relation.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../Execution</Logsdir>
+		<Resultsdir>../Execution</Resultsdir>
+		<Date>2017-02-27</Date>
+		<Time>11:20</Time>
+		<Engineer>Arvind Kumar Sethuraman</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>ssh-connect-001</Requirement>
+		<Requirement>ssh-disconnect-001</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_all" TS="1">
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="2">
+			<Arguments>
+				<argument name="system_name" value="system-1"/>
+				<argument name="title" value="t1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="3">
+			<Arguments>
+				<argument name="system_name" value="system-1"/>
+				<argument name="title" value="t2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>negative</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="4">
+			<Arguments>
+				<argument name="system_name" value="system-1"/>
+				<argument name="title" value="inorder_neg1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>negative</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="5">
+			<Arguments>
+				<argument name="system_name" value="system-1"/>
+				<argument name="title" value="inorder_neg2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>negative</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="6">
+			<Arguments>
+				<argument name="system_name" value="system-1"/>
+				<argument name="title" value="inorder_verification"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect_all" TS="7">
+			<Arguments>
+
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

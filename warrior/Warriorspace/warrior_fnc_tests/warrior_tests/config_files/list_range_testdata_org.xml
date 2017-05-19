@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+
+<data>
+    <testdata execute="yes" title ="title0">
+    <command send="cd warrior_list_range_test" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="" sleep="2" resp_req="NO"/> 
+    </testdata>
+
+    <testdata execute="yes" title ="title1">
+    <!-- command list - no substitution -->
+    <command send="cat simple_text.txt" start=".*" end="${ network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt }" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v1" sleep="2" resp_req="NO"/>
+    
+    <command send="cat simple_text.txt" start=".*" end="${ network1.ne1.prompt }" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v2" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v3" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v4" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v5" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v6" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v7" sleep="2" resp_req="NO"/> 
+    
+    <command send="cat simple_text.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v8" sleep="2" resp_req="NO"/> 
+
+    <v1 found="yes" search="simple text"/>
+    <v2 found="yes" search="var sub ${ v2.value}"/>
+    <v3 found="yes" search="simple list sub ${v3.list }"/>
+    <v4 found="yes" search="simple range sub ${ v4.list }"/>
+    <v5 found="yes" search="simple mix sub ${v5.list}"/>
+    <v6 found="yes" search="multi list sub ${v6.value} ${  v6.list} ${  v6.list2  }"/>
+    <v7 found="yes" search="multi range sub ${v7.value} ${  v7.list} ${  v7.list2}"/>
+    <v8 found="yes" search="multi mix sub ${v8.value} ${v8.list} ${v8.list2}"/>
+    <v9 found="no" search="abcdefghijklmnopqrstuvwxyz1234567890"/>
+    </testdata>
+
+    <testdata execute="yes" title ="title2">
+
+    <command send="cat multi_list_sub_${c6.list}${c6.list2}.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v6:M,v7:m,v8" sleep="2" resp_req="NO"/> 
+
+    <command send="cat multi_list_sub_${c7.list}${c7.list2}.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v6:M,v7,v8:m" sleep="2" resp_req="NO"/> 
+
+    <command send="cat multi_list_sub_${c8.list}${c8.list2}.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v6,v7:M,v8:m" sleep="2" resp_req="NO"/> 
+
+    <command send="cat multi_list_sub_${c6.list}${c6.list2}.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v4,v5,v8:m" sleep="2" resp_req="NO"/> 
+
+    <command send="cat multi_list_sub_${c7.list}${c7.list2}.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v4,v5,v8:m" sleep="2" resp_req="NO"/> 
+
+    <command send="cat multi_list_sub_${c8.list}${c8.list2}.txt" start=".*" end="${network1.ne1.prompt}" 
+    timeout="" retry="n" retry_timer="4" 
+    retry_onmatch="retry11" retry_count="10" verify="v9,v4,v5,v8:m" sleep="2" resp_req="NO"/> 
+
+    <v1 found="yes" search="simple text"/>
+    <v2 found="yes" search="var sub ${          v2.value}"/>
+    <v3 found="yes" search="simple list sub ${v3.list}"/>
+    <v4 found="yes" search="simple range sub ${v4.list         }"/>
+    <v5 found="yes" search="simple mix sub ${v5.list}"/>
+    <v6 found="yes" search="multi list sub ${v6.value    } ${   v6.list} ${   v6.list2}"/>
+    <v7 found="yes" search="multi range sub ${v7.value} ${v7.list} ${v7.list2}"/>
+    <v8 found="yes" search="multi mix sub ${v8.value} ${v8.list} ${v8.list2}"/>
+    <v9 found="no" search="abcdefghijklmnopqrstuvwxyz1234567890"/>
+
+    </testdata>   
+</data>

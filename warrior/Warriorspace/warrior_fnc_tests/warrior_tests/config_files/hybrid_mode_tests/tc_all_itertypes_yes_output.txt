@@ -1,0 +1,35 @@
+
+****************************
+once_per_tc_with_system_name_given_1 ran
+Ran on sys1
+****************************
+
+****************************
+once_per_tc_with_no_name_given_2 ran
+Ran on sys1
+****************************
+
+****************************
+standard_with_system_name_not_given_5 ran
+Ran on sys1
+****************************
+
+****************************
+standard_with_system_name_not_given_5 ran
+Ran on sys2
+****************************
+
+****************************
+standard_with_system_name_not_given_5 ran
+Ran on sys3[sys4]
+****************************
+
+****************************
+end_of_tc_with_system_name_given_3 ran
+Ran on sys2
+****************************
+
+****************************
+end_of_tc_with_system_name_not_given_4 ran
+Ran on sys3[sys4]
+****************************

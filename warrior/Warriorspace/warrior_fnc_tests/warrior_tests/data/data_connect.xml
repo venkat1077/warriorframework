@@ -1,0 +1,21 @@
+<credentials>
+    <system name="1finity">
+        <ip>167.254.219.51</ip>
+        <ssh_port>10062</ssh_port>
+        <conn_type>ssh</conn_type>
+        <timeout>60</timeout>
+        <prompt>fujitsu@fujitsu</prompt>
+        <username>fujitsu</username>
+        <password>1finity</password>
+        <testdata>../config_files/cli_data_connect_testdata.xml</testdata>
+    </system>
+    <system name="dpoe01">
+        <ip>167.254.213.197</ip>
+        <ssh_port>22</ssh_port>
+        <conn_type>ssh</conn_type>
+        <timeout>60</timeout>
+        <prompt>labadmin@rtxdpoe01:</prompt>
+        <username>labadmin</username>
+        <password>labadmin1</password>
+    </system>
+</credentials>

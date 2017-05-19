@@ -1,0 +1,95 @@
+<Testcase>
+
+    <Details>
+        <Name>tc_env_var_testdata</Name>
+        <Title>Test if method can correctly add and get environment variable, replace the key with value in testdata file</Title>
+        <InputDataFile>../../../data/cli_env_var_td_Data.xml</InputDataFile>
+        <Datatype>Custom</Datatype>
+        <default_onError action="next"/>
+        <Logsdir>../../../Execution</Logsdir>
+        <Resultsdir>../../../Execution</Resultsdir>
+        <Engineer>vsethura</Engineer>
+    </Details>
+
+    <Requirements>
+    </Requirements>
+
+    <Steps>
+        <step Driver="common_driver" Keyword="set_env_var" TS="1" >
+            <Arguments>
+                <argument name="var_key" value="ls_cmd"/>
+                <argument name="var_value" value="ls"/>
+            </Arguments>
+        </step>
+        <step Driver="common_driver" Keyword="set_env_var" TS="2" >
+            <Arguments>
+                <argument name="var_key" value="WarriorUSER"/>
+                <argument name="var_value" value="labadmin"/>
+            </Arguments>
+        </step>
+        <step Driver="common_driver" Keyword="set_env_var" TS="3" >
+            <Arguments>
+                <argument name="var_key" value="ls_opt"/>
+                <argument name="var_value" value=" -af"/>
+            </Arguments>
+        </step>
+        <step Driver="common_driver" Keyword="set_env_var" TS="4" >
+            <Arguments>
+                <argument name="var_key" value="v1"/>
+                <argument name="var_value" value="ERR:"/>
+            </Arguments>
+        </step>
+        <step Driver="common_driver" Keyword="set_env_var" TS="5" >
+            <Arguments>
+                <argument name="var_key" value="v2"/>
+                <argument name="var_value" value=".eclipse"/>
+            </Arguments>
+        </step>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="6">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="7">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title" value="td_with_env_valid"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>Verify Variable config support for Testdata</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="8">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title" value="td_with_env_invalid"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>Verify Variable config support for Testdata</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>noimpact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="9">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+
+    </Steps>
+
+</Testcase>

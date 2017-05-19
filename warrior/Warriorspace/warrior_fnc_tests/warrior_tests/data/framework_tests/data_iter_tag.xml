@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<credentials>
+    <system name="rtxttalp01_sys_1">
+		    <ip>168.127.134.184</ip>
+		    <conn_type>ssh</conn_type>
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>\$</prompt>
+			<testdata>../../config_files/framework_tests/td_iter_tag.xml</testdata>
+    </system>
+    <system name="rtxttalp01_sys_2" iter="no">
+		    <ip>non_existing_ip</ip>
+		    <conn_type>ssh</conn_type>
+			<ssh_port>22</ssh_port>
+			<username>username</username>
+			<password>password</password>
+			<prompt>\$</prompt>
+			<testdata>../../config_files/framework_tests/td_iter_tag.xml</testdata>
+    </system>
+    <system name="rtxttalp01_sys_3">
+		    <ip>168.127.134.184</ip>
+		    <conn_type>ssh</conn_type>
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>\$</prompt>
+			<testdata>../../config_files/framework_tests/td_iter_tag.xml</testdata>
+    </system>
+</credentials>

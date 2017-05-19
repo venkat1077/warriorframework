@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<credentials>
+
+
+	
+    <system name="server1" >
+    	<subsystem name="interface1" ip="167.254.213.197"  dns="rtxplgn09" conn_type="ssh" ssh_port="22"
+	    	username="labadmin" password="labadmin1" prompt="\$"
+	    	testdata="../config_files/td_iterations.xml" variable_config="../config_files/vc_iterations.xml"
+	    	vc1="../config_files/Cli_varconfig_1.xml" td1="../config_files/Cli_testdata_1.xml">
+	    </subsystem>
+
+
+	</system>
+
+    <system name="server2" >
+    	<subsystem name="interface1" ip="167.254.213.197" conn_type="ssh" ssh_port="22"
+	    	username="labadmin" password="labadmin1" prompt="labadmin@rtxdpoe01:"
+	    	testdata="../config_files/Cli_testdata.xml" variable_config="../config_files/Cli_varconfig.xml">
+	    </subsystem>
+
+    	<subsystem name="interface2" ip="167.254.213.199" conn_type="ssh" ssh_port="22"
+	    	username="labadmin" password="labadmin" prompt="labadmin@rtxdpoe03:"
+	    	testdata="../config_files/Cli_testdata.xml" variable_config="../config_files/Cli_varconfig.xml">
+	    </subsystem>
+
+	</system>
+
+
+
+	
+</credentials>
+

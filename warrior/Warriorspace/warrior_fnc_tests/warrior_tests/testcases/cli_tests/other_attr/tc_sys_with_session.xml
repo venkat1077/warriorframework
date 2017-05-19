@@ -1,0 +1,213 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_sys_with_session</Name>
+		<Title>verify cli cmd by using sys tag with session name from the test data file</Title>
+		<InputDataFile>../../../data/cli_sys_with_session_Data.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<Date>2016-04-08</Date>
+		<Time>14:55</Time>
+		<Engineer>vsethura</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>ssh-connect-001</Requirement>
+		<Requirement>ssh-disconnect-001</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="2">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session2"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="3">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="4">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session2"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="5">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m2]"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="6">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="title" value="ls_cmd"/>
+				<argument name="row_num" value="sys1_None"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="7">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="title" value="ls_cmd"/>
+				<argument name="row_num" value="sys1_session1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="8">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="9">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="title" value="ls_cmd"/>
+				<argument name="row_num" value="sys1_session2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="10">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="session_name" value="session2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="11">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="title" value="ls_cmd"/>
+				<argument name="row_num" value="sys2_1_session1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="12">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="13">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session1"/>
+				<argument name="title" value="ls_cmd"/>
+				<argument name="row_num" value="sys2_1_session2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="14">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="15">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m1]"/>
+				<argument name="session_name" value="session2"/>
+				<argument name="title" value="ls_cmd"/>
+				<argument name="row_num" value="sys2_2_session1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="16">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_2_subsys[cli_m2]"/>
+				<argument name="session_name" value="session1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

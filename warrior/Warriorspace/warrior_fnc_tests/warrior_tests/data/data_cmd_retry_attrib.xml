@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<credentials>
+    <system name="sys1">
+            <ip>167.254.213.197</ip>>
+            <conn_type>ssh</conn_type>
+            <ssh_port>22</ssh_port>
+            <username>labadmin</username>
+            <password>labadmin1</password>
+            <prompt>labadmin@rtxdpoe01:</prompt>
+            <testdata>../config_files/td_cmd_retry_attrib.xml</testdata>
+    </system>
+</credentials>
+

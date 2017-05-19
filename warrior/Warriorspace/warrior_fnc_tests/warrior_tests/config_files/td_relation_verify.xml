@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params>
+		</command_params>
+		<verifications>
+		</verifications>
+	</global>
+	<testdata execute="yes" title ="t1" >
+	        <command send="mkdir ver_rel"
+	                 end="\$" />
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="total (\d+)" operator="eq" cond_value="8"/>
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="total (\d+)" operator="eq" cond_value="8" cond_type="int"/>
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v3" />
+            <v3 found="yes" search="total (\d+)" operator="gt" cond_value="5" cond_type="int"/>
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v4" />
+            <v4 found="no" search="total (\d+)" operator="lt" cond_value="5" cond_type="int"/>
+	</testdata>
+    <testdata execute="yes" title ="t2" >
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v5" />
+            <v5 found="no" search="total " operator="lt" cond_value="5" cond_type="int"/>            
+    </testdata>
+	<testdata execute="yes" title="inorder_neg1">
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v1,v2,v3" inorder="y" />
+            <v1 found="no" search="total " operator="eq" cond_value="8" cond_type="int" />
+			<v2 found="yes" search="drwxr-xr-x" />
+			<v3 found="yes" search="drwxrwxr-x" />
+    </testdata>
+    <testdata execute="yes" title="inorder_neg2">
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v1,v2,v3" inorder="y" />
+            <v1 found="yes" search="total " operator="eq" cond_value="8" cond_type="int" />
+			<v2 found="yes" search="drwxr-xr-x" />
+			<v3 found="yes" search="drwxrwxr-x" />
+	</testdata>
+    <testdata execute="yes" title="inorder_verification">
+            <command send="ls -lar ver_rel"
+                     end="\$"
+                     verify="v1,v2,v3" inorder="y" />
+			<v1 found="yes" search="drwxr-xr-x" />
+            <v2 found="no" search="total (\d+)" operator="eq" cond_value="8" cond_type="int" />
+			<v3 found="yes" search="drwxrwxr-x" />
+			<command send="rmdir ver_rel"
+	                 end="\$" />
+	</testdata>
+</data>

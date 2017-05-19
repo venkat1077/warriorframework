@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<credentials>
+
+    <system name="fwcds-hd12_no_subsys">
+		    <ip>167.254.208.211</ip>
+		    <conn_type>telnet</conn_type>
+			<telnet_port>2048</telnet_port>
+            <timeout>30</timeout>
+            <prompt>Connected to 167.254.208.211</prompt>
+    </system>
+
+    <system name="CiscoS1">
+            <ip>167.254.213.230</ip>>
+            <conn_type>telnet</conn_type>
+            <timeout>30</timeout>
+            <username>admin</username>
+            <password>admin</password>
+            <prompt>CiscoS1</prompt>
+    </system>
+
+    <system name="fwcds-hd12_1_subsys">
+		<subsystem name="cli_1" ip="167.254.208.211" conn_type="telnet"
+		           telnet_port="2048" timeout="30" prompt="Connected to 167.254.208.211" >
+		</subsystem>
+    </system>
+
+    <system name="fwcds-hd12_multi_subsys">
+		<subsystem name="cli_m1" ip="167.254.208.211" conn_type="telnet">
+			<telnet_port>2048</telnet_port>
+            <timeout>30</timeout>
+            <prompt>Connected to 167.254.208.211</prompt>
+		</subsystem>
+		<subsystem name="cli_m2">
+			<ip>167.254.208.211</ip>
+			<conn_type>telnet</conn_type>
+			<telnet_port>2048</telnet_port>
+            <timeout>30</timeout>
+            <prompt>Connected to 167.254.208.211</prompt>
+		</subsystem>
+		<subsystem name="cli_m3" ip="167.254.208.211" conn_type="telnet"
+		           telnet_port="2048" timeout="30" prompt="Connected to 167.254.208.211">
+		</subsystem>
+    </system>
+
+</credentials>
+

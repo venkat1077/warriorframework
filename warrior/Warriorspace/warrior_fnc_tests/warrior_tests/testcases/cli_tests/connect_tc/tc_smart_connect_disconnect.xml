@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_connect_disconnect</Name>
+		<Title>connect and disconnect system in the data file</Title>
+		<InputDataFile>../../../data/data_connect.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<Date>2016-10-11</Date>
+		<Time>14:40</Time>
+		<Engineer>Ka Hei Chan</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>WAR-583</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect">
+			<Arguments>
+				<argument name="system_name" value="1finity"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect">
+			<Arguments>
+				<argument name="system_name" value="1finity"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="connect">
+			<Arguments>
+				<argument name="system_name" value="dpoe01"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect">
+			<Arguments>
+				<argument name="system_name" value="dpoe01"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

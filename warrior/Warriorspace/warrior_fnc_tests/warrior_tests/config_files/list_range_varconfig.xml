@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<configuration>
+	<variable_set name="v2" value="fruit"/>
+	<variable_set name="v3" list="{1,2,3}"/>
+	<variable_set name="v4" list="{2.5..4:0.5}"/>
+	<variable_set name="v5" list="{5,6,7..10:0.5,11}"/>
+	<variable_set name="v6" value="apple" list="{1,2,3}" list2="{a,b,c}"/>
+	<variable_set name="v7" value="banana" list="{2.5..3.5:0.5}" list2="{3..4:0.5}"/>
+	<variable_set name="v8" value="coconut" list="{4..5:0.5}" list2="{a,b,c}"/>
+	<variable_set name="c2" value="var_sub.txt"/>
+	<variable_set name="c3" list="{111,222,333}"/>
+	<variable_set name="c4" list="{111..333:111}"/>
+	<variable_set name="c5" value="{111,222..333:111}"/>
+	<variable_set name="c6" list="{1,2,3}" list2="{11,22,33}"/>
+	<variable_set name="c7" list="{1..3}" list2="{11..33:11}"/>
+	<variable_set name="c8" list="{1,2,3}" list2="{11..33:11}"/>
+	<network name="network1">
+		<network_element name="ne1" prompt="\$">
+			<shelf name="shelf1" shelfNo="1" shelfType="BDT1-SHB1">
+				<port name="port1" cmd="cat" startprompt=".*" endprompt="\$"/>
+			</shelf>
+		</network_element>
+	</network>
+</configuration>
+

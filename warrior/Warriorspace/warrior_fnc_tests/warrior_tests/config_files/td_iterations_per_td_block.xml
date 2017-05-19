@@ -1,0 +1,357 @@
+<?xml version="1.0" ?>
+<data>
+
+	<global>
+
+		<command_params start="${prompt.start}" end="${prompt.end}" timeout="4" sleep="2">
+		</command_params>
+		
+		<verifications>
+			<v1 found="no" search="ERROR"/>
+			<v5 found="no" search="Application Error"></v5>
+		</verifications>	
+	</global>
+
+<!-- Valid testdata for iterations starts -->
+
+<!-- 
+ Testdata with 
+1. Single command with iteration.
+2. No verifications
+-->
+
+	<testdata execute="yes" title ="valid-single-no_verifications" iter_type = "per_td_block"  >
+
+	<command  send="${network1.ne+.shelf+.card+.port+.cmd} ${network1.ne+.shelf+.card+.port+.option}"></command>
+	</testdata>
+
+	<testdata execute="yes" title ="valid-single-no_verifications" row = "iter_type_empty" iter_type = "" >
+
+	<command  send="${network1.ne+.shelf+.card+.port+.cmd} ${network1.ne+.shelf+.card+.port+.option}"></command>
+	</testdata>
+
+	<testdata execute="yes" title ="valid-single-no_verifications" row = "iter_type_invalid" iter_type = "xyz"  >
+
+	<command  send="${network1.ne+.shelf+.card+.port+.cmd} ${network1.ne+.shelf+.card+.port+.option}"></command>
+	</testdata>
+
+<!-- Test data with
+1. Multiple commands(some have iteration, some do not).
+2. Some commands have a mix of iterations and non-iteration patterns
+3. no verifications 
+-->
+
+	<testdata execute="yes" title ="valid-mix-no_verifications" iter_type = "per_td_block"  >
+
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}"></command>
+		<command  send="who am i"></command>
+		<command  send="${network1.ne+.shelf+.cmd} ${network1.ne+.shelf+.option}"></command>
+		<command  send="${network1.ne+.shelf+.card+.cmd} ${network1.ne+.shelf+.card+.option}"></command>
+		<command  send="${network1.ne+.shelf+.card+.port+.cmd} ${network1.ne+.shelf+.card+.port+.option}"></command>
+		<command  send="who"></command>
+		<command  send="${network1.ne+.shelf+.cmd} ${generic.option}"></command>
+		<command  send="${network1.ne+.shelf+.cmd} ${network1.ne1.shelf1.card1.port1.option}"></command>
+		<command  send="${network1.ne1.shelf+.cmd} ${network1.ne1.shelf1.card1.port1.option}"></command>
+	
+
+	</testdata>
+
+<!-- Test data with
+1. Some commands have iteration pattern in both command and the parameters.
+2. Some commands have iteration pattern only in the command and not in the parameters
+3. no verifications 
+-->
+	<testdata execute="yes" title ="valid-with_param_iter-no_verifications" iter_type = "per_td_block"  >
+
+	<!-- command with iteration but no iterations in the parameters-->
+	<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+	resp_req="n" retry="y"></command>
+
+	<!-- command and parameters have iterations-->
+	<command  send="${network1.ne+.shelf+.card+.cmd} ${network1.ne+.shelf+.card+.option}" 
+	sleep="${network1.ne+.shelf+.card+.sleep}" timeout="${network1.ne+.shelf+.card+.timeout}"
+	retry="${network1.ne+.shelf+.card+.retry}"></command>
+
+
+	</testdata>
+	
+<!-- Test data with
+1. single verification for a command, search has multiple iteration pattern in it
+2. single verification for a command, search has variable with iteration pattern and no iteration pattern 
+-->	
+
+	<testdata execute="yes" title ="valid-single_verify" iter_type = "per_td_block"  >
+
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1"></command>
+	
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v2"></command>
+	
+		<!-- verification search using the same iteration pattern as the one used in the command -->
+		<v1 search="${network1.ne+.attrib_name}:${network1.ne+.attrib_value} .* Mask"
+		found="yes" verify_on="server1[interface1]" />
+		
+		<!-- verification search using iteration pattern different from the one used in the command -->
+		<v2 search="${attribs.ifconfig.property+.attrib_name}:${attribs.ifconfig.property+.attrib_value} .* ${verification.value}" 
+		found="yes" verify_on="server1[interface1]" />
+	</testdata>
+
+<!-- Test data with
+1. single verification for a command, search has multiple iteration pattern in it
+2. single verification for a command, search has a variable with iteration pattern and no iteration pattern 
+3. the verification parameters found, verify_on also has iteration patterns
+
+-->	
+	<testdata execute="yes" title ="valid-single_verify-with_vfy_params_iter" iter_type = "per_td_block"  >
+
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1"></command>
+	
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v2"></command>
+	
+		<!-- verification search using the same iteration pattern as the one used in the command -->
+		<v1 search="${network1.ne+.attrib_name}:${network1.ne+.attrib_value} .* Mask"
+		found="${network1.ne+.found}" verify_on="${network1.ne+.verify_on}" />
+		
+		<!-- verification search using iteration pattern different from the one used in the command -->
+		<v2 search="${attribs.ifconfig.property+.attrib_name}:${attribs.ifconfig.property+.attrib_value} .* ${verification.value}" 
+		found="${attribs.ifconfig.property+.found}" verify_on="${attribs.ifconfig.property+.verify_on}" />
+	</testdata>
+
+
+<!-- Test data with
+1. multiple verification for a command, search has multiple iteration pattern in it
+2. multiple commands with varying verification lengths, some search has iteration, some do not
+3. the verification parameters found, verify_on also has iteration patterns
+
+-->	
+	<testdata execute="yes" title ="valid-multi_verify-with_vfy_params_iter" iter_type = "per_td_block"  >
+
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2"></command>
+	
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2,v3"></command>
+	
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v3"></command>
+	
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2,v3"></command>
+	
+		<!-- verification search using the same iteration pattern as the one used in the command -->
+		<v1 search="${network1.ne+.attrib_name}:${network1.ne+.attrib_value}"
+		found="${network1.ne+.found}" verify_on="${network1.ne+.verify_on}" />
+		
+		<!-- verification search using iteration pattern different from the one used in the command -->
+		<v2 search="${attribs.ifconfig.property+.attrib_name}:${attribs.ifconfig.property+.attrib_value} .* ${verification.value}" 
+		found="${attribs.ifconfig.property+.found}" verify_on="${attribs.ifconfig.property+.verify_on}" />
+		<v3 search="eth0" found="yes" />
+	
+	</testdata>
+<!-- 
+Test data where the iteration patterns are provided as input from the testcase usin VAR_SUB variable
+
+-->	
+
+	<testdata execute="yes" title ="valid-with_var_sub" iter_type = "per_td_block"  >
+
+		<command  send="${[VAR_SUB].cmd} ${[VAR_SUB].option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2"></command>
+	
+		<command  send="${[VAR_SUB].cmd} ${[VAR_SUB].option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2,v3"></command>
+	
+	
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2,v3"></command>
+	
+		<!-- verification search using the same iteration pattern as the one used in the command -->
+		<v1 search="${[VAR_SUB].attrib_name}:${[VAR_SUB].attrib_value}"
+		found="${[VAR_SUB].found}" verify_on="${[VAR_SUB].verify_on}" />
+		
+		<!-- verification search using iteration pattern different from the one used in the command -->
+		<v2 search="${attribs.ifconfig.property+.attrib_name}:${attribs.ifconfig.property+.attrib_value} .* ${verification.value}" 
+		found="${attribs.ifconfig.property+.found}" verify_on="${attribs.ifconfig.property+.verify_on}" />
+		<v3 search="eth0" found="yes" />
+	
+	</testdata>
+<!-- Valid testdata for iterations ends -->
+
+
+<!-- Invalid testdata for iteration starts -->
+
+
+<!-- Invalid iteration patterns in the command and command parameters. 
+Test data where
+1. command does not have iteration patterns while other command parameters have iteration patterns
+2. command has an iteration pattern while command parameters have a different iteration pattern
+Only the respective command should be error'ed, should not affect execution of other commands.
+-->	
+
+	<testdata execute="yes" title ="invalid-vfy-and-vfyparams" iter_type = "per_td_block"  >
+
+		<!-- Different iteration patterns used in command and command related parameters -->
+		<command  send="${[VAR_SUB].cmd} ${[VAR_SUB].option}" sleep="${network1.ne+.shelf+.card+.timeout}" timeout="100" 
+		resp_req="n" verify="v1,v2"></command>
+	
+		<!-- Command does not have iteration pattern but the command parameters have an iteration pattern -->
+		<command  send="ifconfig -a" sleep="${network1.ne+.shelf+.card+.timeout}" timeout="100" 
+		resp_req="n" verify="v1,v2,v3"></command>
+
+		<!-- success case -->
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v2,v3"></command>
+
+		<!-- verification search using the same iteration pattern as the one used in the command -->
+		<v1 search="${[VAR_SUB].attrib_name}:${[VAR_SUB].attrib_value}"
+		found="${[VAR_SUB].found}" verify_on="${[VAR_SUB].verify_on}" />
+		
+		<!-- verification search using iteration pattern different from the one used in the command -->
+		<v2 search="${attribs.ifconfig.property+.attrib_name}:${attribs.ifconfig.property+.attrib_value} .* ${verification.value}" 
+		found="${network1.ne+.found}"  />
+		<v3 search="eth0" found="yes" />
+	
+	</testdata>
+
+<!-- Invalid iteration patterns in the verification search and verification parameters. 
+Test data where
+1. verification search does not have iteration patterns while other verification parameters have iteration patterns
+2. verification search has an iteration pattern while verification parameters have a different iteration pattern
+Only the respective command should be error'ed, should not affect execution of other commands.
+-->	
+
+	<testdata execute="yes" title ="invalid-cmd-and-cmdparams" iter_type = "per_td_block"  >
+
+		<!-- Different iteration patterns used in command and command related parameters -->
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v1"></command>
+	
+		<!-- Command does not have iteration pattern but the command parameters have an iteration pattern -->
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v2"></command>
+
+		<!-- success case -->
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v3"></command>
+
+		<!-- verification search using the same iteration pattern as the one used in the command -->
+		<v1 search="addr" found="${[VAR_SUB].found}" verify_on="${[VAR_SUB].verify_on}" />
+		
+		<!-- verification search using iteration pattern different from the one used in the command -->
+		<v2 search="${attribs.ifconfig.property+.attrib_name}:${attribs.ifconfig.property+.attrib_value} .* ${verification.value}" 
+		found="${attribs.ifconfig.property+.found}" verify_on="${attribs.ifconfig.property+.verify_on}" />
+		<v3 search="eth0" found="yes" />
+	
+	</testdata>
+
+<!-- Test data where.
+1. cmd has an iteration pattern but the parent node provided in the iteration pattern could not be found in 
+the variable config file.
+2. verification search has an iteration pattern but the parent node provided in the iteration pattern could not be found in 
+the variable config file.
+3. command has an iteration pattern but the iteration node provide in the iteration pattern could not be found in the 
+varaiable config file
+4. verificaiton has an iteration pattern but the iteration node provide in the iteration pattern could not be found in the 
+varaiable config file.
+
+5. Name attribute missing for a node in variable config file
+-->	
+
+	<testdata execute="yes" title ="invalid-no_node_in_vc" iter_type = "per_td_block"  >
+
+
+		<!-- network2 not found in vc file -->
+		<command  send="${network2.ne+.cmd} ${network2.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v3"></command>
+
+		<!--  valid command but incortrect verification v1 see v1 for details -->
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v3"></command>
+		
+		<!-- shelfs not provided in vc file -->
+		<command  send="${network1.ne+.shelfs+.cmd} ${network1.ne+.shelfs+.option}"></command>
+		
+		<!--  valid command but incortrect verification v2 see v2 for details -->
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" verify="v2"></command>
+
+
+
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v3"></command>
+
+		<!-- network2 not provided in vc file -->
+		<v1 search="${network2.ne+.attrib_name}:${network2.ne+.attrib_value}" found="yes" />
+		
+		<!-- propertys is not provided in vc file -->
+		<v2 search="${attribs.ifconfig.propertys+.attrib_name}:${attribs.ifconfig.propertys+.attrib_value} .* ${verification.value}" 
+		found="yes" />
+		
+		<!-- valid verification -->
+		<v3 search="eth0" found="yes" />
+	
+	</testdata>
+
+
+<!-- Test data where.
+1. Multiple iteration patterns are provided in a command and they are not the same.
+2. Mutliple iteration patterns are provided in verification search and they are not the same.
+
+-->	
+
+	<testdata execute="yes" title ="invalid-multiple_diff_iter" iter_type = "per_td_block"  >
+
+
+		<command  send="${network2.ne+.cmd} ${network2.ne+.shelf+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v3"></command>
+
+		<command  send="${network1.ne+.cmd} ${network1.ne+.option}" sleep="2" timeout="100" 
+		resp_req="n" verify="v1,v3"></command>
+
+		<command  send="ifconfig -a" sleep="2" timeout="100" 
+		resp_req="n" verify="v3"></command>
+
+		<!-- network2 not provided in vc file -->
+		<v1 search="${network1.ne+.attrib_name}:${network1.ne+.shelf+.attrib_value}" found="yes" />
+		
+		<!-- propertys is not provided in vc file -->
+		<v2 search="${attribs.ifconfig.propertys+.attrib_name}:${attribs.ifconfig.propertys+.attrib_value} .* ${verification.value}" 
+		found="yes" />
+		
+		<!-- valid verification -->
+		<v3 search="eth0" found="yes" />
+	
+	</testdata>
+
+
+<!-- Invalid testdata for iterations ends -->
+
+
+<!--
+ Testdata with 'repeat' tag
+-->
+
+	<testdata execute="yes" title ="commands_with_repeat_yes" iter_type="per_td_block">
+	<command  send="${network1.ne+.cmd} ${network1.ne+.option}"></command>
+	<command  repeat='yes' send="${network1.ne1.shelf1.card1.port1.cmd}"></command>
+	<command  repeat='yes' send="${network1.ne+.shelf+.cmd} ${network1.ne+.shelf+.option}" verify="v1,v5"></command>
+	<command  send="who am i"></command>
+	<command  repeat='yes' send="who" verify="v1,v5" ></command>
+	</testdata>
+
+	<testdata execute="yes" title ="commands_with_repeat_no" iter_type="per_td_block" >
+	<command  send="${network1.ne+.shelf+.cmd} ${network1.ne+.shelf+.option}" verify="v1,v5"></command>
+	<command  repeat='no' send="who am i"></command>
+	</testdata>
+
+	<testdata execute="yes" title ="commands_with_repeat_invalid" iter_type="per_td_block" >
+	<command  send="${network1.ne+.shelf+.cmd} ${network1.ne+.shelf+.option}" verify="v1,v5"></command>
+	<command  repeat ='' send="who am i"></command>
+	<command  repeat ='xyz' send="who"></command>
+	</testdata>
+
+
+</data>
+

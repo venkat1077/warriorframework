@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<Testcase>
+        <Details>
+                <Name>tc_html_result_file_for_status_skip</Name>
+                <Title>html result file check when the status skipped</Title>
+                <InputDataFile>../../../data/cli_html_file_check.xml</InputDataFile>
+                <Datatype>Custom</Datatype>
+                <default_onError action="next"/>
+                <Logsdir>../../../Execution</Logsdir>
+                <Resultsdir>../../../Execution</Resultsdir>
+                <Date>2016-01-26</Date>
+                <Time>11:20</Time>
+                <Engineer>ajeyashi</Engineer>
+        </Details>
+        <Requirements>
+                <Requirement/>
+        </Requirements>
+        <Steps>
+                <step Driver="cli_driver" Keyword="connect" TS="1">
+                        <Arguments>
+                                <argument name="system_name" value="NE1"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <Description>connect_ssh</Description>
+                        <Execute ExecType="Yes"/>
+                        <context>positive</context>
+                        <impact>impact</impact>
+                </step>
+                <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="7">
+                        <Arguments>
+                                <argument name="system_name" value="NE1"/>
+                                <argument name="title" value="execute"/>
+                        </Arguments>
+                        <onError action="next"/>
+                        <runmode type="rup" value="2"/>
+                        <Description></Description>
+                        <Execute ExecType="Yes"/>
+                        <context>negative</context>
+                        <impact>impact</impact>
+                </step>
+        </Steps>
+</Testcase>

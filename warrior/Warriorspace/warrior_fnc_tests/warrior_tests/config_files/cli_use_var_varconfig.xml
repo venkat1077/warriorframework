@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<configuration>
+	<variable_set name="ls_cmd" value="ls -aF" />
+	<variable_set name="v1" value="ERR: NOT_FOUND" />
+	<variable_set name="v2" value=".eclipse" />
+	<variable_set name="v3" value=".Xauthority" />
+
+	<network name="net1">
+		<network_element name="ne1">
+			<shelf name="shp1" shelfNo="1" >
+				<port name="prt1" cmd="${ls_cmd.value}" start=".*" end="\$"/>
+			</shelf>
+		</network_element>
+	</network>
+
+	<network name="net2">
+		<network_element name="ne2">
+			<shelf name="shp2" shelfNo="2" >
+				<port name="prt2" cmd="${ls_cmd.value}" start=".*" end="\$"/>
+			</shelf>
+		</network_element>
+	</network>
+
+	<network name="net3">
+		<network_element name="ne3">
+			<shelf name="shp3" shelfNo="3" >
+				<port name="prt3" cmd="${ls_cmd.value}" start=".*" end="\$"/>
+			</shelf>
+		</network_element>
+	</network>
+
+	</configuration>
+

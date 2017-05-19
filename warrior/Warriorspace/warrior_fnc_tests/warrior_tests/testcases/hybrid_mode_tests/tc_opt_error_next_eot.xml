@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_opt_error_next_eot</Name>
+		<Title>once_per_tc gives error and next step is end_of_tc</Title>
+		<Engineer>Ragh</Engineer>
+		<Date>2016-11-07</Date>
+		<Time>13:23</Time>
+		<State/>
+		<InputDataFile>../../data/hybrid_mode_tests/data_hybrid_iter_yes.xml</InputDataFile>
+		<Datatype>Hybrid</Datatype>
+		<default_onError action="next"/>
+		<Logsdir/>
+		<Resultsdir/>
+		<ExpectedResults/>
+	</Details>
+	<Requirements>
+		<Requirement/>
+	</Requirements>
+	<Steps>
+		<step Driver="ci_regression_driver" Keyword="standard_with_system_name_not_given" TS="1">
+			<Arguments>
+				<argument/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>standard_with_system_name_not_given</Description>
+			<iteration_type type="standard"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="once_per_tc_with_error" TS="2">
+			<Arguments>
+				<argument/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>once_per_tc_with_error</Description>
+			<iteration_type type="once_per_tc"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>noimpact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="end_of_tc_with_system_name_not_given" TS="3">
+			<Arguments>
+				<argument/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>end_of_tc_with_system_name_not_given</Description>
+			<iteration_type type="end_of_tc"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="ci_regression_driver" Keyword="standard_with_system_name_not_given" TS="4">
+			<Arguments>
+				<argument/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>standard_with_system_name_not_given</Description>
+			<iteration_type type="standard"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Project>
+    <Details>
+        <Name>pj_cli_part_4_verify_on_iteration</Name>
+        <Title>cli functional tests</Title>
+        <Engineer>Ka Hei Chan</Engineer>
+        <Date>05/03/2017</Date>
+        <Time>14:40:45</Time>
+        <default_onError action="next"/>
+    </Details>
+    <Testsuites>
+        <Testsuite>
+            <path>../suites/cli_tests/log_verify_on_suite.xml</path>
+            <onError action="next" value=""/>
+            <impact>impact</impact>
+        </Testsuite>
+        <Testsuite>
+            <path>../suites/cli_tests/cli_iteration.xml</path>
+            <onError action="next" value=""/>
+            <impact>impact</impact>
+        </Testsuite>
+    </Testsuites>
+</Project>

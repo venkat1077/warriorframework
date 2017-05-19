@@ -1,0 +1,121 @@
+<Testcase>
+    
+    <Details>
+        <Name>list_range</Name>
+        <Title>Test case for list substitution in both command list and verify text list</Title>
+        <Author>Ka Hei Chan</Author>
+        <InputDataFile>../../../data/list_range_Data.xml</InputDataFile> 
+        <Datatype>iterative</Datatype>
+        <default_onError action="next"/>
+        <Logsdir>../Execution</Logsdir>
+        <Resultsdir>../Execution</Resultsdir>
+    </Details>
+    
+    <Requirements>
+        <requirement>A dedicated mind to understand the structure of Warrior framework</requirement>
+    </Requirements>
+    
+    <Steps>
+        <step Driver="cli_driver" Keyword="connect_ssh" />
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title0" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title1" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title2" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title3" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title4" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title5" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title6" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title7" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>     
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title8" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title9" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>
+
+        <step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+        <Arguments>
+            <argument name="title" value="title10" />
+            <argument name="var_sub" value="network1.ne1.shelf1" />
+        </Arguments>
+        <onError action='next'/>
+        <context>positive</context>
+        </step>
+    </Steps>
+
+</Testcase>

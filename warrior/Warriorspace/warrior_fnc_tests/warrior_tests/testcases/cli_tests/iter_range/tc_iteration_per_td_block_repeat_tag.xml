@@ -1,0 +1,67 @@
+<Testcase>
+	
+	<Details>
+		<Name>tc_iteration_per_td_block_repeat_tag</Name>
+		<Title>Iterations - Type 2(per td block) with repeat tag</Title>
+		<InputDataFile>../../../data/data_iterations_per_td_block.xml</InputDataFile> 
+		<Datatype>custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+	</Details>
+	
+	<Requirements>
+		<requirement>ssh-iterative-001</requirement>
+		<requirement>ssh-iterative-002</requirement>
+		<requirement>ssh-iterative-003</requirement>
+	</Requirements>
+	
+	<Steps>
+
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="var_sub" value="network1.ne1.shelf1" />			
+		</Arguments>
+		<onError action="abort"/>
+		<context>positive</context>
+		</step>		
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="2" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="commands_with_repeat_yes" />
+		</Arguments>
+		<onError action="next"/>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="3" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="commands_with_repeat_no" />
+		</Arguments>
+		<onError action="next"/>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="4" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="commands_with_repeat_invalid" />
+		</Arguments>
+		<onError action="next"/>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="disconnect" TS="5">
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+		</Arguments>
+		<onError action="next"/>
+		<context>positive</context>
+		</step>	
+
+	</Steps>
+
+</Testcase>

@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+
+<data>
+
+	<global>
+		<command_params
+		start=".*" end="\$" timeout="" sleep="2" >
+		</command_params>
+		<verifications>
+			<v1 found="no"  search="${v1.value}" />
+			<v2 found="yes" search="${v2.value}" />
+			<v3 found="yes" search="${v3.value}" />
+		</verifications>
+	</global>
+
+	<!--
+	system name - None
+        session name - None
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys1_None" >
+		<command send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+
+	<!--
+	system name - rtxttalp01_no_subsys
+        session name - session1
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys1_session1" >
+		<command sys = "rtxttalp01_no_subsys.session1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+
+	<!--
+	system name - rtxttalp01_no_subsys
+        session name - session2
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys1_session2" >
+		<command sys = "rtxttalp01_no_subsys.session2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+
+	<!--
+	system name - rtxttalp01_2_subsys[cli_m1]
+        session name - session1
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys2_1_session1" >
+		<command sys = "rtxttalp01_2_subsys[cli_m1].session1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+
+	<!--
+	system name - rtxttalp01_2_subsys[cli_m1]
+        session name - session2
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys2_1_session2" >
+		<command sys = "rtxttalp01_2_subsys[cli_m1].session2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+	<!--
+	system name - rtxttalp01_2_subsys[cli_m2]
+        session name - session1
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys2_2_session1" >
+		<command sys = "rtxttalp01_2_subsys[cli_m2].session1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+
+	<!--
+	system name - rtxttalp01_2_subsys[cli_m2]
+        session name - session2
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys2_2_session2" >
+		<command sys = "rtxttalp01_2_subsys[cli_m2].session2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3" />
+	 </testdata>
+
+</data>

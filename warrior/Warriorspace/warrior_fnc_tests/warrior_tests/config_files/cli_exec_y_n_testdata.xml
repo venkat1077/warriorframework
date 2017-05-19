@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params>
+		</command_params>
+		<verifications>
+		</verifications>
+	</global>
+	<!--
+	Use for testing cli cmd 'execute=y/n' behavior
+	command by title:
+	-->
+    <testdata execute="yes" title ="t1_exec_y" >
+            <command send="ls NonExistTitleDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistTitleDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+    <testdata execute="no" title ="t1_exec_n" >
+            <command send="ls NonExistTitleDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistTitleDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+	<!--
+	command by row:
+	-->
+    <testdata execute="yes" row ="r1_exec_y" >
+            <command send="ls NonExistRowDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistRowDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+    <testdata execute="no" row ="r1_exec_n" >
+            <command send="ls NonExistRowDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistRowDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+	<!--
+	command by title and row:
+	-->
+    <testdata execute="yes" title = "t2_exec_y" row ="r2_exec_y" >
+            <command send="ls NonExistTitleRowDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistTitleRowDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+    <testdata execute="no" title = "t2_exec_n" row ="r2_exec_n" >
+            <command send="ls NonExistTitleRowDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistTitleRowDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+</data>

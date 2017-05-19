@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+
+<data>
+
+    <global>
+        <command_params
+            start=".*" end="\$" timeout="" sleep="2">
+        </command_params>
+        <verifications>
+        </verifications>
+
+    </global>
+
+    <testdata execute="yes" title ="setup" >
+        <command send="rm cmd_retry.txt"
+                 verify="v1" />
+        <command send="rm cmd_retry_not_run.txt"
+                 verify="v1" />
+        <v1 found="no"  search="permission" />
+    </testdata>
+
+    <testdata execute="yes" title ="cmd_retry" >
+        <command send="echo '1' | tee -a cmd_retry.txt"
+                 retry="y" retry_timer="0" retry_count="3"
+                 retry_onmatch="1"
+                 verify="v1" />
+        <v1 found="yes"  search="Intend to fail" />
+    </testdata>
+
+    <testdata execute="yes" title ="verify" >
+        <command send="wc -l cmd_retry.txt"
+                 verify="v1,v2" />
+        <v1 found="no"  search="cmd_retry.txt does not exist" />
+        <v2 found="yes" search="4" />
+    </testdata>
+
+    <testdata execute="yes" title ="cmd_retry_not_run" >
+        <command send="echo '1' | tee -a cmd_retry_not_run.txt"
+                 retry="y" retry_timer="0" retry_count="3"
+                 retry_onmatch="2"
+                 verify="v1" />
+        <v1 found="yes"  search="Intend to fail" />
+    </testdata>
+
+    <testdata execute="yes" title ="verify_not_run" >
+        <command send="wc -l cmd_retry_not_run.txt"
+                 verify="v1,v2" />
+        <v1 found="no"  search="cmd_retry_not_run.txt does not exist" />
+        <v2 found="yes" search="1" />
+    </testdata>
+</data>

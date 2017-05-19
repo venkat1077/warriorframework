@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>cli_other_attr</Name>
+		<Title>cli funct. tests to teast iteration support</Title>
+		<Engineer>Tomas Le</Engineer>
+		<Date>01/08/2016</Date>
+		<Time>13:52:26</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement>Requirement-001</Requirement>
+		<Requirement>Requirement-002</Requirement>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/cli_tests/iter_range/tc_iteration.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/iter_range/tc_iteration_per_td_block.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/iter_range/tc_iteration_per_td_block_repeat_tag.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>

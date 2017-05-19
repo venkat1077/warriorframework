@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params>
+		</command_params>
+		<verifications>
+		</verifications>
+	</global>
+	<!--
+	cli cmd attr. defined locally in the testdata block
+	-->
+	<!--
+	command by title:
+	-->
+    <testdata execute="yes" title ="mk_test_dir1" >
+            <command send="mkdir CliTestDir1"
+                     start=".*" end="\$" timeout="10" sleep="1"
+                     verify="v1,v2" />
+            <v1 found="no" search="ERROR" />
+            <v2 found="no" search="cannot create" />
+            <command send="ls -d *"
+                     start=".*" end="\$" timeout="10" sleep="1"
+                     verify="chk1" />
+            <chk1 found="yes" search="CliTestDir1" />
+    </testdata>
+    <testdata execute="yes" title ="mk_test_dir2" >
+            <command send="mkdir CliTestDir2"
+                     start=".*" end="\$" timeout="20" sleep="2"
+                     verify="v3,v4" />
+            <v3 found="no" search="ERROR" />
+            <v4 found="no" search="cannot create" />
+            <command send="ls -d *"
+                     start=".*" end="\$" timeout="20" sleep="2"
+                     verify="chk2" />
+            <chk2 found="yes" search="CliTestDir2" />
+    </testdata>
+    <testdata execute="yes" title ="mk_test_dir3" >
+            <command send="mkdir CliTestDir3"
+                     start=".*" end="\$" timeout="30" sleep="3"
+                     verify="v5,v6" />
+            <v5 found="no" search="ERROR" />
+            <v6 found="no" search="cannot create" />
+            <command send="ls -d *"
+                     start=".*" end="\$" timeout="30" sleep="3"
+                     verify="chk3" />
+            <chk3 found="yes" search="CliTestDir3" />
+    </testdata>
+    <testdata execute="yes" title ="rm_test_dir1" >
+            <command send="rmdir CliTestDir1"
+                     start=".*" end="\$" timeout="11" sleep="1"
+                     verify="v7" />
+            <v7 found="no" search="failed" />
+            <command send="ls -d *"
+                     start=".*" end="\$" timeout="11" sleep="1"
+                     verify="gone1" />
+            <gone1 found="no" search="CliTestDir1" />
+    </testdata>
+    <testdata execute="yes" title ="rm_test_dir2" >
+            <command send="rmdir CliTestDir2"
+                     start=".*" end="\$" timeout="22" sleep="2"
+                     verify="v8" />
+            <v8 found="no" search="failed" />
+            <command send="ls -d *"
+                     start=".*" end="\$" timeout="22" sleep="2"
+                     verify="gone2" />
+            <gone2 found="no" search="CliTestDir2" />
+    </testdata>
+    <testdata execute="yes" title ="rm_test_dir3" >
+            <command send="rmdir CliTestDir3"
+                     start=".*" end="\$" timeout="33" sleep="3"
+                     verify="v9" />
+            <v9 found="no" search="failed" />
+            <command send="ls -d *"
+                     start=".*" end="\$" timeout="33" sleep="3"
+                     verify="gone3" />
+            <gone3 found="no" search="CliTestDir3" />
+    </testdata>
+	<!--
+	command by row:
+	-->
+    <testdata execute="yes" row ="ls_dir1" >
+            <command send="ls Desktop"
+                     start=".*" end="\$" timeout="41" sleep="1"
+                     verify="v10" />
+            <v10 found="no" search="No such file or directory" />
+    </testdata>
+    <testdata execute="yes" row ="ls_dir2" >
+            <command send="ls Documents"
+                     start=".*" end="\$" timeout="42" sleep="2"
+                     verify="v11" />
+            <v11 found="no" search="No such file or directory" />
+    </testdata>
+    <testdata execute="yes" row ="ls_dir3" >
+            <command send="ls Downloads"
+                     start=".*" end="\$" timeout="43" sleep="2"
+                     verify="v12" />
+            <v12 found="no" search="No such file or directory" />
+    </testdata>
+	<!--
+	command by title and row:
+	-->
+	<testdata execute="yes" title ="cd" row="r1" >
+		<command send="cd Desktop"
+		  		 start=".*" end="\$"
+		  		 verify="v13, v14" />
+  		<v13 found="no" search="No such file or directory" />
+  		<v14 found="yes" search="Desktop" />
+	</testdata>
+
+	<testdata execute="yes" title ="cd" row="r2" >
+		<command send="cd Documents"
+		  		 start=".*" end="\$"
+		  		 verify="v15, v16" />
+  		<v15 found="no" search="No such file or directory" />
+  		<v16 found="yes" search="Documents" />
+	</testdata>
+	<testdata execute="yes" title ="cd" row="r3" >
+		<command send="cd Downloads"
+		  		 start=".*" end="\$"
+		  		 verify="v17, v18" />
+  		<v17 found="no" search="No such file or directory" />
+  		<v18 found="yes" search="Downloads" />
+	</testdata>
+
+</data>

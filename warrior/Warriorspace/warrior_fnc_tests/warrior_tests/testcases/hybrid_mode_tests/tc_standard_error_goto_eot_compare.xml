@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_standard_error_goto_eot_compare</Name>
+		<Title>checking the functionalities for error in standard and goto is end_of_tc</Title>
+		<Engineer>Ragh</Engineer>
+		<Date>2016-11-07</Date>
+		<Time>11:50</Time>
+		<State/>
+		<InputDataFile>../../data/hybrid_mode_tests/data_hybrid_iter_yes.xml</InputDataFile>
+		<Datatype>custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir/>
+		<Resultsdir/>
+		<ExpectedResults/>
+	</Details>
+	<Requirements>
+		<Requirement/>
+	</Requirements>
+	<Steps>
+		<step Driver="ci_regression_driver" Keyword="compare_hybrid_tc_result" TS="1">
+			<Arguments>
+				<argument name="input_file" value="../../config_files/hybrid_mode_tests/tc_standard_error_goto_eot_output.txt"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>compare_hybrid_tc_result</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

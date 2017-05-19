@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_resp_multi_subsys</Name>
+		<Title>verify cli cmd resp behavior by title_rownum, MULTI subsystem</Title>
+		<InputDataFile>../../../data/cli_resp_Data.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<Date>2016-01-26</Date>
+		<Time>11:20</Time>
+		<Engineer>Tomas Le</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>ssh-connect-001</Requirement>
+		<Requirement>ssh-disconnect-001</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="2">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+                                <argument name="title" value="t3"/>
+                                <argument name="row_num" value="r3"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="common_driver" Keyword="verify_resp_data" TS="3">
+			<Arguments>
+				<argument name="object_key" value="t3r3"/>
+				<argument name="resp_ref"  value="t3r3_tag"/>
+				<argument name="resp_pat" value="Pictures"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>verify_resp_data</Description>
+			<Execute ExecType="Yes"/>
+			<context>negative</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="4">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+                                <argument name="title" value="t4"/>
+                                <argument name="row_num" value="r4"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="common_driver" Keyword="verify_resp_data" TS="5">
+			<Arguments>
+				<argument name="object_key" value="t4r4"/>
+				<argument name="resp_ref"  value="t4r4_tag"/>
+				<argument name="resp_pat" value="Public"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>verify_resp_data</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="6">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

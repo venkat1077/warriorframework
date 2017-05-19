@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<credentials>
+
+    <system name="sys1">
+		<ip>168.127.134.184</ip>
+		<conn_type>ssh</conn_type>
+		<ssh_port>22</ssh_port>
+		<username>labadmin</username>
+		<password>labadmin</password>
+		<prompt>labadmin@rtxttalp01:</prompt>
+		<testdata></testdata>
+		<variable_config></variable_config>
+    </system>
+    <system name="sys2">
+		<ip>168.127.134.184</ip>
+		<conn_type>ssh</conn_type>
+		<ssh_port>22</ssh_port>
+		<username>labadmin</username>
+		<password>labadmin</password>
+		<prompt>labadmin@rtxttalp01:</prompt>
+		<testdata></testdata>
+		<variable_config></variable_config>
+    </system>
+    <system name="sys3">
+		<subsystem name="sys4" ip="168.127.134.184" conn_type="ssh">
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>labadmin@rtxttalp01:</prompt>
+			<testdata></testdata>
+		</subsystem>
+		<subsystem name="sys5">
+			<ip>168.127.134.184</ip>
+			<conn_type>ssh</conn_type>
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>labadmin@rtxttalp01:</prompt>
+			<testdata></testdata>
+		</subsystem>
+  </system>
+</credentials>

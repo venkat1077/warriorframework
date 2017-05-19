@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_local_title_row_multi_subsys</Name>
+		<Title>cli cmd attr. defined locally</Title>
+		<InputDataFile>../../../data/cli_local_Data.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<Date>2016-01-22</Date>
+		<Time>17:35</Time>
+		<Engineer>Tomas Le</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>ssh-connect-001</Requirement>
+		<Requirement>ssh-disconnect-001</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="2">
+			<Arguments>
+				<argument name="title" value="cd"/>
+				<argument name="row_num" value="r3"/>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="3">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_multi_subsys[cli_m3]"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

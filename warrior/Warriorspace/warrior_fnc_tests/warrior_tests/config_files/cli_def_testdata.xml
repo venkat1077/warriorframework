@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params>
+		</command_params>
+		<verifications>
+		</verifications>
+	</global>
+<!--
+cli send cmd attribute defaults:
+    start=".*"
+    timeout="60" sec
+    sleep="0" sec
+    retry="n"
+    retry_timer="60"
+    retry_count="5"
+    resp_req="y", always on unless turn-off by setting to ‘n’
+    resp_ref=<personal flag> default is command’s number in testdata block,
+             i.e. if it is the third command then it will be 3 and so on,
+No default:
+    end=<prompt>, mandatory
+    verify=<condtions> no defaults, if not given, 'None' type
+    retry_onmatch=<str to match> no defaults, if not provide,
+                  matching will not be performed,
+                  command will be just re-tried without any matching
+    resp_pat_req=<response pattern to look for> no defaults,
+                  if not given will just return the whole response
+                  Will not take affects if resp_req=n
+-->
+	<!--
+	command by title:
+	def: start, timeout, sleep, retry, resp_req, resp_ref
+	 Ex: Result.
+		-I- Command #1	: ls NonExistDir
+		-I- Startprompt	: .*
+		-I- Endprompt	: \$
+		-I- Sleeptime	: 0
+		-I- Response required: y
+		-I- Response reference: 1
+		-I- Response pattern required:
+		-I- Command timeout: 60
+	-->
+    <testdata execute="yes" title ="t1" >
+            <command send="ls NonExistTitleDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistTitleDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+	<!--
+	command by row:
+	-->
+    <testdata execute="yes" row ="r1" >
+            <command send="ls NonExistRowDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistRowDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+            <command send="wctrl:M"
+                     end="\$"
+                     verify="v3" />
+            <v3 found="no" search="                    " />
+            <command send="ls NonExistRowDir_2"
+                     end="\$"
+                     verify="v4" />
+            <v4 found="no" search="   " />
+    </testdata>
+	<!--
+	command by title and row:
+	-->
+    <testdata execute="yes" title = "t2" row ="r2" >
+            <command send="ls NonExistTitleRowDir"
+                     end="\$"
+                     verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+            <command send="ls NonExistTitleRowDir_2"
+                     end="\$"
+                     verify="v2" />
+            <v2 found="yes" search="No such file or directory" />
+    </testdata>
+</data>

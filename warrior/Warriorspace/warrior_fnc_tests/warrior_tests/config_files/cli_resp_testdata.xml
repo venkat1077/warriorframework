@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params
+	        start=".*" end="\$" timeout="5" sleep="2" >
+		</command_params>
+		<verifications>
+		</verifications>
+	</global>
+	<!--
+	Use for testing cli cmd response behavior
+    resp_req="y", always on unless turn-off by setting to ‘n’
+    resp_ref=<personal flag> default is command’s number in testdata block,
+             i.e. if it is the third command then it will be 3 and so on,
+    resp_pat_req=<response pattern to look for> no defaults,
+                  if not given will just return the whole response
+                  Will not take affects if resp_req=n
+	-->
+	<!--
+	command by title:
+	-->
+	<!-- response turn-off and resp_pat_req not in use-->
+    <testdata execute="yes" title ="t1" >
+            <command send="ls -F"
+            		 resp_req="n" resp_ref="t1_tag" resp_pat_req="Documents"/>
+    </testdata>
+ 	<!-- default resp_req=y, resp_ref, resp_pat_req -->
+    <testdata execute="yes" title ="t2" >
+            <command send="ls -F"
+					 resp_ref="t2_tag" resp_pat_req="Videos" />
+    </testdata>
+	<!--
+	command by row:
+	-->
+	<!-- response turn-off and resp_pat_req not in use-->
+    <testdata execute="yes" row ="r1" >
+            <command send="ls -F"
+            		 resp_req="n" resp_ref="r1_tag" resp_pat_req="Downloads"/>
+    </testdata>
+ 	<!-- default resp_req=y, resp_ref, resp_pat_req -->
+    <testdata execute="yes" row ="r2" >
+            <command send="ls -F"
+					 resp_ref="r2_tag" resp_pat_req="Music" />
+    </testdata>
+	<!--
+	command by title and row:
+	-->
+	<!-- response turn-off and resp_pat_req not in use-->
+    <testdata execute="yes" title="t3" row ="r3" >
+            <command send="ls -F"
+            		 resp_req="n" resp_ref="t3r3_tag" resp_pat_req="Pictures"/>
+    </testdata>
+ 	<!-- default resp_req=y, resp_ref, resp_pat_req -->
+    <testdata execute="yes" title ="t4" row="r4" >
+            <command send="ls -F"
+					 resp_ref="t4r4_tag" resp_pat_req="Public" />
+    </testdata>
+</data>

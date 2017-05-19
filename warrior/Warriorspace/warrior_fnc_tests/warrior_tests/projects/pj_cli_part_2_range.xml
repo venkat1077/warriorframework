@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Project>
+    <Details>
+        <Name>pj_cli_part_2_range</Name>
+        <Title>cli functional tests</Title>
+        <Engineer>Ka Hei Chan</Engineer>
+        <Date>05/03/2017</Date>
+        <Time>14:40:45</Time>
+        <default_onError action="next"/>
+    </Details>
+    <Testsuites>
+        <Testsuite>
+            <path>../suites/cli_tests/list_range.xml</path>
+            <onError action="next" value=""/>
+            <impact>impact</impact>
+        </Testsuite>
+    </Testsuites>
+</Project>

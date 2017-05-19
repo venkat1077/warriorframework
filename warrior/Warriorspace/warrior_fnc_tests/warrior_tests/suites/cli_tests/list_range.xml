@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>list_range</Name>
+		<Title>cli funct. tests for commands with range/list of values</Title>
+		<Engineer>Ka Hei Chan</Engineer>
+		<Date>08/10/2016</Date>
+		<Time>16:53:00</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement>Requirement-001</Requirement>
+		<Requirement>Requirement-002</Requirement>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/cli_tests/list_range/list_range.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/list_range/list_range_org.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>

@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_var_sub_one_subsys</Name>
+		<Title>verify cli cmd by using [VAR_SUB] from the test case file, ONE subsystem</Title>
+		<InputDataFile>../../../data/cli_use_var_Data.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<Date>2016-01-26</Date>
+		<Time>11:20</Time>
+		<Engineer>Tomas Le</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>ssh-connect-001</Requirement>
+		<Requirement>ssh-disconnect-001</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_1_subsys[cli_1]"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" TS="2">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_1_subsys[cli_1]"/>
+				<argument name="title" value="t1"/>
+				<argument name="var_sub" value="net1.ne1.shp1.prt1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_rownum" TS="3">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_1_subsys[cli_1]"/>
+				<argument name="row_num" value="r1"/>
+				<argument name="var_sub" value="net2.ne2.shp2.prt2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="4">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_1_subsys[cli_1]"/>
+				<argument name="title" value="t2"/>
+				<argument name="row_num" value="r2"/>
+				<argument name="var_sub" value="net3.ne3.shp3.prt3"/>
+			</Arguments>
+			<onError action="next"/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="5">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_1_subsys[cli_1]"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

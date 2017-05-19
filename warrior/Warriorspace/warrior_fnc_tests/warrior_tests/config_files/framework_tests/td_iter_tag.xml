@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<data>
+	<global>
+		<command_params>
+		</command_params>
+		<verifications>
+		</verifications>
+	</global>
+
+    <testdata execute="yes" title = "t1" row ="r1" >
+            <command send="ls NonExistTitleRowDir"
+                     end="\$" verify="v1" />
+            <v1 found="yes" search="No such file or directory" />
+    </testdata>
+</data>

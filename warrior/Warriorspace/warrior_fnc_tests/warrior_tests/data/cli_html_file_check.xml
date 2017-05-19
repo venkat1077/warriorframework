@@ -1,0 +1,11 @@
+<credentials>
+        <system name="NE1">
+                    <ip>168.127.134.184</ip>
+                    <conn_type>ssh</conn_type>
+                    <ssh_port>22</ssh_port>
+                    <testdata>../config_files/cli_html_check.xml</testdata>
+                    <username>labadmin</username>
+                    <password>labadmin</password>
+                    <prompt>labadmin@rtxttalp01:</prompt>
+        </system>
+</credentials>

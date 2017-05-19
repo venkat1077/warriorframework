@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<credentials>
+
+    <system name="dpoe01">
+		<ip>167.254.213.197</ip>
+		<conn_type>ssh</conn_type>
+		<conn_options> -o StrictHostKeyChecking=no</conn_options>
+		<ssh_port>22</ssh_port>
+		<telnet_port></telnet_port>
+		<username>labadmin</username>
+		<password>labadmin1</password>
+		<prompt>labadmin@rtxdpoe01:</prompt>
+		<testdata>../config_files/Cli_iterative_testdata.xml</testdata>
+		<variable_config>../config_files/Cli_iterative_varconfig.xml</variable_config>
+	</system>
+
+</credentials>
+

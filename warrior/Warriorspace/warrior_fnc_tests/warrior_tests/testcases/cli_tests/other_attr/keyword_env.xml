@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>keyword_env</Name>
+		<Title>To check whether keyword arguments are getting values from environment</Title>
+		<Engineer>Ragh</Engineer>
+		<Date>2016-10-11</Date>
+		<Time>17:21</Time>
+		<State/>
+		<InputDataFile>No_Data</InputDataFile>
+		<Datatype/>
+		<default_onError action="next"/>
+		<Logsdir/>
+		<Resultsdir/>
+		<ExpectedResults/>
+	</Details>
+	<Requirements>
+		<Requirement/>
+	</Requirements>
+	<Steps>
+		<step Driver="common_driver" Keyword="set_env_var" TS="1">
+			<Arguments>
+				<argument name="var_value" value="pass"/>
+				<argument name="var_key" value="check"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>set_env_var</Description>
+			<iteration_type type=""/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+			<rmt/>
+		</step>
+		<step Driver="demo_driver" Keyword="local_data_test" TS="2">
+			<Arguments>
+				<argument name="desired_status" value="${ENV.check}"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>local_data_test</Description>
+			<iteration_type type=""/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+			<rmt/>
+		</step>
+		<step Driver="common_driver" Keyword="set_env_var" TS="3">
+			<Arguments>
+				<argument name="var_value" value="ss"/>
+				<argument name="var_key" value="ss"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>set_env_var</Description>
+			<iteration_type type=""/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+			<rmt/>
+		</step>
+		<step Driver="demo_driver" Keyword="local_data_test" TS="4">
+			<Arguments>
+				<argument name="desired_status" value="pa${ENV.ss}"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>local_data_test</Description>
+			<iteration_type type=""/>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+			<rmt/>
+		</step>
+	</Steps>
+</Testcase>

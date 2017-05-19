@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<Project>
+	<Details>
+		<Name>pj_hybrid</Name>
+		<Title>Hybrid mode functional tests</Title>
+		<Engineer>Ragh</Engineer>
+		<Date>01/08/2016</Date>
+		<Time>13:50:45</Time>
+		<default_onError action="next"/>
+	</Details>
+	<Testsuites>
+		<Testsuite>
+			<path>../suites/hybrid_mode_tests/ts_all_itertypes_iter_no.xml</path>
+			<onError action="next" value=""/>
+			<impact>impact</impact>
+		</Testsuite>
+		<Testsuite>
+			<path>../suites/hybrid_mode_tests/ts_all_itertypes_iter_yes.xml</path>
+			<onError action="next" value=""/>
+			<impact>impact</impact>
+		</Testsuite>
+		<Testsuite>
+			<path>../suites/hybrid_mode_tests/ts_opt_error_abort.xml</path>
+			<onError action="next" value=""/>
+			<impact>impact</impact>
+		</Testsuite>
+		<Testsuite>
+			<path>../suites/hybrid_mode_tests/ts_opt_error_next_eot.xml</path>
+			<onError action="next" value=""/>
+			<impact>impact</impact>
+		</Testsuite>
+		<Testsuite>
+			<path>../suites/hybrid_mode_tests/ts_standard_error_goto_eot.xml</path>
+			<onError action="next" value=""/>
+			<impact>impact</impact>
+		</Testsuite>
+		<Testsuite>
+			<path>../suites/hybrid_mode_tests/ts_standard_error_abort.xml</path>
+			<onError action="next" value=""/>
+			<impact>impact</impact>
+		</Testsuite>
+		
+	</Testsuites>
+</Project>

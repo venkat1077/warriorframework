@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>cli_other_attr</Name>
+		<Title>cli funct. tests with some specific attr. params</Title>
+		<Engineer>Tomas Le</Engineer>
+		<Date>01/08/2016</Date>
+		<Time>13:52:26</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement>Requirement-001</Requirement>
+		<Requirement>Requirement-002</Requirement>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_exec_y_n_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_resp_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_resp_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_resp_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_cmd_retry_attrib.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_use_var_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_var_sub_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_var_sub_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_var_sub_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_env_var.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_env_var_testdata.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_sys_with_session.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_sys_tag.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_inorder_resp.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_no_impact_verification.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_html_result_file_for_status_skip.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<runmode type="rup" value="2"/>
+			<impact>impact</impact>
+		</Testcase>
+        <Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_no_impact_onerror_goto_verification.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+        <Testcase>
+			<path>../../testcases/cli_tests/other_attr/tc_testdata_relations_verify.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>

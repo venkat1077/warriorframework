@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+
+<data>
+
+	<global>
+		<command_params
+		start=".*" end="\$" timeout="" sleep="2" >
+		</command_params>
+		<verifications>
+			<v1 found="no"  search="${v1.value}" />
+			<v2 found="yes" search="${v2.value}" />
+			<v3 found="yes" search="${v3.value}" />
+			<v4_1 found="yes" search="${v4.value}" />
+			<v4_2 found="no" search="${v4.value}" />
+		</verifications>
+	</global>
+
+	<!--
+	system name in tc step - rtxttalp01_no_subsys_1
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys1" >
+		<command send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_no_subsys_1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_no_subsys_2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "rtxttalp01_2_subsys[cli_m1]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_2_subsys[cli_m2]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+	 </testdata>
+
+	<!--
+	system name in tc step - rtxttalp01_no_subsys_2
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys2" >
+		<command send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "rtxttalp01_no_subsys_1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_no_subsys_2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "rtxttalp01_2_subsys[cli_m1]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_2_subsys[cli_m2]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+	 </testdata>
+
+	<!--
+	system name in tc step - rtxttalp01_2_subsys[cli_m1]
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys3_1" >
+		<command send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_no_subsys_1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_no_subsys_2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "rtxttalp01_2_subsys[cli_m1]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "[cli_m1]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_2_subsys[cli_m2]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "[cli_m2]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+	 </testdata>
+
+	<!--
+	system name in tc step - rtxttalp01_2_subsys[cli_m2]
+	-->
+	<testdata execute="yes" title ="ls_cmd" row="sys3_2" >
+		<command send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "rtxttalp01_no_subsys_1"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_no_subsys_2"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "rtxttalp01_2_subsys[cli_m1]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "[cli_m1]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_1" />
+		<command sys = "rtxttalp01_2_subsys[cli_m2]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+		<command sys = "[cli_m2]"
+			 send="${net1.ne1.shp1.prt1.cmd}"
+			 verify="v1,v2,v3,v4_2" />
+	 </testdata>
+
+</data>

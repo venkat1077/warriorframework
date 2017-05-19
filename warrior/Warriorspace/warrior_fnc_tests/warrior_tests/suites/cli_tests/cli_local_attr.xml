@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>cli_local_attr</Name>
+		<Title>cli funct. tests with locally defined params</Title>
+		<Engineer>Tomas Le</Engineer>
+		<Date>01/08/2016</Date>
+		<Time>13:52:26</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement>Requirement-001</Requirement>
+		<Requirement>Requirement-002</Requirement>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_title_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_title_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_title_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_row_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_row_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_row_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_title_row_no_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_title_row_one_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/cli_tests/local_attr_tc/tc_local_title_row_multi_subsys.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>

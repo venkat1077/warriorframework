@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>ts_standard_error_abort</Name>
+		<Title>Suite for testing if standard gives error and onerror action is abort</Title>
+		<Engineer>Ragh</Engineer>
+		<Date>01/08/2016</Date>
+		<Time>13:52:26</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement>Requirement-001</Requirement>
+		<Requirement>Requirement-002</Requirement>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/hybrid_mode_tests/tc_standard_error_abort.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+                        <InputDataFile>../../data/hybrid_mode_tests/data_hybrid_iter_yes.xml</InputDataFile>
+			<onError action="next"/>
+			<impact>noimpact</impact>
+		</Testcase>
+		<Testcase>
+			<path>../../testcases/hybrid_mode_tests/tc_standard_error_abort_compare.xml</path>
+			<context>positive</context>
+		        <InputDataFile>../../data/hybrid_mode_tests/data_hybrid_iter_yes.xml</InputDataFile>
+                 	<runtype>sequential_keywords</runtype>
+			<onError action="next"/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>

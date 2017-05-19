@@ -1,0 +1,54 @@
+<?xml version="1.1" ?>
+
+<data>
+    <testdata execute="yes" title ="create_file">
+        <command send="cd Desktop/WarriorTest" start=".*" end="\$" timeout="15"/>
+        <command send="echo 'initial write' > log_verify_on_file.txt" start=".*" end="\$"/>
+    </testdata>
+
+
+    <testdata execute="yes" title ="start_reading">
+        <command send="cd Desktop/WarriorTest" start=".*" end="\$" timeout="15"/>
+        <command send="tailf log_verify_on_file.txt" start=".*" end="initial write" timeout="15"/>
+    </testdata>
+
+
+    <!-- This will display whatever text receive on sys2, but it doesn't verify anything -->
+    <testdata execute="yes" title ="monitor" monitor="sys2">
+        <command send="echo 'first write' >> log_verify_on_file.txt" start=".*" end="\$" sleep="5"/>
+    </testdata>
+
+
+    <testdata execute="yes" title ="verification">
+        <command send="echo 'second write' >> log_verify_on_file.txt" start=".*" verify="v1" end="\$" sleep="5"/>
+        <command send="echo 'third write' >> log_verify_on_file.txt" start=".*" verify="v2,v4" end="\$" sleep="5"/>
+        <command send="echo 'forth write' | tee -a log_verify_on_file.txt" start=".*" verify="v3" end="\$" sleep="5"/>
+
+        <v1 found="yes" search="second write" verify_on="sys2"/>
+        <v2 found="yes" search="third write" verify_on="sys2"/>
+        <v3 found="yes" search="forth write" verify_on="sys1, sys2"/>
+        <v4 found="no" search="not happened" verify_on="sys2"/>
+    </testdata>
+
+
+    <testdata execute="yes" title ="retry_verify" >
+        <command send="echo '1' | tee -a log_verify_on_file.txt"
+                 retry="y" retry_timer="0" retry_count="3"
+                 retry_onmatch="1"
+                 verify="v1" start=".*" end="\$" sleep="5"/>
+        <v1 found="yes"  search="2" verify_on="sys2"/>
+    </testdata>
+
+    <!-- Once the retry count is fix this should drop from 9 to 8... -->
+    <testdata execute="yes" title ="retry_count" >
+        <command send="wc -l log_verify_on_file.txt"
+                 verify="v1,v2" start=".*" end="\$" sleep="5"/>
+        <v1 found="no"  search="log_verify_on_file.txt does not exist" />
+        <v2 found="yes" search="9" />
+    </testdata>
+
+
+    <testdata execute="yes" title ="stop_reading">
+        <command send="wctrl:c" start=".*" end="\$" timeout="15"/>
+    </testdata>
+</data>

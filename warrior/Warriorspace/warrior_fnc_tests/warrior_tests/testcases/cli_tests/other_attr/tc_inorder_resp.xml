@@ -1,0 +1,175 @@
+<?xml version="1.0" ?>
+<Testcase>
+	<Details>
+		<Name>tc_inorder_resp</Name>
+		<Title>'in-order' cli cmd response verification</Title>
+		<InputDataFile>../../../data/cli_inorder_resp_Data.xml</InputDataFile>
+		<Datatype>Custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../../../Execution</Logsdir>
+		<Resultsdir>../../../Execution</Resultsdir>
+		<Date>2016-04-05</Date>
+		<Time>16:00</Time>
+		<Engineer>vsethura</Engineer>
+	</Details>
+	<Requirements>
+		<Requirement>ssh-connect-001</Requirement>
+		<Requirement>ssh-disconnect-001</Requirement>
+	</Requirements>
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="int_timeout" value="50"/>
+				<argument name="prompt" value="labadmin@rtxttalp01:"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>connect_ssh</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="2">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_default"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="3">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_no"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="4">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_empty"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="5">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_invalid"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="6">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_1"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="7">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_2"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>negative</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="8">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_3"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="9">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_4"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="10">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_5"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="11">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_6"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" TS="12">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+				<argument name="title"   value="inorder_verification"/>
+				<argument name="row_num" value="inorder_yes_7"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description></Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+		<step Driver="cli_driver" Keyword="disconnect" TS="13">
+			<Arguments>
+				<argument name="system_name" value="rtxttalp01_no_subsys"/>
+			</Arguments>
+			<onError action="next"/>
+			<Description>disconnect</Description>
+			<Execute ExecType="Yes"/>
+			<context>positive</context>
+			<impact>impact</impact>
+		</step>
+	</Steps>
+</Testcase>

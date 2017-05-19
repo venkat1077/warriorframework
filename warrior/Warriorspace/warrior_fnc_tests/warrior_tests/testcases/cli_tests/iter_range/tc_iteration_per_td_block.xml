@@ -1,0 +1,194 @@
+<Testcase>
+	
+	<Details>
+		<Name>tc_iteration_per_td_block</Name>
+		<Title>Iterations - Type 2(per td block)</Title>
+		<InputDataFile>../../../data/data_iterations_per_td_block.xml</InputDataFile> 
+		<Datatype>custom</Datatype>
+		<default_onError action="next"/>
+		<Logsdir>../Execution</Logsdir>
+		<Resultsdir>../Execution</Resultsdir>
+	</Details>
+	
+	<Requirements>
+		<requirement>ssh-iterative-001</requirement>
+		<requirement>ssh-iterative-002</requirement>
+		<requirement>ssh-iterative-003</requirement>
+	</Requirements>
+	
+	<Steps>
+		<step Driver="cli_driver" Keyword="connect_ssh" TS="1">
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="var_sub" value="network1.ne1.shelf1" />			
+		</Arguments>
+		<onError action='next' value='4'  />
+		<context>positive</context>
+		</step>		
+
+
+
+<!-- working steps -->
+ 
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-single-no_verifications" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-single-no_verifications" />
+			<argument name="row_num" value="iter_type_empty" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title_rownum" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-single-no_verifications" />
+			<argument name="row_num" value="iter_type_invalid" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-mix-no_verifications" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+		
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-with_param_iter-no_verifications" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-single_verify" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+		
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-single_verify-with_vfy_params_iter" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+		
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-multi_verify-with_vfy_params_iter" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="valid-with_var_sub" />
+			<argument name="var_sub" value="network1.ne+" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		</step>
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="invalid-cmd-and-cmdparams" />
+			<argument name="var_sub" value="network1.ne+" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		<impact>noimpact</impact>
+		</step>
+
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="invalid-vfy-and-vfyparams" />
+			<argument name="var_sub" value="network1.ne+" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		<impact>noimpact</impact>
+		</step>
+
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="invalid-no_node_in_vc" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		<impact>noimpact</impact>
+		</step>
+
+
+		<step Driver="cli_driver" Keyword="send_commands_by_testdata_title" >
+		<Arguments>
+			<argument name="system_name" value="server1[interface1]" />
+			<argument name="title" value="invalid-multiple_diff_iter" />
+
+		</Arguments>
+		<onError action='next' value='4'  />
+		<rmt></rmt>
+		<context>positive</context>
+		<impact>noimpact</impact>
+		</step>
+
+
+	</Steps>
+
+</Testcase>

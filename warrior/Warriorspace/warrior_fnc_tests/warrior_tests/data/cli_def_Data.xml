@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<credentials>
+
+    <system name="rtxttalp01_no_subsys">
+		    <ip>168.127.134.184</ip>>
+		    <conn_type>ssh</conn_type>
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>\$</prompt>
+			<testdata>../config_files/cli_def_testdata.xml</testdata>
+    </system>
+
+    <system name="rtxttalp01_1_subsys">
+		<subsystem name="cli_1" ip="168.127.134.184" conn_type="ssh"
+		           ssh_port="22" username="labadmin" password="labadmin"
+		           prompt="labadmin@rtxttalp01:"
+		           testdata="../config_files/cli_def_testdata.xml" >
+		</subsystem>
+    </system>
+
+    <system name="rtxttalp01_multi_subsys">
+		<subsystem name="cli_m1" ip="168.127.134.184" conn_type="ssh">
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>labadmin@rtxttalp01:</prompt>
+			<testdata>../config_files/cli_def_testdata.xml</testdata>
+		</subsystem>
+		<subsystem name="cli_m2">
+			<ip>168.127.134.184</ip>
+			<conn_type>ssh</conn_type>
+			<ssh_port>22</ssh_port>
+			<username>labadmin</username>
+			<password>labadmin</password>
+			<prompt>labadmin@rtxttalp01:</prompt>
+			<testdata>../config_files/cli_def_testdata.xml</testdata>
+		</subsystem>
+		<subsystem name="cli_m3" ip="168.127.134.184" conn_type="ssh"
+		           ssh_port="22" username="labadmin" password="labadmin"
+		           prompt="labadmin@rtxttalp01:"
+   		           testdata="../config_files/cli_def_testdata.xml" >
+		</subsystem>
+    </system>
+
+</credentials>
+

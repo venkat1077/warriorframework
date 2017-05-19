@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<credentials>
+    <system name="cds" >
+        <ip>167.254.211.164</ip>
+        <conn_type>ssh</conn_type>
+        <timeout>10</timeout>
+        <testdata>../config_files/td_custom_keystroke.xml</testdata>
+        <prompt>></prompt>
+        <username>fujitsu</username>
+        <conn_options> </conn_options>
+        <custom_keystroke>3</custom_keystroke>
+    </system>
+    <system name="ne1_tl1" >
+        <ip>asy15</ip>
+        <conn_type>telnet</conn_type>
+        <telnet_port>2048</telnet_port>
+        <timeout>10</timeout>
+        <testdata>../config_files/td_custom_keystroke.xml</testdata>
+        <prompt>Command Mode</prompt>
+        <conn_options> </conn_options>
+        <custom_keystroke>wctrl:x</custom_keystroke>
+    </system>
+</credentials>
+

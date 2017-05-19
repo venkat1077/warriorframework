@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<data>
+
+	<global>
+		<command_params
+	        start=".*" end="\$" timeout="" sleep="2" >
+
+		</command_params>
+		<verifications>
+		</verifications>
+
+	</global>
+
+	<testdata execute="yes" title ="td_with_env_valid" >
+		<command send="${ENV.ls_cmd}${ENV.ls_opt}"
+		         verify="v1,v2" />
+		<v1 found="no"  search="${ENV.v1} NOT_FOUND" />
+		<v2 found="yes" search="${ENV.v2}" />
+		<v3 found="yes" search="${v3.value}" />
+		<v4 found="yes" search="$wdf{rtxttalp01_no_subsys.username}"/>
+	</testdata>
+
+	<!-- Use environment variable which is not available -->
+	<testdata execute="yes" title ="td_with_env_invalid" >
+		<command send="${ENV.ls_cmd}${ENV.unknown}"
+		         verify="v1,v2" />
+		<v1 found="no"  search="${ENV.unknown} NOT_FOUND" />
+		<v2 found="yes" search="${ENV.v2}" />
+		<v3 found="yes" search="${v3.value}" />
+	</testdata>
+</data>

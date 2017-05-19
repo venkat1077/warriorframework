@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<TestSuite>
+	<Details>
+		<Name>log_verify_on_suite</Name>
+		<Title>Suite to test the logging and verify_on attributes</Title>
+		<Engineer>Sanika Kulkarni</Engineer>
+		<Date>03/30/2016</Date>
+		<Time>11:56:29</Time>
+		<type exectype="sequential_testcases"/>
+		<default_onError action="next"/>
+		<Resultsdir/>
+	</Details>
+	<Requirements>
+		<Requirement/>
+	</Requirements>
+	<Testcases>
+		<Testcase>
+			<path>../../testcases/cli_tests/log_verify_attr/log_verify_on.xml</path>
+			<context>positive</context>
+			<runtype>sequential_keywords</runtype>
+			<onError action=" " value=""/>
+			<rmt/>
+			<impact>impact</impact>
+		</Testcase>
+	</Testcases>
+</TestSuite>
