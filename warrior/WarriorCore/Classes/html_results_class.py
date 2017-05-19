@@ -23,6 +23,8 @@ from Framework.Utils import xml_Utils, file_Utils
 from Framework.Utils.testcase_Utils import pNote
 from Framework.Utils.print_Utils import print_info
 from Framework.Utils.xml_Utils import getElementWithTagAttribValueMatch
+import webbrowser
+
 class WarriorHtmlResults():
     """Warrior html results class """
 
@@ -427,8 +429,13 @@ class WarriorHtmlResults():
         tree = ET.ElementTree(self.html_root)
         tree.write(self.html_results_path)
         print_info("++++ Results Summary ++++")
-        print_info("Open the Results summary file given below in a browser to "\
+        try:
+            webbrowser.open_new(self.html_results_path)
+        except:
+            print_info("Open the Results summary file given below in a browser to "\
                    "view results summary for this execution")
         print_info("Results sumary file: {0}".format(self.html_results_path))
         print_info("+++++++++++++++++++++++++")
-        
+
+
+
