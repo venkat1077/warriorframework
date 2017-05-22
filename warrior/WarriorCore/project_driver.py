@@ -201,13 +201,16 @@ def execute_project(project_filepath, auto_defects, jiraproj,
         else:
             testsuite_path = str(testsuite_rel_path)
         print '\n'
-        print_debug("<<<< Starting execution of Test suite: {0}>>>>".format(testsuite_path))
-        if testsuite.find("runmode") is not None and testsuite.find("runmode").get("attempt") is not None:
+        print_debug("<<<< Starting execution of Test "
+                    "suite: {0}>>>>".format(testsuite_path))
+        if testsuite.find("runmode") is not None and\
+                testsuite.find("runmode").get("attempt") is not None:
             print_info("testsuite attempt: {0}".format(
-                                testsuite.find("runmode").get("attempt")))
-        if testsuite.find("retry") is not None and testsuite.find("retry").get("attempt") is not None:
+                       testsuite.find("runmode").get("attempt")))
+        if testsuite.find("retry") is not None and\
+                testsuite.find("retry").get("attempt") is not None:
             print_info("testsuite attempt: {0}".format(
-                                testsuite.find("retry").get("attempt")))
+                       testsuite.find("retry").get("attempt")))
         action, testsuite_status = exec_type_driver.main(testsuite)
         testsuite_impact = Utils.testcase_Utils.get_impact_from_xmlfile(testsuite)
         testsuite_name = Utils.file_Utils.getFileName(testsuite_path)
@@ -367,7 +370,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
                         goto_testsuite = str(retry_value)
         else:
             if testsuite_status is False or testsuite_status == "ERROR" or\
-                testsuite_status == "EXCEPTION":
+                    testsuite_status == "EXCEPTION":
                 goto_testsuite = onerror_driver.main(testsuite,
                                                      project_error_action,
                                                      project_error_value)
