@@ -160,7 +160,6 @@ def execute_project(project_filepath, auto_defects, jiraproj,
     project_start_time = Utils.datetime_utils.get_current_timestamp()
     print_info("[{0}] Project execution starts".format(project_start_time))
     suite_cntr = 0
-    # project_status = True
     goto_testsuite = False
     ts_status_list = []
     ts_impact_list = []
@@ -201,7 +200,6 @@ def execute_project(project_filepath, auto_defects, jiraproj,
 
     while suite_cntr < len(testsuite_list):
         testsuite = testsuite_list[suite_cntr]
-        # suite_junit_type = 'file'
         suite_cntr += 1
 
         testsuite_rel_path = testsuite_utils.get_path_from_xmlfile(testsuite)
@@ -236,41 +234,53 @@ def execute_project(project_filepath, auto_defects, jiraproj,
 
             elif goto_testsuite and goto_testsuite == str(suite_cntr)\
                     and action is True:
-                testsuite_result = testsuite_driver.main(testsuite_path,
-                                                         data_repository=data_repository,
-                                                         from_project=True,
-                                                         auto_defects=auto_defects,
-                                                         jiraproj=jiraproj,
-                                                         res_startdir=wp_results_execdir,
-                                                         logs_startdir=wp_logs_execdir,
-                                                         ts_onError_action=ts_onError_action)
+                testsuite_result = testsuite_driver.\
+                    main(testsuite_path, data_repository=data_repository,
+                         from_project=True,
+                         auto_defects=auto_defects,
+                         jiraproj=jiraproj,
+                         res_startdir=wp_results_execdir,
+                         logs_startdir=wp_logs_execdir,
+                         ts_onError_action=ts_onError_action)
                 goto_testsuite = False
                 testsuite_status = testsuite_result[0]
                 # testsuite_resultfile = testsuite_result[1]
 
             else:
-                msg = print_info('skipped testsuite: {0} '.format(testsuite_path))
+                msg = print_info('skipped testsuite: "\
+                 "{0} '.format(testsuite_path))
                 testsuite_resultfile = '<testsuite errors="0" failures="0" name="{0}" '\
                 'skipped="0" tests="0" time="0" timestamp="{1}" > '\
                 '<skipped message="{2}"/> </testsuite>'.format(testsuite_name,
                                                                project_start_time,
                                                                msg)
-                tmp_timestamp = str(Utils.datetime_utils.get_current_timestamp())
+                tmp_timestamp = str(Utils.datetime_utils.
+                                    get_current_timestamp())
                 time.sleep(2)
-                pj_junit_object.create_testsuite(location=os.path.dirname(testsuite_path), name=testsuite_name, timestamp=tmp_timestamp, **pj_junit_object.init_arg())
-                pj_junit_object.update_attr("status", "SKIPPED", "ts", tmp_timestamp)
-                pj_junit_object.update_attr("skipped", "1", "pj", tmp_timestamp)
-                pj_junit_object.update_count("suites", "1", "pj", tmp_timestamp)
-                data_repository['testsuite_%d_result'%suite_cntr] = "SKIP"
-                # pj_junit_object.add_testcase_message(tmp_timestamp, "skipped")
-                pj_junit_object.update_attr("impact", impact_dict.get(testsuite_impact.upper()),
+                pj_junit_object.create_testsuite(location=os.path.
+                                                 dirname(testsuite_path),
+                                                 name=testsuite_name,
+                                                 timestamp=tmp_timestamp,
+                                                 **pj_junit_object.init_arg())
+                pj_junit_object.update_attr("status", "SKIPPED",
                                             "ts", tmp_timestamp)
-                pj_junit_object.update_attr("onerror", "N/A", "ts", tmp_timestamp)
+                pj_junit_object.update_attr("skipped", "1",
+                                            "pj", tmp_timestamp)
+                pj_junit_object.update_count("suites", "1",
+                                             "pj", tmp_timestamp)
+                data_repository['testsuite_%d_result' % suite_cntr] = "SKIP"
+                # pj_junit_object.add_testcase_message(tmp_timestamp,
+                # "skipped")
+                pj_junit_object.update_attr("impact", impact_dict.
+                                            get(testsuite_impact.upper()),
+                                            "ts", tmp_timestamp)
+                pj_junit_object.update_attr("onerror", "N/A",
+                                            "ts", tmp_timestamp)
                 continue
 
         else:
 
-            msg = print_error("Test suite does not exist in "\
+            msg = print_error("Test suite does not exist in "
                               "provided path: {0}".format(testsuite_path))
             testsuite_status = 'ERROR'
             testsuite_resultfile = '<testsuite errors="0" failures="0" name="{0}" '\
@@ -280,37 +290,44 @@ def execute_project(project_filepath, auto_defects, jiraproj,
             if goto_testsuite and goto_testsuite == str(suite_cntr):
                 goto_testsuite = False
             elif goto_testsuite and goto_testsuite != str(suite_cntr):
-                data_repository['testsuite_%d_result'%suite_cntr] = "ERROR"
+                data_repository['testsuite_%d_result' % suite_cntr] = "ERROR"
                 continue
 
-        goto_testsuite_num = onerror_driver.main(testsuite, project_error_action, project_error_value)
-        if goto_testsuite_num == False:
+        goto_testsuite_num = onerror_driver.main(testsuite,
+                                                 project_error_action,
+                                                 project_error_value)
+        if goto_testsuite_num is False:
             onerror = "Next"
         elif goto_testsuite_num == "ABORT":
             onerror = "Abort"
         else:
             onerror = "Goto:" + str(goto_testsuite_num)
-        pj_junit_object.update_attr("impact", impact_dict.get(testsuite_impact.upper()),
+        pj_junit_object.update_attr("impact", impact_dict.
+                                    get(testsuite_impact.upper()),
                                     "ts", data_repository['wt_ts_timestamp'])
-        pj_junit_object.update_attr("onerror", onerror, "ts", data_repository['wt_ts_timestamp'])
+        pj_junit_object.update_attr("onerror", onerror,
+                                    "ts", data_repository['wt_ts_timestamp'])
 
-        string_status = {"TRUE":"PASS", "FALSE":"FAIL", "ERROR":"ERROR", "SKIP":"SKIP"}
+        string_status = {"TRUE": "PASS", "FALSE": "FAIL",
+                         "ERROR": "ERROR", "SKIP": "SKIP"}
 
         if str(testsuite_status).upper() in string_status.keys():
-            data_repository['testsuite_%d_result'%suite_cntr] = string_status[str(testsuite_status).upper()]
+            data_repository['testsuite_%d_result' % suite_cntr] = string_status[str(testsuite_status).upper()]
         else:
             print_error("unexpected testsuite status, default to exception")
-            data_repository['testsuite_%d_result'%suite_cntr] = "ERROR"
+            data_repository['testsuite_%d_result' % suite_cntr] = "ERROR"
 
         ts_status_list.append(testsuite_status)
         ts_impact_list.append(testsuite_impact)
-        if testsuite_impact.upper() == 'IMPACT': 
+        if testsuite_impact.upper() == 'IMPACT':
             msg = "Status of the executed test suite impacts Project result"
-        elif testsuite_impact.upper() == 'NOIMPACT': 
-            msg = "Status of the executed test suite does not impact project result"
+        elif testsuite_impact.upper() == 'NOIMPACT':
+            msg = "Status of the executed test suite does not "
+            "impact project result"
         print_debug(msg)
-#         project_status = compute_project_status(project_status, testsuite_status,
-#                                                 testsuite_impact)
+#       project_status = compute_project_status(project_status,
+#                                               testsuite_status,
+#                                               testsuite_impact)
 
         runmode, value = common_execution_utils.\
             get_runmode_from_xmlfile(testsuite)
@@ -451,7 +468,8 @@ def report_project_result(project_status, project_repository):
                       'ERROR': 'ERROR', 'EXCEPTION': 'ERROR'}.\
         get(str(project_status).upper())
 
-    print_info("Project:{0}  STATUS:{1}".format(project_repository['project_name'], project_status))
+    print_info("Project:{0}  STATUS:{1}".format(project_repository['project_name'],
+                                                project_status))
     return project_status
 
 
