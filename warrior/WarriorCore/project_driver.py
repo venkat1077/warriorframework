@@ -337,7 +337,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
         if runmode is not None:
             if testsuite.find("runmode") is not None and\
               testsuite.find("runmode").get("attempt") is not None:
-                print_info("testsuite attempt: {0}".format(
+                print_info("runmode attempt: {0}".format(
                            testsuite.find("runmode").get("attempt")))
             # if runmode is 'ruf' & step_status is False, skip the repeated
             # execution of same TC step and move to next actual step
@@ -351,7 +351,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
         elif retry_type is not None:
             if testsuite.find("retry") is not None and\
               testsuite.find("retry").get("attempt") is not None:
-                print_info("testsuite attempt: {0}".format(
+                print_info("retry attempt: {0}".format(
                            testsuite.find("retry").get("attempt")))
             if retry_type.upper() == 'IF':
                 try:
