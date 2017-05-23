@@ -247,8 +247,8 @@ def execute_project(project_filepath, auto_defects, jiraproj,
                 # testsuite_resultfile = testsuite_result[1]
 
             else:
-                msg = print_info('skipped testsuite: "\
-                 "{0} '.format(testsuite_path))
+                msg = print_info('skipped testsuite: {0} '.
+                                 format(testsuite_path))
                 testsuite_resultfile = '<testsuite errors="0" failures="0" name="{0}" '\
                 'skipped="0" tests="0" time="0" timestamp="{1}" > '\
                 '<skipped message="{2}"/> </testsuite>'.format(testsuite_name,
