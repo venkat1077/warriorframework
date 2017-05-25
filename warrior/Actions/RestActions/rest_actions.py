@@ -196,7 +196,7 @@ class RestActions(object):
                 Max Numbers of Values Accepted: 1
                 Other Restrictions: Should be a valid file path
 
-                eg: cookie:cookie_name; details=more_details_abput_the_cookie
+                eg: cookie=cookie_name; details=more_details_abput_the_cookie
                     path/to/file/containing/cookie/details
 
             8. files: Lets User accomplish multipart encoding upload
@@ -592,7 +592,7 @@ class RestActions(object):
                 Max Numbers of Values Accepted: 1
                 Other Restrictions: Should be a valid file path
 
-                eg: cookie:cookie_name; details=more_details_abput_the_cookie
+                eg: cookie=cookie_name; details=more_details_abput_the_cookie
                     path/to/file/containing/cookie/details
 
             8. files: Lets User accomplish multipart encoding upload
@@ -1006,7 +1006,7 @@ class RestActions(object):
                 Max Numbers of Values Accepted: 1
                 Other Restrictions: Should be a valid file path
 
-                eg: cookie:cookie_name; details=more_details_abput_the_cookie
+                eg: cookie=cookie_name; details=more_details_abput_the_cookie
                     path/to/file/containing/cookie/details
 
             9. files: Lets User accomplish multipart encoding upload
@@ -1420,7 +1420,7 @@ class RestActions(object):
                 Max Numbers of Values Accepted: 1
                 Other Restrictions: Should be a valid file path
 
-                eg: cookie:cookie_name; details=more_details_abput_the_cookie
+                eg: cookie=cookie_name; details=more_details_abput_the_cookie
                     path/to/file/containing/cookie/details
 
             9. files: Lets User accomplish multipart encoding upload
@@ -1833,7 +1833,7 @@ class RestActions(object):
                 Max Numbers of Values Accepted: 1
                 Other Restrictions: Should be a valid file path
 
-                eg: cookie:cookie_name; details=more_details_abput_the_cookie
+                eg: cookie=cookie_name; details=more_details_abput_the_cookie
                     path/to/file/containing/cookie/details
 
             9. files: Lets User accomplish multipart encoding upload
