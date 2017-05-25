@@ -243,7 +243,7 @@ def resolve_value_of_cookies(element):
      into the object. This object is then returned.
 
     Else, a dictionary would be created out of the string given
-    input = "foo:foo1; bar:bar1; ; :foobar; barfoo:"
+    input = "foo=foo1; bar=bar1; ; =foobar; barfoo="
     return value = {'foo': 'foo1', 'bar': 'bar1'}
 
     If the dictionary is empty at the end of the function, None is retuened.
