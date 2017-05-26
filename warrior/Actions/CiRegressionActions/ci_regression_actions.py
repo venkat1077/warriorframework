@@ -18,6 +18,8 @@ import os
 from Framework.Utils.testcase_Utils import pNote
 
 class CIregressionActions(object):
+    """CIregressionActions class which has methods(keywords)
+    related to CIregression """
     def __init__(self):
         """
             constructor

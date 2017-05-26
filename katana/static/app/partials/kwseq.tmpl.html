@@ -13,10 +13,14 @@
 
             <div class="container pull-left" style="width: 40%">
 
-
+    <div class="row">
+        <div class="form-group">
+            <label class="col-sm-5 control-label text-uppercase">Wrapper Keyword Details</label>
+        </div>
+    </div>
                <div class="form-group" style="margin-bottom:0px;">
                     <label for='wsubkwargsname'
-                           class="col-sm-5 offset-1 control-label ellipsis-the-overflow">Wrapper Keyword Name</label>
+                           class="col-sm-5 offset-1 control-label ellipsis-the-overflow color-me-red">Wrapper Keyword Name</label>
 
                     <div class="col-sm-7">
                         <input type="text" class="form-control"
@@ -31,7 +35,7 @@
 
                 <div class="form-group" style="margin-bottom:0px;">
                     <label for='actionfilename'
-                           class="col-sm-5 offset-1 control-label ellipsis-the-overflow">Action File Name</label>
+                           class="col-sm-5 offset-1 control-label ellipsis-the-overflow color-me-red">Action File Name</label>
 
                     <div class="col-sm-7">
                         <input type="text" class="form-control"
@@ -44,7 +48,7 @@
 
                   <div class="form-group" style="margin-bottom:0px;">
                     <label for='wdesc'
-                           class="col-sm-5 offset-1 control-label ellipsis-the-overflow">W Description</label>
+                           class="col-sm-5 offset-1 control-label ellipsis-the-overflow color-me-red">W Description</label>
 
                     <div class="col-sm-7">
                         <input type="text" class="form-control"
@@ -55,11 +59,26 @@
                     </div>
                 </div>
 
+            
 
-                <div ng-show="myvalue1">
+            </div>
+
+        </div>
+
+        <hr>
+    <div class="row">
+        <div class="form-group">
+            <label style="margin-left:2.5%" class="text-uppercase">Subkeyword Details</label>
+        </div>
+    </div>
+          
+<div ng-show="myvalue1">
+                <div class="container pull-left" style="width: 40%">
+
+
                 <div class="form-group" id="keyNameDiv" style="margin-bottom:20px;">
                     <label for='subkwname'
-                           class="col-sm-5 control-label ellipsis-the-overflow">Subkeyword Driver
+                           class="col-sm-5 control-label ellipsis-the-overflow color-me-red">Subkeyword Driver
                     </label>
 
                     <div class="col-sm-7">
@@ -68,7 +87,7 @@
                                 ng-model="status.subkwname"
                                 ng-change="driverSelected([status.subkwname])"
                                 ng-options="o as o for o in xml.drivers">
-                            <option value=''>Select Subkeyword Name</option>
+                            <option value=''>Select Subkeyword Driver</option>
                         </select>
                     </div>
 
@@ -77,14 +96,14 @@
 
                 <div class="form-group" id="keyArgsDiv"> 
                     <label for='subkwargs'
-                           class="col-sm-5 control-label ellipsis-the-overflow">Subkeyword Name</label>
+                           class="col-sm-5 control-label ellipsis-the-overflow color-me-red">Subkeyword Name</label>
 
                     <div class="col-sm-7">
                         <select class='form-control' id='subkwargs'
                                 ng-model="status.subkwargs"
                                 ng-change="selectsubkwargs(status.subkwargs)"
                                 ng-options="o.fn as o.fn for o in xml.subkwargss">
-                            <option value=''>Select Subkeyword Args</option>
+                            <option value=''>Select Subkeyword Name</option>
                         </select>
                     </div>
 
@@ -131,7 +150,7 @@
 
              
 
-                <div class="form-group">
+                <div class="form-group mBot40"> 
                     <div style="color:rgb(214, 48, 48)"
                          class="col-sm-9 col-sm-offset-5">
 
@@ -155,11 +174,12 @@
 
                     </div>
                 </div>
-                <hr>
+
                 </div>
-            </div>
-            <div class="container pull-right" style="width: 60%" >
-                <div class="form-group">
+
+ 
+            <div class="container pull-right" style="width: 60%">
+                 <div class="form-group">
                     <label class="col-sm-3 control-label">Signature &amp;
                         Comment</label>
                     <div class="col-sm-9" style="padding-top:0.25em"
@@ -172,16 +192,21 @@
                 </div>
             </div>
 
-        </div>
 
 
+</div>
+
+
+<div ng-show="keyVal">
+
+        <div class="form-group">
+<!-- 
         <div class="row">
-            <div class="form-group pull-left" style="padding-left:1em">
-                <label class="col-sm-1 control-label text-uppercase color-me-red">Keywords</label>
+            <div style="padding-left:1em">
+                <label class="col-sm-1 control-label text-uppercase">Keywords</label>
             </div>
-        </div>
+        </div> -->
 
-        <div class="form-group" ng-show="showTab">
             <div class="col-sm-12">
                 <table class='table table-bordered table-condensed table-hover'>
                     <thead>
@@ -221,29 +246,27 @@
                     </div>
                     </div>
 
-       <hr/>
-
+       </div>
 
      <div class="row">
         <div class="form-group">
+        <div class="col-sm-12" style="margin-left:0;"><hr/></div>
         <div class="col-sm-9 col-sm-offset-3">
 
           <button style="color:rgb(214, 48, 48)" type="button"
-
-
-                            class="btn btn-default"
-                            ng-click='toAppendData()' title="Save Keyword"
-                            >
-                        Save Wrapper Keyword
+                    class="btn btn-default"
+                    ng-click='toAppendData()' title="Save Keyword" ng-disabled = "disabled"
+                    >
+                Save Wrapper Keyword
           </button>
 
-                                  &nbsp;
-                        <button type="button" style="color:rgb(214, 48, 48)"
-                                class="btn btn-default"
-                                ng-click='cancelArguments()' title="Cancel"
-                                >
-                            Cancel
-                        </button>
+                      &nbsp;
+            <button type="button" style="color:rgb(214, 48, 48)"
+                    class="btn btn-default"
+                    ng-click='cancelArguments()' title="Cancel"
+                    >
+                Cancel
+            </button>
            
         </div>
         </div>

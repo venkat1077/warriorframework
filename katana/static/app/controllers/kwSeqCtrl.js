@@ -10,7 +10,9 @@
         $scope.disWdesc= false;
         $scope.myvalue = false;
         $scope.myvalue1 = true;
-        $scope.myFlag = 0;
+        $scope.myFlag = 2;
+        $scope.myFlagPop = 0;
+        $scope.keyVal = false;
         $scope.subdirs = subdirs;
         $scope.xml = {};
         $scope.xml.file = '';
@@ -19,21 +21,21 @@
         $scope.xml.args = {};
         $scope.xml.mapargs = {};
         $scope.xml.arglist = [];
-        $scope.showTab = false;
+       // $scope.showTab = false;
         var stringvar=[];
 
 
         function readTestCaseFile() { 
-            
-                 KwSeqFactCtrl.fetch()
-                .then(function (data) {
-                    $scope.xml.file = data.xml;
-                    $scope.xml.pycs = data.pycmts;
-                   
-                    $scope.xml.drivers = _.sortBy(_.keys(data.pycmts), function (d) { return d; });
-                                        
-                     $scope.xml.keywords = {};
-                 });
+        
+             KwSeqFactCtrl.fetch()
+            .then(function (data) {
+                $scope.xml.file = data.xml;
+                $scope.xml.pycs = data.pycmts;
+               
+                $scope.xml.drivers = _.sortBy(_.keys(data.pycmts), function (d) { return d; });
+                                    
+                 $scope.xml.keywords = {};
+             });
         }
 
         readTestCaseFile();
@@ -41,12 +43,15 @@
 
         $scope.resetVal = function () {
 
-        if($scope.myFlag != 0){
+        if($scope.myFlag == 0){
+
             $scope.disKwname= true;
             $scope.disAcfname= true;
             $scope.disWdesc= true;
             }
+
         else{
+
          $scope.status.wkeywordname = '';
          $scope.status.actionfilename = '';
          $scope.status.wdesc = '';
@@ -82,13 +87,20 @@
 
         $scope.cancelArguments = function () {
 
-
            $location.path('/kwseq');
 
         };
 
 
         $scope.driverSelected = function (subkwname) {
+
+          if($scope.status.subkwname != subkwname){
+             $scope.xml.subkwargss = '';
+             $scope.status.subkwargs = '';
+             $scope.status.xml.arglist = '';
+             $scope.status.xml.mapargs = '';
+             $scope.status.xml.args = '';
+          }
 
             var drivers = $scope.xml.pycs[subkwname];
             var ads = [];
@@ -106,7 +118,13 @@
 
 
         $scope.selectsubkwargs = function (subkwargs) {
-       
+
+        if($scope.status.subkwargs == null){
+             $scope.status.subkwargs = '';
+             $scope.status.xml.arglist = '';
+             $scope.status.xml.mapargs = '';
+             $scope.status.xml.args = '';
+          }
             
             console.log('In selectsubkwargs(' + subkwargs + ')');
             var k = _.findWhere ($scope.xml.subkwargss, { fn: subkwargs });
@@ -117,7 +135,9 @@
             });
             $scope.xml.mapargs = {};
             _.each($scope.xml.arglist, function (v) {
-                $scope.xml.mapargs[v] = '';
+
+                $scope.xmlmapargs[v] = '';
+
             });
 
             console.log('xml.args', JSON.stringify($scope.xml.args));
@@ -144,7 +164,7 @@
                 $scope.status.subkwname == '' || $scope.status.subkwargs === undefined || 
                 $scope.status.subkwargs == ''){
                 sweetAlert({
-                    title: "All fields are mandatory. Kindly fill and save.",
+                    title: "Kindly fill the mandatory fields.",
                     closeOnConfirm: true,
                     confirmButtonColor: '#3b3131',
                     confirmButtonText: "Ok",
@@ -165,27 +185,21 @@
             $scope.xmlObj = x2js.json2xml_str(JSON.parse(token));
             $scope.items.push($scope.status.subkwname + " & " + $scope.status.subkwargs);
           
-                sweetAlert({
-                    title: "Saved successfully.",
-                    closeOnConfirm: true,
-                    confirmButtonColor: '#3b3131',
-                    confirmButtonText: "Ok",
-                    type: "success"
-                }); 
-
              $scope.disabled = false;  
              $scope.myvalue = true;  
              $scope.myvalue1 = false;
 
-           KwSeqFactCtrl.save($scope.xmlObj)
+          /*  KwSeqFactCtrl.save($scope.xmlObj)
                 .then(
                     function(data) {
                         console.log(data);
                              
-                     })
+                     })*/
                      
              $scope.toAppendData($scope.xmlObj); 
-             $scope.showTab = true;
+             $scope.keyVal = true;
+            // $scope.showTab = true;
+             $scope.myFlag = 0;
          }
                
         };
@@ -193,6 +207,7 @@
 
        $scope.toAppendData = function(objVal){
 
+        $scope.myFlagPop = 1;
         var newval = objVal;
         stringvar = stringvar+newval;
         $scope.toFramework(stringvar); 
@@ -204,13 +219,16 @@
 
         var finall = stringvar;
 
+        if($scope.myFlag == 0)
+        {
            sweetAlert({
-                    title: "Saved successfully.",
-                    closeOnConfirm: true,
-                    confirmButtonColor: '#3b3131',
-                    confirmButtonText: "Ok",
-                    type: "success"
-                }); 
+                  title: "Wrapper Keyword Saved successfully.",
+                  closeOnConfirm: true,
+                  confirmButtonColor: '#3b3131',
+                  confirmButtonText: "Ok",
+                  type: "success"
+              }); 
+        }
         
         };  
 
@@ -229,7 +247,6 @@
 
 
     }]);
-
 
 
 
