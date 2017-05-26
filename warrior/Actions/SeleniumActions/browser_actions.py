@@ -14,10 +14,12 @@ limitations under the License.
 """ Selenium keywords for Generic Browser Actions """
 import os, re
 from Framework.ClassUtils.WSelenium.browser_mgmt import BrowserManagement
-from Framework.Utils.print_Utils import print_warning
+from Framework.Utils.print_Utils import print_warning, print_error
 
 try:
+    import imp
     import Framework.Utils as Utils
+    from pyvirtualdisplay import Display
 except ImportWarning:
     raise ImportError
 
@@ -170,36 +172,51 @@ class browser_actions(object):
             browser_details = arguments
 
         for browser in browser_list:
-            arguments = Utils.data_Utils.get_default_ecf_and_et(arguments, self.datafile, browser)
+            arguments = Utils.data_Utils.get_default_ecf_and_et(arguments,
+                                                                self.datafile,
+                                                                browser)
             if browser_details == {}:
                 browser_details = selenium_Utils.\
                     get_browser_details(browser, self.datafile, **arguments)
             if browser_details is not None:
-                browser_inst = self.browser_object.open_browser(
-                    browser_details["type"], webdriver_remote_url)
-                if browser_inst:
-                    browser_fullname = "{0}_{1}".format(system_name, browser_details["browser_name"])
-                    output_dict[browser_fullname] = browser_inst
-                    if "url" in browser_details and browser_details["url"]\
-                            is not None:
-                        result, url = self.browser_object.check_url(browser_details["url"])
-                        if result == True:
-                            result = self.browser_object.go_to(url,
-                                                               browser_inst)
+                try:
+                    imp.find_module('pyvirtualdisplay')
+                    display = Display(visible=0, size=(1024, 768))
+                    display.start()
+                except ImportError:
+                    print_error("pyvirtualdisplay is not installed in order "
+                                "to launch the browser in headless mode")
+                except:
+                    print_error("Xvfb is not installed in order to launch the "
+                                "browser in headless mode")
+                    browser_inst = self.browser_object.open_browser(
+                        browser_details["type"], webdriver_remote_url)
+                    if browser_inst:
+                        browser_fullname = "{0}_{1}".format(system_name,
+                                                            browser_details["browser_name"])
+                        output_dict[browser_fullname] = browser_inst
+                        if "url" in browser_details and browser_details["url"]\
+                                is not None:
+                            result, url = self.browser_object.\
+                                check_url(browser_details["url"])
+                            if result is True:
+                                result = self.browser_object.\
+                                    go_to(url, browser_inst)
+                        else:
+                            result = True
                     else:
-                        result = True
-                else:
-                    pNote("could not open browser on system={0}, "
-                          "name={1}".format(system_name,
-                                            browser_details["browser_name"]),
-                          "error")
-                    result = False
-                status = status and result
-            browser_details = {}
-        Utils.testcase_Utils.report_substep_status(status)
-        return status, output_dict
+                        pNote("could not open browser on system={0}, "
+                              "name={1}".format(system_name,
+                                                browser_details["browser_name"]),
+                              "error")
+                        result = False
+                    status = status and result
+                browser_details = {}
+            Utils.testcase_Utils.report_substep_status(status)
+            return status, output_dict
 
-    def browser_maximize(self, system_name, type="firefox", browser_name="all"):
+    def browser_maximize(self, system_name, type="firefox",
+                         browser_name="all"):
         """
         This will maximize the browser window.
 
