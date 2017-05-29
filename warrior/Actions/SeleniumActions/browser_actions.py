@@ -189,31 +189,31 @@ class browser_actions(object):
                 except:
                     print_error("Xvfb is not installed in order to launch the "
                                 "browser in headless mode")
-                    browser_inst = self.browser_object.open_browser(
-                        browser_details["type"], webdriver_remote_url)
-                    if browser_inst:
-                        browser_fullname = "{0}_{1}".format(system_name,
-                                                            browser_details["browser_name"])
-                        output_dict[browser_fullname] = browser_inst
-                        if "url" in browser_details and browser_details["url"]\
-                                is not None:
-                            result, url = self.browser_object.\
-                                check_url(browser_details["url"])
-                            if result is True:
-                                result = self.browser_object.\
-                                    go_to(url, browser_inst)
-                        else:
-                            result = True
+                browser_inst = self.browser_object.open_browser(
+                    browser_details["type"], webdriver_remote_url)
+                if browser_inst:
+                    browser_fullname = "{0}_{1}".format(system_name,
+                                                        browser_details["browser_name"])
+                    output_dict[browser_fullname] = browser_inst
+                    if "url" in browser_details and browser_details["url"]\
+                            is not None:
+                        result, url = self.browser_object.\
+                            check_url(browser_details["url"])
+                        if result is True:
+                            result = self.browser_object.\
+                                go_to(url, browser_inst)
                     else:
-                        pNote("could not open browser on system={0}, "
-                              "name={1}".format(system_name,
-                                                browser_details["browser_name"]),
-                              "error")
-                        result = False
-                    status = status and result
-                browser_details = {}
-            Utils.testcase_Utils.report_substep_status(status)
-            return status, output_dict
+                        result = True
+                else:
+                    pNote("could not open browser on system={0}, "
+                          "name={1}".format(system_name,
+                                            browser_details["browser_name"]),
+                          "error")
+                    result = False
+                status = status and result
+            browser_details = {}
+        Utils.testcase_Utils.report_substep_status(status)
+        return status, output_dict
 
     def browser_maximize(self, system_name, type="firefox",
                          browser_name="all"):
