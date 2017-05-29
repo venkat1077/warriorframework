@@ -22,7 +22,7 @@ from Framework.ClassUtils.WSelenium.browser_mgmt import BrowserManagement
 from Framework.Utils.print_Utils import print_error, print_info
 from Framework.Utils import testcase_Utils
 from Framework.Utils.testcase_Utils import pNote, pSubStep
-
+from Framework.Utils import file_Utils as file_Utils
 
 def evaluate_argument_value(xpath_or_tagname, datafile):
     tree = ET.parse(datafile)
@@ -432,7 +432,10 @@ def get_element_from_config_file(config_file, element_tag, child_tag,
     """
     locator_types = ("xpath", "id", "css", "link", "partial_link", "tag",
                      "class", "name")
-    if config_file is not None:
+    wt_datafile = data_Utils.get_object_from_datarepository('wt_datafile') 
+    if wt_datafile: 
+        config_file = file_Utils.getAbsPath(config_file, os.path.dirname(wt_datafile))
+    if config_file is not None and config_file is not False:
         if child_tag in locator_types:
             if element_tag is not None:
                 final_value = get_json_value_from_path(element_tag + "/" + child_tag, config_file, default)

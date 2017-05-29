@@ -155,8 +155,8 @@ class wait_actions(object):
                                         browser_name="all", element_tag=None,
                                         element_config_file=None):
         """
-        This keyword would permanently set the implicit wait time for given
-        browser instance(s)
+        This keyword would check whether an element is visible and
+        enabled such that we can click on the element
 
         :Datafile Usage:
 
@@ -304,8 +304,8 @@ class wait_actions(object):
                                                element_tag=None,
                                                element_config_file=None):
         """
-        This keyword would permanently set the implicit wait time for given
-        browser instance(s)
+        This keyword would check whether an element is present on the DOM
+        of a page
 
         :Datafile Usage:
 
@@ -453,8 +453,8 @@ class wait_actions(object):
                                                     element_tag=None,
                                                     element_config_file=None):
         """
-        This keyword would permanently set the implicit wait time for given
-        browser instance(s)
+        This keyword would check whether all the elements is present on
+        the DOM of a page
 
         :Datafile Usage:
 
@@ -602,8 +602,8 @@ class wait_actions(object):
                                             element_tag=None,
                                             element_config_file=None):
         """
-        This keyword would permanently set the implicit wait time for given
-        browser instance(s)
+        This keyword would check whether an element, known to be present on
+        the DOM of a page, is visible
 
         :Datafile Usage:
 
@@ -768,8 +768,8 @@ class wait_actions(object):
                                                  element_tag=None,
                                                  element_config_file=None):
         """
-        This keyword would permanently set the implicit wait time for given
-        browser instance(s)
+        This keyword would check whether an element is present on the DOM of a
+        page and visible.
 
         :Datafile Usage:
 
