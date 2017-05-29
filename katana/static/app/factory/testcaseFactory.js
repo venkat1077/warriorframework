@@ -33,10 +33,11 @@ app.factory('TestcaseFactory', ['$http', '$routeParams', '$q', function($http, $
                 })
                 .error(function(data, status, headers, config) {
                     sweetAlert({
-                        title: "Permission Denied.Kindly edit the permission to proceed further.",
+                        title: "Permission Denied.",
                         closeOnConfirm: false,
                         confirmButtonColor: '#3b3131',
                         confirmButtonText: "Ok",
+                        text: "Please edit the directory permissions so that Katana can save this file.",
                         type: "warning"
         });
 
