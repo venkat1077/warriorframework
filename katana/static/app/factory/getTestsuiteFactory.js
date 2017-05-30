@@ -16,11 +16,15 @@ app.factory('getTestsuiteFactory', ['$http', '$routeParams', '$q', function($htt
 
         list: function() {
             var deferred = $q.defer();
-            $http.get('/testsuite/' + $routeParams.testsuite + '/' + $routeParams.subdirs)
+            $http.get('/testsuite/' + $routeParams.testsuite + "/" + $routeParams.subdirs)
                 .success(function(data, status, headers, config) {
+                   // alert("success");
+                   // alert($routeParams.testsuite);
                     deferred.resolve(data);
                 })
                 .error(function(data, status, headers, config) {
+                   // alert("error");
+                   // alert($routeParams.testsuite);
                     deferred.reject("Error fetching XML file: " + status + ' ' + JSON.stringify(headers));
                 });
             return deferred.promise;

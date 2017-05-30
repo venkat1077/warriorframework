@@ -3,7 +3,7 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
   'saveasTestsuiteFactory', 'subdirs', '$route', 'saveNewTestsuiteFactory', 
     function($scope, $http, $routeParams, $controller, $timeout, $location, fileFactory, 
       getTestsuiteFactory, setTestsuiteFactory, saveasTestsuiteFactory, subdirs, $route, saveNewTestsuiteFactory) {
-
+//alert("c123");
       	$scope.subdirs = subdirs;
       	$scope.xml = {};
         $scope.xml.suitefile = '';
@@ -35,8 +35,12 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
         $scope.showReqEditor = false;
         $scope.newReq = "";
         $scope.index = false;
+        $scope.testcaseToBeCopied = "None";
+        $scope.testcase_numbers = [];
+        $scope.testcaseEditor = true;
+        $scope.testcaseBeingEdited = "None";
 
-         $scope.showModal.push({"visible": false});
+        $scope.showModal.push({"visible": false});
         $scope.td_df_showModal.push({"visible": false});
         $scope.btnValue.push("Path");
         $scope.td_df_btnValue.push("Path");
@@ -557,7 +561,7 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                                 swal({
                                       title: "States file could not be updated!",
                                       text: "",
-                                      type: "warning",
+                                      type: "error",
                                       showCancelButton: false,
                                       confirmButtonColor: '#3b3131',
                                       confirmButtonText: "Ok",
@@ -584,16 +588,62 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
         };
 
         $scope.deleteTestcase = function(index) {
+            swal({
+                title: "Are you sure you want to delete this Case?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, Keep it.",
+                confirmButtonColor: '#3b3131',
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function(isConfirm){
+                    if (isConfirm) {
+                        $scope.$apply(deleteCase(index));
+                        swal({
+                            title: "Case deleted",
+                            timer: 1250,
+                            type: "success",
+                            showConfirmButton: false
+                        });
+                    } else {
+                        swal({
+                            title: "Case not deleted",
+                            timer: 1250,
+                            type: "error",
+                            showConfirmButton: false
+                        });
+                    }
+                });
+        };
+
+
+        function deleteCase(index){
+
             $scope.testcases.splice(index, 1);
             $scope.condition_list.splice(index, 1);
             $scope.popoverContentList.splice(index, 1);
             $scope.showSavedSuite.splice(index, 1);
             tableIsShown();
             $scope.updateConditionList();
-        };
+            if($scope.testcases.length == 0){
+                $scope.testcaseBeingEdited = "None";
+                $scope.testcaseEditor = false;
+                $scope.testcaseBeingEdited = "None";
+                $scope.testcase_numbers = [];
+            }
+            else if($scope.testcaseBeingEdited != "None"){
+                if(index == $scope.testcaseBeingEdited){
+                    $scope.testcaseEditor = false;
+                    $scope.testcaseBeingEdited = "None";
+                    $scope.testcase_numbers = [];
+                }
+            }
+        }
 
 
-        $scope.insertTestcaseCap = function(index) {
+        $scope.openTestcaseCap = function(index) {
 	        $scope.testcases.splice(index+1,0,{
 	            "path": "",
 	            "context": "positive",
@@ -629,8 +679,63 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
 	        $scope.condition_list.splice(index+1, 0, []);
 	        $scope.popoverContentList.splice(index+1, 0, "");
 	        $scope.showSavedSuite.splice(index+1, 0, false);
+            $scope.testcaseBeingEdited = index + 1;
+            $scope.testcaseEditor = true;
 	        $scope.updateConditionList();
     };
+
+
+        $scope.insertTestcaseCap = function(index) {
+            if($scope.testcaseEditor){
+                swal({
+                    title: "You have a Case open in the case editor that should be saved before creating a new Case.",
+                    text: "Please save that Case.",
+                    type: "warning",
+                    confirmButtonText: "Ok",
+                    closeOnConfirm: true,
+                    confirmButtonColor: '#3b3131'
+                });
+            }
+            else {
+                $scope.testcaseToBeCopied = "None";
+                $scope.testcase_numbers = [];
+                for(var i=0; i<$scope.testcases.length; i++){
+                    $scope.testcase_numbers.push(i+1);
+                }
+                openTestcaseCap(index);
+            }
+      };
+
+         $scope.copyTestCase = function(){
+            //alert($scope.testcaseToBeCopied - 1);
+            //alert($scope.testcaseBeingEdited);
+            if($scope.testcaseToBeCopied == "None"){
+                swal({
+                    title: "Please select a Case number from the dropdown.",
+                    type: "error",
+                    showConfirmButton: true,
+                    closeOnConfirm: true,
+                    confirmButtonColor: '#3b3131',
+                    confirmButtonText: "Ok"
+                });
+                return;
+        }
+
+            $scope.testcases[$scope.testcaseBeingEdited].path = $scope.testcases[$scope.testcaseToBeCopied - 1].path;
+            $scope.testcases[$scope.testcaseBeingEdited].context = $scope.testcases[$scope.testcaseToBeCopied - 1].context;
+            $scope.testcases[$scope.testcaseBeingEdited].InputDataFile = $scope.testcases[$scope.testcaseToBeCopied - 1].InputDataFile;
+            $scope.testcases[$scope.testcaseBeingEdited].runtype = $scope.testcases[$scope.testcaseToBeCopied - 1].runtype;
+            $scope.testcases[$scope.testcaseBeingEdited].onError._action = $scope.testcases[$scope.testcaseToBeCopied - 1].onError._action;
+            $scope.testcases[$scope.testcaseBeingEdited].onError._value = $scope.testcases[$scope.testcaseToBeCopied - 1].onError._value;
+            $scope.testcases[$scope.testcaseBeingEdited].runmode._action = $scope.testcases[$scope.testcaseToBeCopied - 1].runmode._action;
+            $scope.testcases[$scope.testcaseBeingEdited].runmode._value = $scope.testcases[$scope.testcaseToBeCopied - 1].runmode._value;
+            $scope.testcases[$scope.testcaseBeingEdited].Execute._ExecType = $scope.testcases[$scope.testcaseToBeCopied - 1].Execute._ExecType;
+            $scope.testcases[$scope.testcaseBeingEdited].Execute.Rule._Condition = $scope.testcases[$scope.testcaseToBeCopied - 1].Execute.Rule._Condition;
+            $scope.testcases[$scope.testcaseBeingEdited].Execute.Rule._Condvalue = $scope.testcases[$scope.testcaseToBeCopied - 1].Execute.Rule._Condvalue;
+            $scope.testcases[$scope.testcaseBeingEdited].Execute.Rule._Else = $scope.testcases[$scope.testcaseToBeCopied - 1].Execute.Rule._Else;
+            $scope.testcases[$scope.testcaseBeingEdited].Execute.Rule._Elsevalue = $scope.testcases[$scope.testcaseToBeCopied - 1].Execute.Rule._Elsevalue;
+            $scope.testcases[$scope.testcaseBeingEdited].impact = $scope.testcases[$scope.testcaseToBeCopied - 1].impact;
+        };
 
 
         $scope.saveTestcase = function(index){
@@ -763,12 +868,38 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                 if(flag){
                     $scope.showSavedSuite[index] = true;
                     $scope.showTable = true;
+                    $scope.testcaseBeingEdited = "None";
+                    $scope.testcaseEditor = false;
+                    $scope.testcaseBeingEdited = "None";
+                    $scope.testcase_numbers = [];
                 }
             };
 
         $scope.editTestcase = function(index){
+            if($scope.testcaseEditor){
+                swal({
+                    title: "You have a Case open in the case editor that should be saved before editing another Case.",
+                    text: "Please save that Case.",
+                    type: "warning",
+                    confirmButtonText: "Ok",
+                    closeOnConfirm: true,
+                    confirmButtonColor: '#3b3131'
+                });
+            }
+            else {
+                $scope.testcaseToBeCopied = "None";
+                $scope.testcase_numbers = [];
+                for(var i=0; i<$scope.testcases.length; i++){
+                    if(i !== index){
+                        $scope.testcase_numbers.push(i+1);
+                    }
+                }
+                $scope.testcaseEditor = true;
+                $scope.testcaseBeingEdited = index;
+
             $scope.showSavedSuite[index] = false;
             tableIsShown();
+        }
         }; 	  
 
         function tableIsShown(){
@@ -838,6 +969,7 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                 showCancelButton: true,
                 confirmButtonText: "Yes, delete it!",
                 cancelButtonText: "No, Keep it.",
+                confirmButtonColor: '#3b3131',
                 closeOnConfirm: false,
                 closeOnCancel: false
             },
@@ -1077,6 +1209,7 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                                         showCancelButton: true,
                                         confirmButtonText: "Yes!",
                                         cancelButtonText: "No, don't overwrite.",
+                                        confirmButtonColor: '#3b3131',
                                         closeOnConfirm: false,
                                         closeOnCancel: false
                                     },
@@ -1293,6 +1426,7 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                                             confirmButtonColor: '#3b3131',
                                             confirmButtonText: "Yes!",
                                             cancelButtonText: "No, don't overwrite.",
+                                            confirmButtonColor: '#3b3131',
                                             closeOnConfirm: false,
                                             closeOnCancel: false
                                         },
@@ -1438,12 +1572,16 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
         };
 
         var fetchTestsuiteDetails = function() {
+            //alert("in");
             getTestsuiteFactory.list()
                 .then(
                     function(data) {
+                      //  alert(222);
                         $scope.xml.suitefile = data.xml;
+                       // alert($scope.xml.suitefile);
                         var x2js = new X2JS();
                         var jsonObj = x2js.xml_str2json($scope.xml.suitefile);
+                       // alert(jsonObj);
 
                         if (jsonObj == null) {
                             sweetAlert({
@@ -1458,9 +1596,12 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                         }
 
                         $scope.xml.suitejson = JSON.stringify(jsonObj, null, 2);
+                       // alert("here");
+                       // alert($scope.xml.suitejson);
                         $scope.suitemodel = jsonObj;
                         console.log(JSON.stringify(jsonObj));
                     });
+               // alert(3);
         };
 
         fetchTestsuiteDetails();
@@ -1485,9 +1626,9 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
             $scope.suitemodel.TestSuite.Details.Engineer = $scope.cfg.engineer;
 
             //Requirements Section
-            /*if ($scope.suitemodel.TestSuite.Requirements.Requirement === '') {
+            if ($scope.suitemodel.TestSuite.Requirements.Requirement === '') {
                 $scope.suitemodel.TestSuite.Requirements.Requirement = [];
-            }*/
+            }
 
             if (Array.isArray($scope.suitemodel.TestSuite.Requirements.Requirement)) {
                 $scope.suitereqs = $scope.suitemodel.TestSuite.Requirements.Requirement;
@@ -1773,6 +1914,20 @@ app.controller('testsuiteCtrlMerged', ['$scope', '$http', '$routeParams', '$cont
                 $scope.popoverContentList.splice(index+1, 0, "");
                 $scope.showSavedSuite.splice(index, 1);
                 tableIsShown();
+                $scope.updateConditionList();
+                if($scope.testcases.length == 0){
+                    $scope.testcaseBeingEdited = "None";
+                    $scope.testcaseEditor = false;                         
+                    $scope.testcaseBeingEdited = "None";                           
+                    $scope.testcase_numbers = [];  
+                }
+                else if($scope.testcaseBeingEdited != "None"){
+                    if(index == $scope.testcaseBeingEdited){
+                        $scope.testcaseEditor = false;
+                        $scope.testcaseBeingEdited = "None";
+                        $scope.testcase_numbers = [];
+                    }
+                }                       
                 $scope.updateConditionList();
 
             };
