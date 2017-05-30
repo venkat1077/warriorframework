@@ -27,10 +27,14 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
         $scope.popoverContentList = [""];
         $scope.showSavedSuite = [false];
         $scope.showTable = false;
+        $scope.suiteToBeCopied = "None";
+        $scope.suite_numbers = [];
+        $scope.suiteEditor = false;
+        $scope.suiteBeingEdited = "None";
 
         $scope.ExecuteTypes = ['Yes', 'If', 'If Not', 'No'];
         $scope.FirstExecuteTypes = ['Yes', 'No'];
-       $scope.ruleElseTypes = ['next', 'abort', 'abort_as_error', 'goto'];
+        $scope.ruleElseTypes = ['next', 'abort', 'abort_as_error', 'goto'];
         $scope.ConditionValueTypes = ['PASS', 'FAIL', 'ERROR', 'SKIP'];
         $scope.impactOptions = ['impact', 'noimpact'];
 
@@ -263,8 +267,29 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
 
       
         $scope.editSuite = function(index){
-            $scope.showSavedSuite[index] = false;
-            tableIsShown();
+          if($scope.suiteEditor){
+                swal({
+                    title: "You have a Suite open in the suite editor that should be saved before editing another Suite.",
+                    text: "Please save that Suite.",
+                    type: "warning",
+                    confirmButtonText: "Ok",
+                    closeOnConfirm: true,
+                    confirmButtonColor: '#3b3131'
+                });
+            }
+            else {
+                $scope.suiteToBeCopied = "None";
+                $scope.suite_numbers = [];
+                for(var i=0; i<$scope.suites.length; i++){
+                    if(i !== index){
+                        $scope.suite_numbers.push(i+1);
+                    }
+                }
+                $scope.suiteEditor = true;
+                $scope.suiteBeingEdited = index;
+                $scope.showSavedSuite[index] = false;
+                tableIsShown();
+            }
         };
 
        	function tableIsShown(){
@@ -313,14 +338,57 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
         $scope.path_array.push([]);
         $scope.earlier_li.push("");
 
-        $scope.deleteSuite = function(index) {
-            $scope.suites.splice(index, 1);
-            $scope.condition_list.splice(index, 1);
-            $scope.popoverContentList.splice(index, 1);
-            $scope.showSavedSuite.splice(index, 1);
-            tableIsShown();
-            $scope.updateConditionList();
-        };
+        $scope.deleteTestSuite = function(index) {
+            swal({
+                title: "Are you sure you want to delete this Suite?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, Keep it.",
+                confirmButtonColor: '#3b3131',
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function(isConfirm){
+                    if (isConfirm) {
+                        $scope.$apply(deleteSuite(index));
+                        swal({
+                            title: "Suite deleted",
+                            timer: 1250,
+                            type: "success",
+                            showConfirmButton: false
+                        });
+                    } else {
+                        swal({
+                            title: "Suite not deleted",
+                            timer: 1250,
+                            type: "error",
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            };
+
+            function deleteSuite(index){
+                $scope.suites.splice(index, 1);               
+                $scope.condition_list.splice(index, 1);              
+                $scope.popoverContentList.splice(index, 1);              
+                $scope.showSavedSuite.splice(index, 1);               
+                tableIsShown();              
+                $scope.updateConditionList();              
+                if($scope.suites.length == 0){
+                    $scope.suiteEditor = false;
+                    $scope.suiteBeingEdited = "None";
+                    $scope.suite_numbers = [];
+                }
+                else if($scope.suiteBeingEdited != "None"){
+                    if(index == $scope.suiteBeingEdited){
+                        $scope.suiteEditor = false;
+                        $scope.suiteBeingEdited = "None";
+                        $scope.suite_numbers = [];
+                    }
+                }
+            }
 
         $scope.saveProject = function() {
         	var hasSpace = _.find($.trim($scope.projectName), function (c) {
@@ -460,6 +528,7 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
                                         type: "warning",
                                         showCancelButton: true,
                                         confirmButtonText: "Yes!",
+                                        confirmButtonColor: '#3b3131',
                                         cancelButtonText: "No, don't overwrite.",
                                         closeOnConfirm: false,
                                         closeOnCancel: false
@@ -695,7 +764,88 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
                 $scope.showTable = true;
             }
 
+            $.each($scope.suites, function(index, value) {
+               if (!value.hasOwnProperty('path')) {
+                    value.path = "";
+                }
+                if (!value.hasOwnProperty('Execute')) {
+                    value.Execute = {"_ExecType": "Yes",
+                        "Rule": {"_Elsevalue": "",
+                            "_Else": "next",
+                            "_Condvalue": "",
+                            "_Condition": ""
+                        }
+                    }
+                }
+                if(!value.Execute.hasOwnProperty('_ExecType')){
+                    value.Execute._ExecType = "Yes";
+                }
+                if(!value.Execute.hasOwnProperty('Rule')){
+                    value.Execute.Rule = {
+                        "_Elsevalue": "",
+                        "_Else": "next",
+                        "_Condvalue": "",
+                        "_Condition": ""
+                        }
+                }
+                if(!value.Execute.Rule.hasOwnProperty('_Elsevalue')){
+                    value.Execute.Rule._Elsevalue = "";
+                }
+                if(!value.Execute.Rule.hasOwnProperty('_Else')){
+                    value.Execute.Rule._Else = "next";
+                }
+                if(!value.Execute.Rule.hasOwnProperty('_Condition')){
+                    value.Execute.Rule._Condition = "";
+                }
+                if(!value.Execute.Rule.hasOwnProperty('_Condvalue')){
+                    value.Execute.Rule._Condvalue = "";
+                }
+                if (!value.hasOwnProperty('onError')) {
+                    value.onError = {"_action": "next", "_value": ""}
+                }
+                if(!value.onError.hasOwnProperty('_action')){
+                    value.onError._action = "next";
+                }
+                if(!value.onError.hasOwnProperty('_value')){
+                    value.onError._value = "";
+                }
+                if(!value.hasOwnProperty('impact')){
+                    value.impact = "impact";
+                }
 
+                for(var i=0; i<$scope.suiteDefaultActions.length; i++){
+                    if(value.onError._action.toLowerCase() == $scope.suiteDefaultActions[i].toLowerCase()){
+                        value.onError._action = $scope.suiteDefaultActions[i];
+                        break;
+                    }
+                }
+                for(i=0; i<$scope.ExecuteTypes.length; i++){
+                    if(value.Execute._ExecType.toLowerCase() == $scope.ExecuteTypes[i].toLowerCase()){
+                        value.Execute._ExecType = $scope.ExecuteTypes[i];
+                        break;
+                    }
+                }
+                if(value.Execute.Rule._Condvalue != ""){
+                    for(i=0; i<$scope.ConditionValueTypes.length; i++){
+                        if(value.Execute.Rule._Condvalue.toLowerCase() == $scope.ConditionValueTypes[i].toLowerCase()){
+                            value.Execute.Rule._Condvalue = $scope.ConditionValueTypes[i];
+                            break;
+                        }
+                    }
+                }
+                for(i=0; i<$scope.impactOptions.length; i++){
+                    if(value.impact.toLowerCase() == $scope.impactOptions[i].toLowerCase()){
+                        value.impact = $scope.impactOptions[i];
+                        break;
+                    }
+                }
+
+                for(j=0; j<$scope.defaultProjectActions.length; j++){
+                    if($scope.projectmodel.Project.Details.default_onError._action.toLowerCase() == $scope.defaultProjectActions[j].toLowerCase()){
+                        $scope.projectmodel.Project.Details.default_onError._action = $scope.defaultProjectActions[j];
+                        break;
+                    }
+                }
 
               });
 
@@ -800,6 +950,9 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
             if(flag){
                 $scope.showSavedSuite[index] = true;
                 $scope.showTable = true;
+                $scope.suiteEditor = false;
+                $scope.suiteBeingEdited = "None";
+                $scope.suite_numbers = [];
             }
         };
 
@@ -839,36 +992,81 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
                 tableIsShown();
                 $scope.updateConditionList();
             };
+          $scope.insertSuite = function(index) {
+              if($scope.suiteEditor){
+                  swal({
+                      title: "You have a Suite open in the suite editor that should be saved before creating a new Suite.",
+                      text: "Please save that Suite.",
+                      type: "warning",
+                      confirmButtonText: "Ok",
+                      closeOnConfirm: true,
+                      confirmButtonColor: '#3b3131'
+                  });
+              }
+              else {
+                  $scope.suiteToBeCopied = "None";
+                  $scope.suite_numbers = [];
+                  for(var i=0; i<$scope.suites.length; i++){
+                      $scope.suite_numbers.push(i+1);
+                  }
+                  openSuiteCap(index);
+              }
+          };
 
-	   		 $scope.insertSuite = function(index) {
-                $scope.suites.splice(index+1,0,{
-                    "path": "",
-                    "Execute": {
+          function openSuiteCap(index){
+            $scope.suites.splice(index+1,0,{
+                "path": "",
+                "Execute": {
                     "_ExecType": "Yes",
-                        "Rule": {
-                            "_Elsevalue": "",
-                            "_Else": "next",
-                            "_Condvalue": "",
-                            "_Condition": ""
-                        }
-                    },
-                    "onError": {
-                       "_action": "next",
-                       "_value": ""
-                    },
-                    "impact": "impact"
-                });
-
-            $scope.path_array.splice(index+1,0, []);
-            $scope.earlier_li.splice(index+1,0, "");
-            $scope.btnValue.splice(index+1,0,"Path"); 
-            $scope.showModal.splice(index+1,0, {"visible": false});
+                    "Rule": {
+                        "_Elsevalue": "",
+                        "_Else": "next",
+                        "_Condvalue": "",
+                        "_Condition": ""
+                    }
+                },
+                "onError": {
+                    "_action": "next",
+                    "_value": ""
+                },
+                "impact": "impact"
+            });
+            $scope.showModal.splice(index+1,0,{"visible":false});
+            $scope.btnValue.splice(index+1,0,"Path");
+            $scope.path_array.splice(index+1,0,[]);
+            $scope.earlier_li.splice(index+1,0,"");
             $scope.condition_list.splice(index+1, 0, []);
             $scope.popoverContentList.splice(index+1, 0, "");
             $scope.showSavedSuite.splice(index+1, 0, false);
+            $scope.suiteBeingEdited = index + 1;
+            $scope.suiteEditor = true;
             $scope.updateConditionList();
-            };
+        }
 
+        $scope.copySuite = function(){
+            //alert($scope.suiteToBeCopied - 1)
+            //alert($scope.suiteBeingEdited);
+            if($scope.suiteToBeCopied == "None"){
+                swal({
+                    title: "Please select a Suite number from the dropdown.",
+                    type: "error",
+                    showConfirmButton: true,
+                    closeOnConfirm: true,
+                    confirmButtonColor: '#3b3131',
+                    confirmButtonText: "Ok"
+                });
+                return;
+            }
+            $scope.suites[$scope.suiteBeingEdited].path = $scope.suites[$scope.suiteToBeCopied - 1].path;
+            $scope.suites[$scope.suiteBeingEdited].onError._action = $scope.suites[$scope.suiteToBeCopied - 1].onError._action;
+            $scope.suites[$scope.suiteBeingEdited].onError._value = $scope.suites[$scope.suiteToBeCopied - 1].onError._value;
+            $scope.suites[$scope.suiteBeingEdited].Execute._ExecType = $scope.suites[$scope.suiteToBeCopied - 1].Execute._ExecType;
+            $scope.suites[$scope.suiteBeingEdited].Execute.Rule._Condition = $scope.suites[$scope.suiteToBeCopied - 1].Execute.Rule._Condition;
+            $scope.suites[$scope.suiteBeingEdited].Execute.Rule._Condvalue = $scope.suites[$scope.suiteToBeCopied - 1].Execute.Rule._Condvalue;
+            $scope.suites[$scope.suiteBeingEdited].Execute.Rule._Else = $scope.suites[$scope.suiteToBeCopied - 1].Execute.Rule._Else;
+            $scope.suites[$scope.suiteBeingEdited].Execute.Rule._Elsevalue = $scope.suites[$scope.suiteToBeCopied - 1].Execute.Rule._Elsevalue;
+            $scope.suites[$scope.suiteBeingEdited].impact = $scope.suites[$scope.suiteToBeCopied - 1].impact;
+        };            
 
             $scope.changeSuiteCapImpact = function(impact, index) {
                 if (impact == true) {
@@ -1027,6 +1225,7 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
                                             type: "warning",
                                             showCancelButton: true,
                                             confirmButtonText: "Yes!",
+                                            confirmButtonColor: '#3b3131',
                                             cancelButtonText: "No, don't overwrite.",
                                             closeOnConfirm: false,
                                             closeOnCancel: false
@@ -1138,6 +1337,100 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
                 }
             }
 
+
+            $scope.projectSaveas = function() {
+                
+                if ($scope.projectmodel.Project.Details.Name == undefined || $scope.projectmodel.Project.Details.Name.trim().length == 0) {
+                    swal({
+                          title: "Project name is mandatory!",
+                          text: "",
+                          type: "error",
+                          showCancelButton: false,
+                          confirmButtonColor: '#3b3131',
+                          confirmButtonText: "Ok",
+                          closeOnConfirm: false
+                    });
+                } else if ($scope.defaultProjectAction === 'goto' && $scope.projectGotoStep == undefined) {
+                    swal({
+                          title: "Step to go should be specified for default on error action GoTo!",
+                          text: "",
+                          type: "error",
+                          showCancelButton: false,
+                          confirmButtonColor: '#3b3131',
+                          confirmButtonText: "Ok",
+                          closeOnConfirm: false
+                    });
+                }  else {
+                    var inValid = false;
+                    var msg = '';
+                    $.each($scope.suites, function(index, value) {
+                        var step = parseInt(index) + 1;
+                        if (value.path == undefined || value.path === '') {
+                            inValid = true;
+                            msg = 'Path should be specified for the Suite ' + step + '!';
+                            return false;
+                        } else if (value.onError._action === 'goto' && (value.onError._value == undefined || value.onError._value === '')) {
+                            inValid = true;
+                            msg = 'Suite to go should be specified for default on error action GoTo for the Suite ' + step + '!';
+                        }
+                    })
+                    if (inValid) {
+                        swal({
+                              title: msg,
+                              text: "",
+                              type: "error",
+                              showCancelButton: false,
+                              confirmButtonColor: '#3b3131',
+                              confirmButtonText: "Ok",
+                              closeOnConfirm: false
+                        });
+                    } else {
+                        var filename = prompt("Enter the filename :", $scope.projectFilename);
+                        if (filename == undefined || filename.trim().length == 0) {
+                            swal({
+                                  title: "Filename should be provided!",
+                                  text: "",
+                                  type: "error",
+                                  showCancelButton: false,
+                                  confirmButtonColor: '#3b3131',
+                                  confirmButtonText: "Ok",
+                                  closeOnConfirm: false
+                            });
+                            return false;
+                        } else {
+                            filename = filename + ".xml";
+                            var finalJSON = {
+                                "Project": {
+                                    "Details": {
+                                        "Name": $scope.projectmodel.Project.Details.Name,
+                                        "Title": $scope.projectmodel.Project.Details.Title,
+                                        "default_onError": {
+                                            "_action": $scope.defaultProjectAction,
+                                            "_value": $scope.projectGotoStep
+                                        }
+                                    },
+                                    "Testsuites": {
+                                        "Testsuite": $scope.suites
+                                    }
+                                }
+                            }
+                            var x2js = new X2JS();
+                            var token = angular.toJson(finalJSON);
+                            var xmlObj = x2js.json2xml_str(JSON.parse(token));
+                            saveasProjectFactory.projectsaveas(filename, xmlObj)
+                                .then(
+                                    function(data) {
+                                        console.log(data);
+                                    },
+                                    function(data) {
+                                        alert(data);
+                                    });
+                            $location.path('/projects');
+                        }
+                    }
+                }
+            };
+
           
             fileFactory.readtooltipfile('project')
             .then(
@@ -1199,5 +1492,6 @@ app.controller('projectCapCtrlMerged', ['$scope', '$http', '$routeParams', '$rou
         };
        
  
-		}
-    ]); 
+		});
+
+}    ]); 
