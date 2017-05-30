@@ -174,6 +174,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
 
     project_name = project_repository['project_name']
     wp_results_execdir = project_repository['wp_results_execdir']
+    data_repository['wp_results_execdir'] = wp_results_execdir
     wp_logs_execdir = project_repository['wp_logs_execdir']
 
     project_error_action = project_repository['def_on_error_action']
@@ -220,6 +221,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
                                                     'onError', 'action')
         ts_onError_action = ts_onError_action if ts_onError_action\
             else project_error_action
+        testsuite_nameonly = Utils.file_Utils.getNameOnly(testsuite_name)
         if Utils.file_Utils.fileExists(testsuite_path):
             if not goto_testsuite and action is True:
 
@@ -276,6 +278,8 @@ def execute_project(project_filepath, auto_defects, jiraproj,
                                             "ts", tmp_timestamp)
                 pj_junit_object.update_attr("onerror", "N/A",
                                             "ts", tmp_timestamp)
+                pj_junit_object.output_junit(wp_results_execdir,
+                                             print_summary=False)
                 continue
 
         else:
