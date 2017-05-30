@@ -27,9 +27,9 @@ try:
     from selenium.webdriver import ActionChains
     from selenium.webdriver.common.keys import Keys
 
-KEYS = {1: Keys.NUMPAD1, 2: Keys.NUMPAD2, 3: Keys.NUMPAD3,
-        4: Keys.NUMPAD4, 5: Keys.NUMPAD5, 6: Keys.NUMPAD6,
-        7: Keys.NUMPAD7, 8: Keys.NUMPAD8, 9: Keys.NUMPAD9}
+    KEYS = {1: Keys.NUMPAD1, 2: Keys.NUMPAD2, 3: Keys.NUMPAD3,
+            4: Keys.NUMPAD4, 5: Keys.NUMPAD5, 6: Keys.NUMPAD6,
+            7: Keys.NUMPAD7, 8: Keys.NUMPAD8, 9: Keys.NUMPAD9}
 
 except Exception as exception:
     print_exception(exception)
