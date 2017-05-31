@@ -225,25 +225,27 @@ def execute_project(project_filepath, auto_defects, jiraproj,
         if Utils.file_Utils.fileExists(testsuite_path):
             if not goto_testsuite and action is True:
 
-                testsuite_result = testsuite_driver.\
-                    main(testsuite_path, data_repository=data_repository,
-                         from_project=True, auto_defects=auto_defects,
-                         jiraproj=jiraproj, res_startdir=wp_results_execdir,
-                         logs_startdir=wp_logs_execdir,
-                         ts_onError_action=ts_onError_action)
+                testsuite_result = testsuite_driver.main(testsuite_path,
+                                                         data_repository=data_repository,
+                                                         from_project=True,
+                                                         auto_defects=auto_defects,
+                                                         jiraproj=jiraproj,
+                                                         res_startdir=wp_results_execdir,
+                                                         logs_startdir=wp_logs_execdir,
+                                                         ts_onError_action=ts_onError_action)
                 testsuite_status = testsuite_result[0]
                 # testsuite_resultfile = testsuite_result[1]
 
             elif goto_testsuite and goto_testsuite == str(suite_cntr)\
                     and action is True:
-                testsuite_result = testsuite_driver.\
-                    main(testsuite_path, data_repository=data_repository,
-                         from_project=True,
-                         auto_defects=auto_defects,
-                         jiraproj=jiraproj,
-                         res_startdir=wp_results_execdir,
-                         logs_startdir=wp_logs_execdir,
-                         ts_onError_action=ts_onError_action)
+                testsuite_result = testsuite_driver.main(testsuite_path,
+                                                         data_repository=data_repository,
+                                                         from_project=True,
+                                                         auto_defects=auto_defects,
+                                                         jiraproj=jiraproj,
+                                                         res_startdir=wp_results_execdir,
+                                                         logs_startdir=wp_logs_execdir,
+                                                         ts_onError_action=ts_onError_action)
                 goto_testsuite = False
                 testsuite_status = testsuite_result[0]
                 # testsuite_resultfile = testsuite_result[1]
@@ -270,7 +272,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
                                             "pj", tmp_timestamp)
                 pj_junit_object.update_count("suites", "1",
                                              "pj", tmp_timestamp)
-                data_repository['testsuite_%d_result' % suite_cntr] = "SKIP"
+                data_repository['testsuite_{}_result'.format(suite_cntr)] = "SKIP"
                 # pj_junit_object.add_testcase_message(tmp_timestamp,
                 # "skipped")
                 pj_junit_object.update_attr("impact", impact_dict.
@@ -294,7 +296,7 @@ def execute_project(project_filepath, auto_defects, jiraproj,
             if goto_testsuite and goto_testsuite == str(suite_cntr):
                 goto_testsuite = False
             elif goto_testsuite and goto_testsuite != str(suite_cntr):
-                data_repository['testsuite_%d_result' % suite_cntr] = "ERROR"
+                data_repository['testsuite_{}_result'.format(suite_cntr)] = "ERROR"
                 continue
 
         goto_testsuite_num = onerror_driver.main(testsuite,
@@ -316,10 +318,10 @@ def execute_project(project_filepath, auto_defects, jiraproj,
                          "ERROR": "ERROR", "SKIP": "SKIP"}
 
         if str(testsuite_status).upper() in string_status.keys():
-            data_repository['testsuite_%d_result' % suite_cntr] = string_status[str(testsuite_status).upper()]
+            data_repository['testsuite_{}_result'.format(suite_cntr)] = string_status[str(testsuite_status).upper()]
         else:
             print_error("unexpected testsuite status, default to exception")
-            data_repository['testsuite_%d_result' % suite_cntr] = "ERROR"
+            data_repository['testsuite_{}_result'.format(suite_cntr)] = "ERROR"
 
         ts_status_list.append(testsuite_status)
         ts_impact_list.append(testsuite_impact)
