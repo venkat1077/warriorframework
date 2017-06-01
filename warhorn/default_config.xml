@@ -28,9 +28,10 @@
 
     Fill this out with the details of the repository that you want to clone
 
-    <repository url="http://repository/one/wartool.git" clone="yes" label="" all_drivers="no">
-    </repository>
-
+	<tools>
+	    <repository url="http://repository/one/wartool.git" clone="yes" label="" all_drivers="no">
+	    </repository>
+	</tools>
     -->
   
     <drivers>
