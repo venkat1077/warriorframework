@@ -17,7 +17,7 @@ from Framework.ClassUtils.WSelenium.browser_mgmt import BrowserManagement
 from Framework.Utils.print_Utils import print_warning, print_error
 
 try:
-    import imp
+    import pkgutil
     import Framework.Utils as Utils
     from pyvirtualdisplay import Display
 except ImportWarning:
@@ -180,15 +180,15 @@ class browser_actions(object):
                     get_browser_details(browser, self.datafile, **arguments)
             if browser_details is not None:
                 try:
-                    imp.find_module('pyvirtualdisplay')
-                    display = Display(visible=0, size=(1024, 768))
-                    display.start()
+                    if pkgutil.find_loader('pyvirtualdisplay') is not None:
+                        display = Display(visible=0, size=(1024, 768))
+                        display.start()
                 except ImportError:
                     print_error("pyvirtualdisplay is not installed in order "
                                 "to launch the browser in headless mode")
                 except:
-                    print_error("Xvfb is not installed in order to launch the "
-                                "browser in headless mode")
+                    print_error("Xvfb/Xvnc/xephyr is not installed in order "
+                                "to launch the browser in headless mode")
                 browser_inst = self.browser_object.open_browser(
                     browser_details["type"], webdriver_remote_url)
                 if browser_inst:
@@ -197,8 +197,8 @@ class browser_actions(object):
                     output_dict[browser_fullname] = browser_inst
                     if "url" in browser_details and browser_details["url"]\
                             is not None:
-                        result, url = self.browser_object.\
-                            check_url(browser_details["url"])
+                        result, url = (self.browser_object.
+                            check_url(browser_details["url"]))
                         if result is True:
                             result = self.browser_object.\
                                 go_to(url, browser_inst)
