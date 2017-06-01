@@ -1484,3 +1484,38 @@ if __name__ == '__main__':
     except:
         print "The selected port is already in use, please use -p port_number to choose another port"
         exit(1)
+
+@route('/warriorRequest')
+def warriorRequest( jsonObj ):
+    method = getattr( warriorInterface, jsonObj.toCall )
+    method( jsonObj )
+
+@route('/getHtmlResults')
+def returnHtmlResult():
+    return warriorInterface.htmlResults
+
+@route('/initWarriorComunication')
+def initWarriorComunication():
+    warriorInterface = KWarrior()
+
+class KWarrior():
+
+    def __init__(self):
+        self.setLocation()
+
+    def updatehtmlResult( self, jsonObj ):
+        htmlFile = jsonObj.fileUrl
+        self.htmlResults = htmlFile
+        return htmlFile
+
+    def getWarriorPath( self ):
+        cfg = readconfig()
+        return cfg['warrior']
+
+    def setLocation( self ):
+        path = self.getWarriorPath() + 'Tools/w_settings.xml'
+        settingsXml = minidom.parse( path )
+        settingElems = settingsXml.getElementsByTagName('Setting')
+        for i in settingElems:
+            if i.attributes['name'].value == 'katana':
+                i.attributes['location'].value = 'http://0.0.0.0:5000/warriorRequest'
