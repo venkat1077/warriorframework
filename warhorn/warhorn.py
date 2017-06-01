@@ -1362,6 +1362,10 @@ def assemble_warrior():
     # backward compatibility change:
     if get_node(config_file_name, "tools") and \
                 get_attribute_value(get_node(config_file_name, "tools"), "url"):
+        print_warning("The format of tools repo tag is no longer supported," +\
+            "please use the following format", logfile, print_log_name)
+        print_warning("<tools>\n<repository url=\"http://repository/one/wartool.git\"" + \
+            "clone=\"yes\" label=\"\">\n</repository>\n</tools>", logfile, print_log_name)
         replace_tools_from_product_repo(node_list, logfile=logfile,
                                         config_file_name=config_file_name,
                                         console_log_name=console_log_name,
