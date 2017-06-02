@@ -17,9 +17,7 @@ from Framework.ClassUtils.WSelenium.browser_mgmt import BrowserManagement
 from Framework.Utils.print_Utils import print_warning, print_error
 
 try:
-    import pkgutil
     import Framework.Utils as Utils
-    from pyvirtualdisplay import Display
 except ImportWarning:
     raise ImportError
 
@@ -42,10 +40,21 @@ class browser_actions(object):
         self.browser_object = BrowserManagement()
 
     def browser_launch(self, system_name, browser_name="all", type="firefox",
-                       url=None, ip=None, remote=None, element_config_file=None,
+                       url=None, ip=None, remote=None,
+                       element_config_file=None,
                        element_tag=None):
         """
         This will launch a browser.
+
+        If the user wants to test the selenium functionalities in headless
+        mode, install pyvirtualdisplay and Xvfb. To install it follow
+        the below steps.
+
+        1. To install pyvirtualdisplay:
+               pip install pyvirtualdisplay
+
+        2. To install Xvfb:
+               sudo apt-get install Xvfb
 
         :Datafile Usage:
 
@@ -180,14 +189,14 @@ class browser_actions(object):
                     get_browser_details(browser, self.datafile, **arguments)
             if browser_details is not None:
                 try:
-                    if pkgutil.find_loader('pyvirtualdisplay') is not None:
-                        display = Display(visible=0, size=(1024, 768))
-                        display.start()
+                    from pyvirtualdisplay import Display
+                    display = Display(visible=0, size=(1024, 768))
+                    display.start()
                 except ImportError:
                     print_error("pyvirtualdisplay is not installed in order "
                                 "to launch the browser in headless mode")
                 except:
-                    print_error("Xvfb/Xvnc/xephyr is not installed in order "
+                    print_error("Xvfb is not installed in order "
                                 "to launch the browser in headless mode")
                 browser_inst = self.browser_object.open_browser(
                     browser_details["type"], webdriver_remote_url)
