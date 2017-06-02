@@ -261,9 +261,7 @@ def resolve_value_of_cookies(element):
             except Exception as e:
                 pNote("An Error Occurred: {0}".format(e), "error")
         else:
-            element = element.replace(" ", "")
-            element = element.replace("=", ":", 1)
-            element = convert_string_to_dict(element, ";", ":")
+            element = convert_string_to_dict(element)
     else:
         element = None
 
