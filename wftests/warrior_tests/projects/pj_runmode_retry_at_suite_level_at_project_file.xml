@@ -10,134 +10,52 @@
         <default_onError action="next"/>
     </Details>
     <Testsuites>    
-    <Testsuite>
-            <path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+        <Testsuite>
+            <path>../suites/framework_tests/ts_retry.xml</path>
             <Execute ExecType="Yes"/>
             <onError action="next" value=""/>
             <impact>impact</impact>
-    </Testsuite>
-    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
+        </Testsuite>
+        <!-- RUF support at suite level -->
+        <Testsuite> 
+            <path>../suites/framework_tests/ts_retry_runmode.xml</path>
+            <Execute ExecType="Yes"/>
+            <onError action="next" value=""/>
+            <runmode type="ruf" value="2"/>
+            <impact>impact</impact>
+        </Testsuite>
+	    <!-- RMT support at suite level -->
 	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rup" value="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<path>../suites/framework_tests/ts_retry_runmode.xml</path>
 			<onError action="next" value=""/>
 			<runmode type="rmt" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
 			<impact>impact</impact>
 	    </Testsuite>
+	    <!-- RUP support at suite level -->
 	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rmt" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="ptss" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<path>../suites/framework_tests/ts_retry_runmode.xml</path>
 			<onError action="next" value=""/>
 			<runmode type="rup" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
 			<impact>impact</impact>
 	    </Testsuite>
+	    <!-- verification for runmode -->
 	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<path>../suites/framework_tests/verify_runmode_at_suite_level.xml</path>
 			<onError action="next" value=""/>
-			<runmode type="rup" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
 			<impact>impact</impact>
 	    </Testsuite>
+	    <!-- Retry - if condition not met  -->
 	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<path>../suites/framework_tests/ts_retry_at_suite_level.xml</path>
 			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="ptss" count="2" interval="0"/>
 			<impact>impact</impact>
 	    </Testsuite>
+	    <!-- Retry - if condition met -->
 	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
+			<path>../suites/framework_tests/ts_retry_cond_tc_level_if_met.xml</path>
 			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rmt" value="2"/>
-			<retry type="if not" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rmt" value="2"/>
-			<retry type="if not" Condition="testsuite_1_result" Condvalue="ptss" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rup" value="2"/>
-			<retry type="if not" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rup" value="2"/>
-			<retry type="if not" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<retry type="if not" Condition="testsuite_1_result" Condvalue="PtSS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<retry type="if not" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<retry type="ifot" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="ruf" value="2"/>
-			<retry type="if not" Condvalue="PASS" count="2" interval="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rup" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2"/>
-			<impact>impact</impact>
-	    </Testsuite>
-	    <Testsuite>
-			<path>../suites/framework_tests/ts_runmode_retry_at_suite_level.xml</path>
-			<onError action="next" value=""/>
-			<runmode type="rmt" value="2"/>
-			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS"/>
+			<retry type="if" Condition="testsuite_1_result" Condvalue="PASS" count="2" interval="0"/>
 			<impact>impact</impact>
 	    </Testsuite>
 	</Testsuites>
