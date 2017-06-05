@@ -388,7 +388,8 @@ class HybridDriver(object):
         keyword = step.get('Keyword')
         kw_resultfile = step_driver.get_keyword_resultfile(
                         self.data_repository, system_name, step_num, keyword)
-        keyword_description = testcase_Utils.get_description_from_xmlfile(step)
+        keyword_description = testcase_Utils.\
+            get_description_from_xmlfile(step)
         config_Utils.set_resultfile(kw_resultfile)
         testcase_Utils.pKeyword(keyword, step.get('Driver'))
         testcase_Utils.reportStatus('Skip')
