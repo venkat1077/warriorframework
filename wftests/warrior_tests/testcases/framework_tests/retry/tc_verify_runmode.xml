@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <Testcase>
         <Details>
-                <Name>tc_retry_cond_tc_level_verify</Name>
-                <Title>support TC for tc level retry tag verification</Title>
+                <Name>tc_verify_runmode</Name>
+                <Title>support TC for tc level retry tag with if cond and not met</Title>
                 <Datatype>Custom</Datatype>
                 <default_onError action="next"/>
                 <Logsdir>../../Execution</Logsdir>
@@ -17,8 +17,8 @@
         <Steps>
                 <step Driver="common_driver" Keyword="verify_data" TS="1">
                         <Arguments>
-                                <argument name="expected" value="3"/>
-                                <argument name="object_key" value="ts_retry_if_cond_met_count"/>
+                                <argument name="expected" value="1"/>
+                                <argument name="object_key" value="ts_rup_count"/>
                                 <argument name="type" value="int"/>
                                 <argument name="comparison" value="eq"/>
                         </Arguments>
@@ -30,8 +30,8 @@
                 </step>
                 <step Driver="common_driver" Keyword="verify_data" TS="2">
                         <Arguments>
-                                <argument name="expected" value="1"/>
-                                <argument name="object_key" value="ts_retry_if_cond_not_met_count"/>
+                                <argument name="expected" value="2"/>
+                                <argument name="object_key" value="ts_ruf_count"/>
                                 <argument name="type" value="int"/>
                                 <argument name="comparison" value="eq"/>
                         </Arguments>
@@ -43,21 +43,8 @@
                 </step>
                 <step Driver="common_driver" Keyword="verify_data" TS="3">
                         <Arguments>
-                                <argument name="expected" value="1"/>
-                                <argument name="object_key" value="ts_retry_if_not_cond_met_count"/>
-                                <argument name="type" value="int"/>
-                                <argument name="comparison" value="eq"/>
-                        </Arguments>
-                        <onError action="next"/>
-                        <Description>connect_ssh</Description>
-                        <Execute ExecType="Yes"/>
-                        <context>positive</context>
-                        <impact>impact</impact>
-                </step>
-                <step Driver="common_driver" Keyword="verify_data" TS="4">
-                        <Arguments>
-                                <argument name="expected" value="5"/>
-                                <argument name="object_key" value="ts_retry_if_not_cond_not_met_count"/>
+                                <argument name="expected" value="2"/>
+                                <argument name="object_key" value="ts_rmt_count"/>
                                 <argument name="type" value="int"/>
                                 <argument name="comparison" value="eq"/>
                         </Arguments>
