@@ -198,7 +198,7 @@
                 <div class="col-sm-6">
                     <input type="text" class="form-control" required
                            id="Engineer"
-                           ng-model='prjEngineer'
+                           ng-model='projectmodel.Project.Details.Engineer'
                            placeholder="Who created/edited this Project definition">
                 </div>
                 <div class="col-sm-1 align-fa-icon-after-input">
@@ -368,13 +368,13 @@
                 <div class="col-sm-3">
                     <input type="text" class="form-control"
                            id="Date"
-                           ng-model='prjDate'
+                           ng-model='Date'
                            placeholder="Creation/updated date" disabled>
                 </div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control disabled"
                            id="Time"
-                           ng-model='prjTime'
+                           ng-model='Time'
                            placeholder="Creation/updated time" disabled>
                 </div>
                 <div class="col-sm-1 align-fa-icon-after-input">
@@ -588,43 +588,43 @@
                     <br>
                     <table class='table table-bordered table-condensed table-hover'>
                         <thead>
-                            <tr>
-                                <th class='text-muted text-right'>#</th>
-                                <th class='text-muted'>Path</th>
-                                <th class='text-muted'>Execute Type</th>
-                                <th class='text-muted'>On Error</th>
-                                <th class='text-muted'>Impact</th>
-                                <th class='text-muted'>Edit</th>
-                                <th class='text-muted'>Delete</th>
-                            </tr>
+                        <tr>
+                            <th class='text-muted text-right'>#</th>
+                            <th class='text-muted'>Path</th>
+                            <th class='text-muted'>Execute Type</th>
+                            <th class='text-muted'>On Error</th>
+                            <th class='text-muted'>Impact</th>
+                            <th class='text-muted'>Edit</th>
+                            <th class='text-muted'>Delete</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="suite in suites track by $index" ng-hide="$index >= suiteBeingEdited">
-                                 <td class="text-right">
-                                    {{ $index + 1 }}
-                                </td>
-                                <td style="word-break: break-all">{{suites[$index].path}}</td>
-                                <td>
-                                    Type = {{ suites[$index].Execute._ExecType }}<br>
-                                    <div ng-if="suites[$index].Execute._ExecType == 'If' || suites[$index].Execute._ExecType == 'If Not'">
-                                        Condition = {{ suites[$index].Execute.Rule._Condition}}
-                                        <br>
-                                        Condition value = {{ suites[$index].Execute.Rule._Condvalue}}
-                                        <br>
-                                        Else = {{ suites[$index].Execute.Rule._Else }}<br>
-                                        <div ng-if="suites[$index].Execute.Rule._Else == 'goto'">
-                                            Else value = {{ suites[$index].Execute.Rule._Elsevalue}}
-                                        </div>
+                        <tr ng-repeat="suite in suites track by $index" ng-hide="$index >= suiteBeingEdited">
+                            <td class="text-right">
+                                {{ $index + 1 }}
+                            </td>
+                            <td style="word-break: break-all">{{suites[$index].path}}</td>
+                            <td>
+                                Type = {{ suites[$index].Execute._ExecType }}<br>
+                                <div ng-if="suites[$index].Execute._ExecType == 'If' || suites[$index].Execute._ExecType == 'If Not'">
+                                    Condition = {{ suites[$index].Execute.Rule._Condition}}
+                                    <br>
+                                    Condition value = {{ suites[$index].Execute.Rule._Condvalue}}
+                                    <br>
+                                    Else = {{ suites[$index].Execute.Rule._Else }}<br>
+                                    <div ng-if="suites[$index].Execute.Rule._Else == 'goto'">
+                                        Else value = {{ suites[$index].Execute.Rule._Elsevalue}}
                                     </div>
-                                </td>
-                                <td>{{suites[$index].onError._action}}
-                                    <span ng-show="suites[$index].onError._value != ''">Step # {{ suites[$index].onError._value }}</span>
-                                </td>
-                                <td>{{suites[$index].impact}}</td>
-                                <td ng-click="editSuite($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td>{{suites[$index].onError._action}}
+                                <span ng-show="suites[$index].onError._value != ''">Step # {{ suites[$index].onError._value }}</span>
+                            </td>
+                            <td>{{suites[$index].impact}}</td>
+                            <td ng-click="editSuite($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="newProjecttooltips.editSuite.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -653,12 +653,12 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                                <td ng-click="deleteSuite($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td ng-click="deleteTestSuite($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="newProjecttooltips.deleteSuite.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -687,9 +687,9 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1495,7 +1495,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <select class="form-control" id="Impact"
-                                       ng-model="suite.impact" ng-options="opt for opt in impactOptions"></select>
+                                        ng-model="suite.impact" ng-options="opt for opt in impactOptions"></select>
                             </div>
                             <div class="col-sm-1 align-fa-icon-after-input">
                                 <div class="tooltip-on-right">
@@ -1530,9 +1530,9 @@
                                         </div>
                                     </span>
                                 </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-sm-6 col-sm-offset-2">
@@ -1541,60 +1541,60 @@
                                        ng-click="saveSuite($index)">
                                 <input type="button" class="btn btn-default"
                                        value="Delete Suite"
-                                       ng-click="deleteSuite($index)">
+                                       ng-click="deleteTestSuite($index)">
                             </div>
                         </div>
                     </div>
                     <br>
 
 
-                    </div>
-
-                    <br>
                 </div>
+
+                <br>
+            </div>
 
             <div class="form-group" ng-show="showTable && (suiteBeingEdited != 'None') && (suiteBeingEdited != (suites.length - 1))">
                 <div class="col-sm-12">
                     <br>
                     <table class='table table-bordered table-condensed table-hover'>
                         <thead>
-                            <tr>
-                                <th class='text-muted text-right'>#</th>
-                                <th class='text-muted'>Path</th>
-                                <th class='text-muted'>Execute Type</th>
-                                <th class='text-muted'>On Error</th>
-                                <th class='text-muted'>Impact</th>
-                                <th class='text-muted'>Edit</th>
-                                <th class='text-muted'>Delete</th>
-                            </tr>
+                        <tr>
+                            <th class='text-muted text-right'>#</th>
+                            <th class='text-muted'>Path</th>
+                            <th class='text-muted'>Execute Type</th>
+                            <th class='text-muted'>On Error</th>
+                            <th class='text-muted'>Impact</th>
+                            <th class='text-muted'>Edit</th>
+                            <th class='text-muted'>Delete</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="suite in suites track by $index" ng-show="$index > suiteBeingEdited">
-                                 <td class="text-right">
-                                    {{ $index + 1 }}
-                                </td>
-                                <td style="word-break: break-all">{{suites[$index].path}}</td>
-                                <td>
-                                    Type = {{ suites[$index].Execute._ExecType }}<br>
-                                    <div ng-if="suites[$index].Execute._ExecType == 'If' || suites[$index].Execute._ExecType == 'If Not'">
-                                        Condition = {{ suites[$index].Execute.Rule._Condition}}
-                                        <br>
-                                        Condition value = {{ suites[$index].Execute.Rule._Condvalue}}
-                                        <br>
-                                        Else = {{ suites[$index].Execute.Rule._Else }}<br>
-                                        <div ng-if="suites[$index].Execute.Rule._Else == 'goto'">
-                                            Else value = {{ suites[$index].Execute.Rule._Elsevalue}}
-                                        </div>
+                        <tr ng-repeat="suite in suites track by $index" ng-show="$index > suiteBeingEdited">
+                            <td class="text-right">
+                                {{ $index + 1 }}
+                            </td>
+                            <td style="word-break: break-all">{{suites[$index].path}}</td>
+                            <td>
+                                Type = {{ suites[$index].Execute._ExecType }}<br>
+                                <div ng-if="suites[$index].Execute._ExecType == 'If' || suites[$index].Execute._ExecType == 'If Not'">
+                                    Condition = {{ suites[$index].Execute.Rule._Condition}}
+                                    <br>
+                                    Condition value = {{ suites[$index].Execute.Rule._Condvalue}}
+                                    <br>
+                                    Else = {{ suites[$index].Execute.Rule._Else }}<br>
+                                    <div ng-if="suites[$index].Execute.Rule._Else == 'goto'">
+                                        Else value = {{ suites[$index].Execute.Rule._Elsevalue}}
                                     </div>
-                                </td>
-                                <td>{{suites[$index].onError._action}}
-                                    <span ng-show="suites[$index].onError._value != ''">Step # {{ suites[$index].onError._value }}</span>
-                                </td>
-                                <td>{{suites[$index].impact}}</td>
-                                <td ng-click="editSuite($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td>{{suites[$index].onError._action}}
+                                <span ng-show="suites[$index].onError._value != ''">Step # {{ suites[$index].onError._value }}</span>
+                            </td>
+                            <td>{{suites[$index].impact}}</td>
+                            <td ng-click="editSuite($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="newProjecttooltips.editSuite.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -1623,12 +1623,12 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                                <td ng-click="deleteSuite($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td ng-click="deleteSuite($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="newProjecttooltips.deleteSuite.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -1657,9 +1657,9 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1670,13 +1670,13 @@
                 <div class="form-group">
                     <div class="col-sm-6 col-sm-offset-2">
                         <input type="button" class="btn btn-default"
-                               value="Add Another Suite"
+                               value="New Suite"
                                ng-click="insertSuite(suites.length - 1)">
                     </div>
                 </div>
             </div>
 
-            </div>
+        </div>
         <hr/>
         <div class="form-group">
             <div class="col-sm-10 col-sm-offset-4">
@@ -1685,7 +1685,7 @@
                        class="btn btn-default" value="Save"
                        ng-click="saveProject()"/>
                 <input type="button" class="btn btn-default" value="Cancel"
-                       ng-click="cancelProject()"/>
+                       ng-click="cancelProjectCap()"/>
             </div>
         </div>
     </form>
