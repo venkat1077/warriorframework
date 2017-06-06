@@ -203,11 +203,11 @@
                 <div class="col-sm-3" ng-show="isMaxFailAttempSelected() || isMaxPassAttempSelected() || isNumAttempSelected()">
                     <input type="text" class="form-control"
                            ng-model="maxAttemptsCap"
-                           ng-show="isMaxAttempSelected_Fail()"
+                           ng-show="isMaxPassAttempSelected()"
                            placeholder="enter the max attempts">
                     <input type="text" class="form-control"
                            ng-model="maxAttemptsCap"
-                           ng-show="isMaxAttempSelected_Pass()"
+                           ng-show="isMaxFailAttempSelected()"
                            placeholder="enter the max attempts">
                     <input type="text" class="form-control"
                            ng-model="numAttemptsCap" ng-show="isNumAttempSelected()"
@@ -290,13 +290,13 @@
                             ng-model="suitemodel.TestSuite.Details.State"
                             ng-options="o for o in suitestates"></select>
                 </div>
-                <div class="col-sm-2" ng-show="isAddAnotherSelectedSuite()">
+                <div class="col-sm-2" ng-show="isAddAnotherSelectedSuiteEx()">
                     <input type="text" class="form-control"
                            placeholder="Specify a new Suite State"
                            ng-change="getNewStateValue(new_state)"
                            ng-model="new_state">
                 </div>
-                <div class="col-sm-1" ng-show="isAddAnotherSelectedSuite()">
+                <div class="col-sm-1" ng-show="isAddAnotherSelectedSuiteEx()">
                     <input type="button"
                            class="btn btn-default form-control ellipsis-the-overflow"
                            value="Done"
@@ -707,7 +707,7 @@
                            class="btn btn-default form-control ellipsis-the-overflow"
                            ng-value="idf_btnValue">
                 </div>
-                    <modal title="Select a new Path" show-modal="idf_showModal">
+                <modal title="Select a new Path" show-modal="idf_showModal">
                     <form-idf role="form">
                         <div class="form-group" style="padding: 5%">
                             <div id="idf_tree_div"
@@ -849,58 +849,58 @@
                 <div class="col-sm-12">
                     <table class='table table-bordered table-condensed table-hover'>
                         <thead>
-                            <tr>
-                                <th class='text-muted text-right'>#</th>
-                                <th class='text-muted'>Path</th>
-                                <th class='text-muted'>Context</th>
-                                <th class='text-muted' ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'">Data File</th>
-                                <th class='text-muted'>Execute Type</th>
-                                <th class='text-muted'>Run Type</th>
-                                <th class='text-muted'>Run Mode</th>
-                                <th class='text-muted'>On Error</th>
-                                <th class='text-muted'>Impact</th>
-                                <th class='text-muted'>Edit</th>
-                                <th class='text-muted'>Delete</th>
-                            </tr>
+                        <tr>
+                            <th class='text-muted text-right'>#</th>
+                            <th class='text-muted'>Path</th>
+                            <th class='text-muted'>Context</th>
+                            <th class='text-muted' ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'">Data File</th>
+                            <th class='text-muted'>Execute Type</th>
+                            <th class='text-muted'>Run Type</th>
+                            <th class='text-muted'>Run Mode</th>
+                            <th class='text-muted'>On Error</th>
+                            <th class='text-muted'>Impact</th>
+                            <th class='text-muted'>Edit</th>
+                            <th class='text-muted'>Delete</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="testcase in testcases track by $index" ng-hide="$index >= testcaseBeingEdited">
-                                 <td class="text-right">
-                                    {{ $index + 1 }}
-                                </td>
-                                <td style="word-break: break-all">{{testcases[$index].path}}</td>
-                                <td>{{testcases[$index].context}}</td>
-                                <td ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'" style="word-break: break-all">{{testcases[$index].InputDataFile}}</td>
-                                <td>
-                                    Type = {{ testcases[$index].Execute._ExecType }}<br>
-                                    <div ng-if="testcases[$index].Execute._ExecType == 'If' || testcases[$index].Execute._ExecType == 'If Not'">
-                                        Condition = {{ testcases[$index].Execute.Rule._Condition}}
-                                        <br>
-                                        Condition value = {{ testcases[$index].Execute.Rule._Condvalue}}
-                                        <br>
-                                        Else = {{ testcases[$index].Execute.Rule._Else }}<br>
-                                        <div ng-if="testcases[$index].Execute.Rule._Else == 'goto'">
-                                            Else value = {{ testcases[$index].Execute.Rule._Elsevalue}}
-                                        </div>
+                        <tr ng-repeat="testcase in testcases track by $index" ng-hide="$index >= testcaseBeingEdited">
+                            <td class="text-right">
+                                {{ $index + 1 }}
+                            </td>
+                            <td style="word-break: break-all">{{testcases[$index].path}}</td>
+                            <td>{{testcases[$index].context}}</td>
+                            <td ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'" style="word-break: break-all">{{testcases[$index].InputDataFile}}</td>
+                            <td>
+                                Type = {{ testcases[$index].Execute._ExecType }}<br>
+                                <div ng-if="testcases[$index].Execute._ExecType == 'If' || testcases[$index].Execute._ExecType == 'If Not'">
+                                    Condition = {{ testcases[$index].Execute.Rule._Condition}}
+                                    <br>
+                                    Condition value = {{ testcases[$index].Execute.Rule._Condvalue}}
+                                    <br>
+                                    Else = {{ testcases[$index].Execute.Rule._Else }}<br>
+                                    <div ng-if="testcases[$index].Execute.Rule._Else == 'goto'">
+                                        Else value = {{ testcases[$index].Execute.Rule._Elsevalue}}
                                     </div>
-                                </td>
-                                <td>{{testcases[$index].runtype}}</td>
-                                <td>
-                                    <div ng-show="testcases[$index].runmode._type == 'RMT' || testcases[$index].runmode._type == 'RUP' || testcases[$index].runmode._type == 'RUF'">
-                                        {{ testcases[$index].runmode._type }} = {{testcases[$index].runmode._value}}
-                                    </div>
-                                    <div ng-show="testcases[$index].runmode._type == 'Standard'">
-                                        {{ testcases[$index].runmode._type }}
-                                    </div>
-                                </td>
-                                <td>{{testcases[$index].onError._action}}
-                                    <span ng-show="testcases[$index].onError._value != ''">Step # {{ testcases[$index].onError._value }}</span>
-                                </td>
-                                <td>{{testcases[$index].impact}}</td>
-                                <td ng-click="editTestcase($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td>{{testcases[$index].runtype}}</td>
+                            <td>
+                                <div ng-show="testcases[$index].runmode._type == 'RMT' || testcases[$index].runmode._type == 'RUP' || testcases[$index].runmode._type == 'RUF'">
+                                    {{ testcases[$index].runmode._type }} = {{testcases[$index].runmode._value}}
+                                </div>
+                                <div ng-show="testcases[$index].runmode._type == 'Standard'">
+                                    {{ testcases[$index].runmode._type }}
+                                </div>
+                            </td>
+                            <td>{{testcases[$index].onError._action}}
+                                <span ng-show="testcases[$index].onError._value != ''">Step # {{ testcases[$index].onError._value }}</span>
+                            </td>
+                            <td>{{testcases[$index].impact}}</td>
+                            <td ng-click="editTestcase($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="testsuiteTooltip.editTC.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -929,12 +929,12 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                                <td ng-click="deleteTestcaseCap($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td ng-click="deleteTestcaseCap($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="testsuiteTooltip.deleteTC.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -963,9 +963,9 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1560,7 +1560,7 @@
                             <div class="col-sm-1 align-fa-icon-after-input">
                                 <div class="tooltip-on-right">
                                     <i class="fa fa-lightbulb-o hide-on-hover" aria-hidden="true"></i>
-                                        <span class="tooltip-content">
+                                    <span class="tooltip-content">
                                         <div ng-if="testsuiteTooltip.conditionValue.tooltip != ''">
                                             <i class="fa fa-rocket" aria-hidden="true"></i>
                                             &nbsp;
@@ -2059,7 +2059,8 @@
                         </div>
                     </div>
 
-                    <div class="row" ng-show="isGotoSelectedAction(testcase.onError._action)">
+                    <div class="row" ng-show="isGotoSelectedActionIndex(suite.onError._action, $index)"
+                    >
                         <div class="form-group">
                             <label for="Title" class="col-sm-2 control-label mandatory-field ellipsis-the-overflow">Go To Step #</label>
                             <div class="tooltip-on-right align-fa-icon-after-label">
@@ -2097,7 +2098,8 @@
                             <div class="col-sm-6">
                                 <input type="text" class="form-control"
                                        ng-model="testcase.onError._value"
-                                       ng-show="isGotoSelectedAction(testcase.onError._action)">
+                                       ng-show="isGotoSelectedActionIndex(suite.onError._action, $index)"
+                                ">
                             </div>
                             <div class="col-sm-1 align-fa-icon-after-input">
                                 <div class="tooltip-on-right">
@@ -2235,58 +2237,58 @@
                 <div class="col-sm-12">
                     <table class='table table-bordered table-condensed table-hover'>
                         <thead>
-                            <tr>
-                                <th class='text-muted text-right'>#</th>
-                                <th class='text-muted'>Path</th>
-                                <th class='text-muted'>Context</th>
-                                <th class='text-muted' ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'">Data File</th>
-                                <th class='text-muted'>Execute Type</th>
-                                <th class='text-muted'>Run Type</th>
-                                <th class='text-muted'>Run Mode</th>
-                                <th class='text-muted'>On Error</th>
-                                <th class='text-muted'>Impact</th>
-                                <th class='text-muted'>Edit</th>
-                                <th class='text-muted'>Delete</th>
-                            </tr>
+                        <tr>
+                            <th class='text-muted text-right'>#</th>
+                            <th class='text-muted'>Path</th>
+                            <th class='text-muted'>Context</th>
+                            <th class='text-muted' ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'">Data File</th>
+                            <th class='text-muted'>Execute Type</th>
+                            <th class='text-muted'>Run Type</th>
+                            <th class='text-muted'>Run Mode</th>
+                            <th class='text-muted'>On Error</th>
+                            <th class='text-muted'>Impact</th>
+                            <th class='text-muted'>Edit</th>
+                            <th class='text-muted'>Delete</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="testcase in testcases track by $index" ng-show="$index > testcaseBeingEdited">
-                                 <td class="text-right">
-                                    {{ $index + 1 }}
-                                </td>
-                                <td style="word-break: break-all">{{testcases[$index].path}}</td>
-                                <td>{{testcases[$index].context}}</td>
-                                <td ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'" style="word-break: break-all">{{testcases[$index].InputDataFile}}</td>
-                                <td>
-                                    Type = {{ testcases[$index].Execute._ExecType }}<br>
-                                    <div ng-if="testcases[$index].Execute._ExecType == 'If' || testcases[$index].Execute._ExecType == 'If Not'">
-                                        Condition = {{ testcases[$index].Execute.Rule._Condition}}
-                                        <br>
-                                        Condition value = {{ testcases[$index].Execute.Rule._Condvalue}}
-                                        <br>
-                                        Else = {{ testcases[$index].Execute.Rule._Else }}<br>
-                                        <div ng-if="testcases[$index].Execute.Rule._Else == 'goto'">
-                                            Else value = {{ testcases[$index].Execute.Rule._Elsevalue}}
-                                        </div>
+                        <tr ng-repeat="testcase in testcases track by $index" ng-show="$index > testcaseBeingEdited">
+                            <td class="text-right">
+                                {{ $index + 1 }}
+                            </td>
+                            <td style="word-break: break-all">{{testcases[$index].path}}</td>
+                            <td>{{testcases[$index].context}}</td>
+                            <td ng-show="exectypeCap != 'iterative_sequential' && exectypeCap != 'iterative_parallel'" style="word-break: break-all">{{testcases[$index].InputDataFile}}</td>
+                            <td>
+                                Type = {{ testcases[$index].Execute._ExecType }}<br>
+                                <div ng-if="testcases[$index].Execute._ExecType == 'If' || testcases[$index].Execute._ExecType == 'If Not'">
+                                    Condition = {{ testcases[$index].Execute.Rule._Condition}}
+                                    <br>
+                                    Condition value = {{ testcases[$index].Execute.Rule._Condvalue}}
+                                    <br>
+                                    Else = {{ testcases[$index].Execute.Rule._Else }}<br>
+                                    <div ng-if="testcases[$index].Execute.Rule._Else == 'goto'">
+                                        Else value = {{ testcases[$index].Execute.Rule._Elsevalue}}
                                     </div>
-                                </td>
-                                <td>{{testcases[$index].runtype}}</td>
-                                <td>
-                                    <div ng-show="testcases[$index].runmode._type == 'RMT' || testcases[$index].runmode._type == 'RUP' || testcases[$index].runmode._type == 'RUF'">
-                                        {{ testcases[$index].runmode._type }} = {{testcases[$index].runmode._value}}
-                                    </div>
-                                    <div ng-show="testcases[$index].runmode._type == 'Standard'">
-                                        {{ testcases[$index].runmode._type }}
-                                    </div>
-                                </td>
-                                <td>{{testcases[$index].onError._action}}
-                                    <span ng-show="testcases[$index].onError._value != ''">Step # {{ testcases[$index].onError._value }}</span>
-                                </td>
-                                <td>{{testcases[$index].impact}}</td>
-                                <td ng-click="editTestcase($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td>{{testcases[$index].runtype}}</td>
+                            <td>
+                                <div ng-show="testcases[$index].runmode._type == 'RMT' || testcases[$index].runmode._type == 'RUP' || testcases[$index].runmode._type == 'RUF'">
+                                    {{ testcases[$index].runmode._type }} = {{testcases[$index].runmode._value}}
+                                </div>
+                                <div ng-show="testcases[$index].runmode._type == 'Standard'">
+                                    {{ testcases[$index].runmode._type }}
+                                </div>
+                            </td>
+                            <td>{{testcases[$index].onError._action}}
+                                <span ng-show="testcases[$index].onError._value != ''">Step # {{ testcases[$index].onError._value }}</span>
+                            </td>
+                            <td>{{testcases[$index].impact}}</td>
+                            <td ng-click="editTestcase($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="testsuiteTooltip.editTC.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -2315,12 +2317,12 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                                <td ng-click="deleteTestcaseCap($index)">
-                                    <div class="tooltip-on-left-dark-big">
-                                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
-                                        <span class="tooltip-content text-left">
+                                </div>
+                            </td>
+                            <td ng-click="deleteTestcaseCap($index)">
+                                <div class="tooltip-on-left-dark-big">
+                                    <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                                    <span class="tooltip-content text-left">
                                             <div ng-if="testsuiteTooltip.deleteTC.tooltip != ''">
                                                 <i class="fa fa-rocket" aria-hidden="true"></i>
                                                 &nbsp;
@@ -2349,9 +2351,9 @@
                                                 <br>
                                             </div>
                                         </span>
-                                    </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -2361,7 +2363,7 @@
                 <div class="form-group">
                     <div class="col-sm-6 col-sm-offset-2">
                         <input type="button" class="btn btn-default"
-                               value="Add Another Case"
+                               value="New Case"
                                ng-click="insertTestcaseCap(testcases.length - 1)">
                     </div>
                 </div>
@@ -2376,9 +2378,9 @@
                        class="btn btn-default" value="Save"
                        ng-click="saveTestsuiteCap()"/>
                 <input type="button" class="btn btn-default" value="Cancel"
-                       ng-click="cancelSuiteCap()"/>
+                       ng-click="cancelSuite()"/>
             </div>
         </div>
-    </form>
-</div>
+        </form>
+    </div>
 </div>
