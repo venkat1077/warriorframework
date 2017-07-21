@@ -18,7 +18,7 @@ This is the Warrior executable
 """
 
 
-import sys
+#import sys
 if sys.version_info < (2, 7):
     print("Warrior doesn't support Python version lower than 2.7, now exiting")
     sys.exit(0)
